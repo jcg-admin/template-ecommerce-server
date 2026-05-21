@@ -29,7 +29,7 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-201 | Portar `utils/core.sh` del referente con adaptacion minima (cambio de marca, mensajes) | 25 min | Pendiente | `utils/core.sh` |
+| T-201 | Portar `utils/core.sh` del referente con adaptacion minima (cambio de marca, mensajes) | 25 min | **Cerrada** | `utils/core.sh` |
 | T-202 | Portar `utils/logging.sh` (1:1 si es posible) | 15 min | Pendiente | `utils/logging.sh` |
 | T-203 | Portar `utils/network.sh` (1:1) | 10 min | Pendiente | `utils/network.sh` |
 | T-204 | Portar `utils/validation.sh` con adaptacion (vars de entorno propias) | 20 min | Pendiente | `utils/validation.sh` |

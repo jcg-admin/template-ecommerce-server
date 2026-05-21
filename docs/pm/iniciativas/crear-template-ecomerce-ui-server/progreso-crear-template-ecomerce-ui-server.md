@@ -26,6 +26,9 @@ las clases definidas en el procedimiento.
 | 2026-05-21T21:37:09 | Inicio de tarea | T-102 | Comienzo T-102. Commit unitario 'Bootstrap repo structure (F1)' que incluye los 8 nuevos `.gitkeep` + las actualizaciones de tareas y progreso. Working tree limpio antes y limpio despues. |
 | 2026-05-21T21:37:10 | Cierre de tarea | T-102 | Cierre T-102. Commit ejecutado. Working tree limpio. Total archivos del repo: 24 (vs 16 anteriores; +8 .gitkeep). Estructura final: raiz con README + .gitignore, backups/ + config/nginx/ + 4 subdirs de provisioners/ + scripts/ + tests/ + utils/ + docs/ (pm/iniciativas/ + desarrollo/ + 5 docs raiz). |
 | 2026-05-21T21:37:11 | Fase cerrada | F1 | **Cierre de Fase F1**. 2 tareas cerradas (T-101, T-102). Esfuerzo real similar a la estimacion de 30 min. Arbol del repo establecido completo y listo para que F2 (Utils + .env.example, 90 min) empiece a llenar `utils/` con los 4 archivos portados del referente. Siguiente fase F2 puede arrancar sin pre-condiciones adicionales: la estructura de directorios existe, los ADRs ratifican las decisiones aplicables, la referencia esta confirmada accesible (T-012). |
+| 2026-05-21T22:16:28 | Inicio de fase | F2 | **Inicio de Fase F2 (Utils + .env.example)**. Esfuerzo estimado 90 min. Objetivo: portar los 4 archivos shell de utilidades desde `/tmp/references/e-comerce-server/utils/` (637 LOC totales) con adaptacion minima al contexto de este repo (sin Django/Apache/WSGI). Tras los utils, disenar el `.env.example` propio con variables especificas del server (DOMAIN, UI_DIST, API_UPSTREAM, SSL_*, SSH_PORT, F2B_*, NGINX_*). **Decisiones tomadas sin pausar**: (1) Estrategia de portacion: leer cada archivo del referente, identificar lo agnostic vs lo especifico de Apache/Django; portar 1:1 lo agnostic, adaptar lo especifico. NO copy-paste ciego. (2) Adaptaciones: cambiar nombre de marca PracticaYoruba por template-ecomerce-ui-server; eliminar referencias a Django/WSGI/Apache; ajustar validaciones de env vars a UI_DIST/API_UPSTREAM en lugar de STATIC_ROOT/MEDIA_ROOT. (3) Granularidad: 1 commit por tarea (T-201..T-205 = 5 commits) para revisabilidad individual. (4) Verificacion: tras cada archivo, `bash -n` para sintaxis. Tareas: T-201 core.sh, T-202 logging.sh, T-203 network.sh, T-204 validation.sh, T-205 .env.example. |
+| 2026-05-21T22:18:18 | Inicio de tarea | T-201 | Comienzo T-201. Portar `utils/core.sh` del referente (226 LOC) con adaptaciones: cambio de marca y wrappers svc_* de apache2 a nginx en todas las ramas (svc_start/stop/reload/restart). |
+| 2026-05-21T22:18:19 | Cierre de tarea | T-201 | Cierre T-201. `utils/core.sh` portado: 263 lineas (vs 226 del referente, +37 lineas por: documentacion ampliada en el header, comentarios adicionales para nginx -s reload explicando el flujo graceful sin downtime, manejo de PID file con timeout en svc_restart nginx). **12 funciones preservadas con misma firma**: command_exists, require_command, exists_file, exists_dir, is_systemd, log_manual_start, svc_is_active, svc_start, svc_stop, svc_reload, svc_restart, svc_enable. **Adaptaciones aplicadas**: (1) Header del archivo cambiado (template-ecomerce-ui-server). (2) Wrappers svc_*: rama `apache2)` en svc_start/stop/reload/restart reemplazada por `nginx)` con comandos especificos: /usr/sbin/nginx (start), nginx -s quit (stop graceful), nginx -s reload (reload sin downtime), quit + start (restart). (3) svc_restart nginx implementa espera del PID file con timeout 10s para evitar race entre quit y nuevo start. (4) Documentacion inline explicando cada flujo (SIGHUP al master, no downtime, etc). **Validacion**: `bash -n utils/core.sh` pasa sin errores. 1 mencion residual a `apache2` en el header (linea 8 del comentario que explica la adaptacion); deliberada, no es bug. Siguiente: T-202 (logging.sh, 1:1 si es posible). |
 ## Contadores
 
 | Clase | Conteo |
@@ -37,8 +40,8 @@ las clases definidas en el procedimiento.
 | Cambio de estado | 0 |
 | Replan | 0 |
 | Hallazgo durante la ejecucion | 1 |
-| Inicio de tarea | 4 |
-| Cierre de tarea | 6 |
+| Inicio de tarea | 5 |
+| Cierre de tarea | 7 |
 | Fase cerrada | 2 |
 | Bloqueo | 0 |
 | Desbloqueo | 0 |

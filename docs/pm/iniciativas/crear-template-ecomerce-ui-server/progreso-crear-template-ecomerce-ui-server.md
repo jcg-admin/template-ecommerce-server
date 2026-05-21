@@ -31,6 +31,8 @@ las clases definidas en el procedimiento.
 | 2026-05-21T22:18:19 | Cierre de tarea | T-201 | Cierre T-201. `utils/core.sh` portado: 263 lineas (vs 226 del referente, +37 lineas por: documentacion ampliada en el header, comentarios adicionales para nginx -s reload explicando el flujo graceful sin downtime, manejo de PID file con timeout en svc_restart nginx). **12 funciones preservadas con misma firma**: command_exists, require_command, exists_file, exists_dir, is_systemd, log_manual_start, svc_is_active, svc_start, svc_stop, svc_reload, svc_restart, svc_enable. **Adaptaciones aplicadas**: (1) Header del archivo cambiado (template-ecomerce-ui-server). (2) Wrappers svc_*: rama `apache2)` en svc_start/stop/reload/restart reemplazada por `nginx)` con comandos especificos: /usr/sbin/nginx (start), nginx -s quit (stop graceful), nginx -s reload (reload sin downtime), quit + start (restart). (3) svc_restart nginx implementa espera del PID file con timeout 10s para evitar race entre quit y nuevo start. (4) Documentacion inline explicando cada flujo (SIGHUP al master, no downtime, etc). **Validacion**: `bash -n utils/core.sh` pasa sin errores. 1 mencion residual a `apache2` en el header (linea 8 del comentario que explica la adaptacion); deliberada, no es bug. Siguiente: T-202 (logging.sh, 1:1 si es posible). |
 | 2026-05-21T22:19:16 | Inicio de tarea | T-202 | Comienzo T-202. Portar `utils/logging.sh` del referente (115 LOC). Hipotesis previa: portacion 1:1 viable porque el archivo es agnostic a Apache/Django. |
 | 2026-05-21T22:19:17 | Cierre de tarea | T-202 | Cierre T-202. `utils/logging.sh` portado: 124 lineas (+9 vs 115 del referente, todas en documentacion/comentarios). **Confirmacion de hipotesis**: portacion 1:1 funcionalmente correcta. Cero cambios en logica, firmas, comportamiento. **11 funciones preservadas con misma firma**: log_header, log_step, log_success, log_info, log_warn, log_fatal, log_error, log_separator, start_timer, show_elapsed, init_log + helper privado _write_log. **Adaptaciones aplicadas** (solo cosmeticas): (1) Header del archivo cambiado. (2) Notas de adaptacion del referente que no aplican (mencion a PracticaYoruba-api y PracticaYoruba-db) eliminadas. (3) Anadida seccion 'Convenciones de output' en el header documentando el comportamiento ya implementado (colores solo en TTY, stderr para errores, CI-safe). (4) Em dash (—) en 1 string de log cambiado a `--` ASCII puro para compatibilidad CI con encodings restrictivos. **Validacion**: `bash -n utils/logging.sh` pasa. diff vs referente muestra solo comentarios y 1 caracter ASCII; codigo ejecutable identico. Siguiente: T-203 (network.sh, 51 LOC, 1:1). |
+| 2026-05-21T22:20:02 | Inicio de tarea | T-203 | Comienzo T-203. Portar `utils/network.sh` del referente (51 LOC). El mas corto del lote. Hipotesis: portacion 1:1 inmediata. |
+| 2026-05-21T22:20:03 | Cierre de tarea | T-203 | Cierre T-203. `utils/network.sh` portado: 63 lineas (+12 vs 51 del referente, todas en documentacion expandida). **Portacion 1:1 funcional** confirmada. **2 funciones preservadas con misma firma**: tcp_is_reachable, wait_for_port. **Adaptaciones aplicadas** (solo cosmeticas): cambio de marca, anadidos contextos de uso especificos del repo (esperar Nginx en :443, validar API_UPSTREAM, checks de puertos en verify.sh), tildes y caracteres no-ASCII eliminados. **Validacion**: `bash -n utils/network.sh` pasa. diff vs referente muestra cero cambios en codigo ejecutable. Siguiente: T-204 (validation.sh, 245 LOC, el mas grande del lote, requiere adaptacion a UI_DIST/API_UPSTREAM). |
 ## Contadores
 
 | Clase | Conteo |
@@ -42,8 +44,8 @@ las clases definidas en el procedimiento.
 | Cambio de estado | 0 |
 | Replan | 0 |
 | Hallazgo durante la ejecucion | 1 |
-| Inicio de tarea | 6 |
-| Cierre de tarea | 8 |
+| Inicio de tarea | 7 |
+| Cierre de tarea | 9 |
 | Fase cerrada | 2 |
 | Bloqueo | 0 |
 | Desbloqueo | 0 |

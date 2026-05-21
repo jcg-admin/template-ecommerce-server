@@ -46,7 +46,7 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-401 | `provisioners/nginx/install.sh`: apt nginx + verificar version + start + enable | 40 min | Pendiente | Script |
+| T-401 | `provisioners/nginx/install.sh`: apt nginx + verificar version + start + enable | 40 min | **Cerrada** | Script |
 | T-402 | `provisioners/nginx/setup_vhost.sh`: reemplazar `%%VAR%%` en configs, validar `nginx -t`, recargar | 60 min | Pendiente | Script |
 | T-403 | Tests basicos manuales locales (en WSL2 o contenedor) | 20 min | Pendiente | Verificacion |
 

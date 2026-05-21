@@ -1,0 +1,24 @@
+# provisioners/firewall/ — Aprovisionador del firewall
+#
+# Scripts bash que configuran UFW (Uncomplicated Firewall).
+#
+# Contenido planificado (F7 lo produce, portando 1:1 del
+# referente):
+#
+#   setup_firewall.sh
+#       Aplica politica deny incoming + allow outgoing.
+#       Abre solo los puertos minimos necesarios:
+#         $SSH_PORT/tcp    (default 2222)
+#         80/tcp           (HTTP, redirect HTTPS + ACME)
+#         443/tcp          (HTTPS principal)
+#       Activa UFW al final.
+#
+#       ORDEN CRITICO: permitir SSH antes de habilitar UFW
+#       para evitar lockout. El script lo respeta.
+#
+#       DETECCION WSL2: si UFW no esta disponible o no tiene
+#       backend nftables/iptables (caso WSL2 sin systemd
+#       completo), aplica skip explicito con log de aviso. NO
+#       es un bug; es by design.
+#
+# Convenciones: ver provisioners/nginx/.gitkeep.

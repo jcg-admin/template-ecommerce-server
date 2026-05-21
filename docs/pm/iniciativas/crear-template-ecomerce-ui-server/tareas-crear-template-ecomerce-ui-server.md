@@ -22,8 +22,8 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-101 | Crear arbol completo de directorios vacios: `provisioners/{nginx,ssl,security,firewall}/`, `scripts/`, `tests/`, `utils/`, `config/nginx/` | 15 min | Pendiente | Carpetas + `.gitkeep` en cada una |
-| T-102 | Commit "Bootstrap repo structure (F1)" | 15 min | Pendiente | Commit |
+| T-101 | Crear arbol completo de directorios vacios: `provisioners/{nginx,ssl,security,firewall}/`, `scripts/`, `tests/`, `utils/`, `config/nginx/` | 15 min | **Cerrada** | Carpetas + `.gitkeep` en cada una |
+| T-102 | Commit "Bootstrap repo structure (F1)" | 15 min | **Cerrada** | Commit |
 
 ## F2 — Utils + .env.example (90 min)
 

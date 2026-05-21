@@ -1,0 +1,25 @@
+# provisioners/nginx/ — Aprovisionadores del web server
+#
+# Scripts bash idempotentes que instalan y configuran Nginx.
+# Se ejecutan con sudo desde la cuenta `deploy` (UID 1000).
+#
+# Contenido planificado (F4 lo produce):
+#
+#   install.sh
+#       Instala Nginx 1.24+ desde el apt repository de Ubuntu,
+#       valida la version, habilita systemd start at boot,
+#       verifica que el servicio escucha en :80.
+#
+#   setup_vhost.sh
+#       Lee `.env` del repo, reemplaza los placeholders %%VAR%%
+#       en config/nginx/template-*.conf con los valores reales,
+#       copia los configs a /etc/nginx/sites-available/, crea
+#       los symlinks en sites-enabled/, valida con `nginx -t`,
+#       recarga el demonio (`systemctl reload nginx`).
+#
+# Convenciones de scripts:
+#   - Shebang: #!/usr/bin/env bash
+#   - Modo estricto: set -euo pipefail
+#   - Source comun: . "$(dirname "$0")/../../utils/core.sh"
+#   - Verificar root al inicio si requiere sudo
+#   - Idempotente: ejecutar 2 veces produce el mismo estado

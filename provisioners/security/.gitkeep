@@ -1,0 +1,29 @@
+# provisioners/security/ — Aprovisionadores de hardening
+#
+# Scripts bash que endurecen el servidor: fail2ban + SSH.
+#
+# Contenido planificado (F6 lo produce):
+#
+#   setup_fail2ban.sh
+#       Instala fail2ban via apt, configura 3 jails:
+#         sshd                 5 intentos / 600s -> ban 3600s
+#         nginx-limit-req      503 por rate-limit
+#         nginx-botsearch      patrones de scanner conocidos
+#       Parametros configurables via .env (F2B_*).
+#       Diferencia vs el referente jcg-admin/e-comerce-server:
+#       el referente usa jail apache-auth; aqui usamos los
+#       jails oficiales de Nginx (D-WS).
+#
+#   setup_ssh_hardening.sh
+#       Portado 1:1 del referente. Modifica
+#       /etc/ssh/sshd_config para:
+#         Port $SSH_PORT (no estandar, default 2222)
+#         PasswordAuthentication no
+#         PermitRootLogin no
+#         ChallengeResponseAuthentication no
+#         Protocol 2 (legacy)
+#       PRE-CONDICION CRITICA: verifica que
+#       ~/.ssh/authorized_keys existe ANTES de aplicar
+#       cambios, para evitar lockout permanente.
+#
+# Convenciones: ver provisioners/nginx/.gitkeep.

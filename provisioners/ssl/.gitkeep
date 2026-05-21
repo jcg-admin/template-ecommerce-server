@@ -1,0 +1,25 @@
+# provisioners/ssl/ — Aprovisionadores de SSL/TLS
+#
+# Scripts bash idempotentes que gestionan certificados Let's
+# Encrypt via acme.sh, con fallback self-signed para desarrollo.
+#
+# Contenido planificado (F5 lo produce, portando 1:1 del
+# referente jcg-admin/e-comerce-server con adaptacion minima):
+#
+#   setup_ssl.sh
+#       Instala acme.sh si no existe, emite o renueva el
+#       certificado segun el modo (produccion, staging,
+#       desarrollo self-signed), instala el cert en
+#       $SSL_CERT_DIR con permisos canonicos:
+#         cert.pem        0644 root:root
+#         fullchain.pem   0644 root:root
+#         key.pem         0600 root:root   (CRITICO)
+#         $SSL_CERT_DIR/  0755 root:root
+#
+# Modos soportados (por valor de DOMAIN en .env):
+#   DOMAIN=midominio.com    -> Let's Encrypt produccion (ACME HTTP-01)
+#   DOMAIN=localhost        -> self-signed via openssl
+#   SSL_STAGING=true        -> Let's Encrypt staging (sin rate-limit)
+#
+# Razon de acme.sh y no certbot: bash puro sin dependencias
+# Python, mantenimiento mas activo en escenarios diversos.

@@ -90,34 +90,34 @@ Marcadores de estado por seccion:
   'fontSize': '13px'
 }}}%%
 flowchart TD
-    paso0["<b>Paso 0</b><br/>git clone"]
-    paso1["<b>Paso 1</b><br/>cp .env.example .env<br/>+ editar valores"]
-    paso2["<b>Paso 2</b><br/>install.sh<br/><i>apt nginx</i>"]
-    paso3["<b>Paso 3</b><br/>setup_firewall.sh<br/><i>UFW</i>"]
-    paso4["<b>Paso 4</b><br/>setup_fail2ban.sh"]
-    paso5["<b>Paso 5</b><br/>setup_ssh_hardening.sh"]
-    paso6["<b>Paso 6</b><br/>setup_ssl.sh<br/><i>acme.sh</i>"]
-    paso7["<b>Paso 7</b><br/>setup_vhost.sh<br/><i>reemplaza %%VAR%%</i>"]
-    paso8["<b>Paso 8</b><br/>verify.sh<br/><i>~10 checks</i>"]
-    done(["Server operativo"])
+    paso_0_clonar["<b>Paso 0</b><br/>git clone"]
+    paso_1_env["<b>Paso 1</b><br/>cp .env.example .env<br/>+ editar valores"]
+    paso_2_install_nginx["<b>Paso 2</b><br/>install.sh<br/><i>apt nginx</i>"]
+    paso_3_firewall_ufw["<b>Paso 3</b><br/>setup_firewall.sh<br/><i>UFW</i>"]
+    paso_4_fail2ban["<b>Paso 4</b><br/>setup_fail2ban.sh"]
+    paso_5_ssh_hardening["<b>Paso 5</b><br/>setup_ssh_hardening.sh"]
+    paso_6_ssl_acme["<b>Paso 6</b><br/>setup_ssl.sh<br/><i>acme.sh</i>"]
+    paso_7_setup_vhost["<b>Paso 7</b><br/>setup_vhost.sh<br/><i>reemplaza %%VAR%%</i>"]
+    paso_8_verify_health["<b>Paso 8</b><br/>verify.sh<br/><i>~10 checks</i>"]
+    server_operativo(["Server operativo"])
 
-    paso0 --> paso1
-    paso1 --> paso2
-    paso2 --> paso3
-    paso3 --> paso4
-    paso4 --> paso5
-    paso5 --> paso6
-    paso6 --> paso7
-    paso7 --> paso8
-    paso8 --> done
+    paso_0_clonar --> paso_1_env
+    paso_1_env --> paso_2_install_nginx
+    paso_2_install_nginx --> paso_3_firewall_ufw
+    paso_3_firewall_ufw --> paso_4_fail2ban
+    paso_4_fail2ban --> paso_5_ssh_hardening
+    paso_5_ssh_hardening --> paso_6_ssl_acme
+    paso_6_ssl_acme --> paso_7_setup_vhost
+    paso_7_setup_vhost --> paso_8_verify_health
+    paso_8_verify_health --> server_operativo
 
     classDef stepNode fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
     classDef warnNode fill:#7c2d12,stroke:#fb923c,stroke-width:2px,color:#fff7ed
     classDef doneNode fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#f0fdf4
 
-    class paso0,paso1,paso2,paso3,paso4,paso6,paso7,paso8 stepNode
-    class paso5 warnNode
-    class done doneNode
+    class paso_0_clonar,paso_1_env,paso_2_install_nginx,paso_3_firewall_ufw,paso_4_fail2ban,paso_6_ssl_acme,paso_7_setup_vhost,paso_8_verify_health stepNode
+    class paso_5_ssh_hardening warnNode
+    class server_operativo doneNode
 ```
 
 > **Nota sobre el Paso 5**: el script desactiva la autenticacion
@@ -287,26 +287,26 @@ para que Nginx lo sirva.
   'fontSize': '13px'
 }}}%%
 flowchart LR
-    dev["<b>Maquina dev / CI</b><br/>template-e-comerce-ui"]
-    build["<i>npm install</i><br/><i>npm run build</i>"]
-    dist[("dist/<br/>chunks + index.html")]
-    rsync["<i>rsync -av</i>"]
-    server[("<b>$UI_DIST</b><br/>en el server")]
-    nginx["<b>Nginx</b><br/>sirve en tiempo real"]
+    maquina_desarrollo["<b>Maquina dev / CI</b><br/>template-e-comerce-ui"]
+    paso_npm_build["<i>npm install</i><br/><i>npm run build</i>"]
+    directorio_dist[("dist/<br/>chunks + index.html")]
+    paso_rsync["<i>rsync -av</i>"]
+    directorio_destino_server[("<b>$UI_DIST</b><br/>en el server")]
+    servidor_nginx_runtime["<b>Nginx</b><br/>sirve en tiempo real"]
 
-    dev --> build
-    build --> dist
-    dist --> rsync
-    rsync --> server
-    server --> nginx
+    maquina_desarrollo --> paso_npm_build
+    paso_npm_build --> directorio_dist
+    directorio_dist --> paso_rsync
+    paso_rsync --> directorio_destino_server
+    directorio_destino_server --> servidor_nginx_runtime
 
     classDef devNode fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
     classDef opNode fill:#334155,stroke:#94a3b8,stroke-width:1px,color:#f1f5f9
     classDef prodNode fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#f0fdf4
 
-    class dev,build,dist devNode
-    class rsync opNode
-    class server,nginx prodNode
+    class maquina_desarrollo,paso_npm_build,directorio_dist devNode
+    class paso_rsync opNode
+    class directorio_destino_server,servidor_nginx_runtime prodNode
 ```
 
 1. En la maquina de desarrollo (o CI), clonar

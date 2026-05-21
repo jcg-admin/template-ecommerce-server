@@ -49,19 +49,19 @@ Mantenido alfabeticamente.
   'fontSize': '12px'
 }}}%%
 flowchart LR
-    deploy["<b>deploy</b><br/>UID 1000<br/>sudo: si<br/>login: si"]
-    infra["<b>infra</b><br/>UID 1001<br/>sudo: granular<br/>login: si"]
-    develop["<b>develop</b><br/>UID 1002<br/>sudo: NO<br/>login: si"]
-    svcbackups["<b>svc-backups</b><br/>UID 999<br/>sudo: NO<br/>login: nologin"]
-    wwwdata["<b>www-data</b><br/>UID variable<br/>sudo: NO<br/>login: nologin"]
+    cuenta_deploy["<b>deploy</b><br/>UID 1000<br/>sudo: si<br/>login: si"]
+    cuenta_infra["<b>infra</b><br/>UID 1001<br/>sudo: granular<br/>login: si"]
+    cuenta_develop["<b>develop</b><br/>UID 1002<br/>sudo: NO<br/>login: si"]
+    cuenta_svc_backups["<b>svc-backups</b><br/>UID 999<br/>sudo: NO<br/>login: nologin"]
+    cuenta_www_data["<b>www-data</b><br/>UID variable<br/>sudo: NO<br/>login: nologin"]
 
     classDef adminNode fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
     classDef appNode fill:#1e293b,stroke:#94a3b8,stroke-width:1px,color:#f1f5f9
     classDef serviceNode fill:#334155,stroke:#94a3b8,stroke-width:1px,color:#cbd5e1
 
-    class deploy,infra adminNode
-    class develop appNode
-    class svcbackups,wwwdata serviceNode
+    class cuenta_deploy,cuenta_infra adminNode
+    class cuenta_develop appNode
+    class cuenta_svc_backups,cuenta_www_data serviceNode
 ```
 
 ## Comparacion rapida de clases de almacenamiento

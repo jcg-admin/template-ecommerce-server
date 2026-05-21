@@ -32,23 +32,23 @@ Let's Encrypt + fail2ban + SSH hardening.
   'fontSize': '13px'
 }}}%%
 flowchart TB
-    internet([Internet])
-    nginx["<b>Nginx :443</b><br/>Este repo provisiona"]
-    static[("Static UI bundle<br/><i>$UI_DIST</i><br/><i>(output de npm run build)</i>")]
-    api(["<b>$API_UPSTREAM</b><br/><i>Backend externo<br/>fuera de scope</i>"])
+    internet_publica([Internet])
+    nginx_web_server["<b>Nginx :443</b><br/>Este repo provisiona"]
+    bundle_estatico_ui[("Static UI bundle<br/><i>$UI_DIST</i><br/><i>(output de npm run build)</i>")]
+    backend_api_upstream(["<b>$API_UPSTREAM</b><br/><i>Backend externo<br/>fuera de scope</i>"])
 
-    internet -- "HTTPS :443" --> nginx
-    nginx -- "Static + SPA catch-all<br/>/, /cart, /checkout..." --> static
-    nginx -- "Reverse proxy<br/>/api/*" --> api
+    internet_publica -- "HTTPS :443" --> nginx_web_server
+    nginx_web_server -- "Static + SPA catch-all<br/>/, /cart, /checkout..." --> bundle_estatico_ui
+    nginx_web_server -- "Reverse proxy<br/>/api/*" --> backend_api_upstream
 
     classDef primaryNode fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
     classDef externalNode fill:#334155,stroke:#94a3b8,stroke-width:1px,color:#cbd5e1,stroke-dasharray: 5 5
     classDef internetNode fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
 
-    class nginx primaryNode
-    class static primaryNode
-    class api externalNode
-    class internet internetNode
+    class nginx_web_server primaryNode
+    class bundle_estatico_ui primaryNode
+    class backend_api_upstream externalNode
+    class internet_publica internetNode
 ```
 
 **Punto clave**: este server **no asume** que existe un backend

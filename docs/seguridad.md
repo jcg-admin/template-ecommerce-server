@@ -21,30 +21,30 @@ El server aplica **defensa en profundidad** con 6 capas:
   'fontSize': '13px'
 }}}%%
 flowchart TB
-    attacker(["Atacante / Internet"])
-    capa1["<b>Capa 1: Red</b><br/>UFW deny incoming<br/>solo SSH_PORT + 80 + 443"]
-    capa2["<b>Capa 2: SSH</b><br/>sin password, sin root<br/>puerto no estandar"]
-    capa3["<b>Capa 3: TLS</b><br/>TLS 1.2+, ECDHE/CHACHA20<br/>HSTS preload"]
-    capa4["<b>Capa 4: Certs</b><br/>Let's Encrypt<br/>renovacion automatica"]
-    capa5["<b>Capa 5: Headers HTTP</b><br/>HSTS, X-Frame-Options,<br/>X-Content-Type-Options,<br/>Referrer-Policy"]
-    capa6["<b>Capa 6: Cuentas Linux</b><br/>separacion estricta<br/>4 cuentas, sudo selectivo"]
-    activo[("<b>Activo protegido</b><br/>UI bundle + reverse proxy")]
+    atacante_externo(["Atacante / Internet"])
+    capa_1_red_ufw["<b>Capa 1: Red</b><br/>UFW deny incoming<br/>solo SSH_PORT + 80 + 443"]
+    capa_2_ssh_endurecido["<b>Capa 2: SSH</b><br/>sin password, sin root<br/>puerto no estandar"]
+    capa_3_tls_moderno["<b>Capa 3: TLS</b><br/>TLS 1.2+, ECDHE/CHACHA20<br/>HSTS preload"]
+    capa_4_certs_lets_encrypt["<b>Capa 4: Certs</b><br/>Let's Encrypt<br/>renovacion automatica"]
+    capa_5_headers_http["<b>Capa 5: Headers HTTP</b><br/>HSTS, X-Frame-Options,<br/>X-Content-Type-Options,<br/>Referrer-Policy"]
+    capa_6_cuentas_linux["<b>Capa 6: Cuentas Linux</b><br/>separacion estricta<br/>4 cuentas, sudo selectivo"]
+    activo_protegido[("<b>Activo protegido</b><br/>UI bundle + reverse proxy")]
 
-    attacker --> capa1
-    capa1 --> capa2
-    capa2 --> capa3
-    capa3 --> capa4
-    capa4 --> capa5
-    capa5 --> capa6
-    capa6 --> activo
+    atacante_externo --> capa_1_red_ufw
+    capa_1_red_ufw --> capa_2_ssh_endurecido
+    capa_2_ssh_endurecido --> capa_3_tls_moderno
+    capa_3_tls_moderno --> capa_4_certs_lets_encrypt
+    capa_4_certs_lets_encrypt --> capa_5_headers_http
+    capa_5_headers_http --> capa_6_cuentas_linux
+    capa_6_cuentas_linux --> activo_protegido
 
     classDef threatNode fill:#7f1d1d,stroke:#fca5a5,stroke-width:2px,color:#fef2f2
     classDef defenseNode fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
     classDef assetNode fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#f0fdf4
 
-    class attacker threatNode
-    class capa1,capa2,capa3,capa4,capa5,capa6 defenseNode
-    class activo assetNode
+    class atacante_externo threatNode
+    class capa_1_red_ufw,capa_2_ssh_endurecido,capa_3_tls_moderno,capa_4_certs_lets_encrypt,capa_5_headers_http,capa_6_cuentas_linux defenseNode
+    class activo_protegido assetNode
 ```
 
 1. **Red (UFW)**: deny incoming + allow outgoing + abre solo
@@ -198,28 +198,28 @@ UI (CDNs, fonts externas, etc). Se afinara durante F3 o F11.
   'fontSize': '13px'
 }}}%%
 flowchart LR
-    subgraph mitigadas["Amenazas mitigadas por el server"]
-        t1["Brute force SSH"]
-        t2["Brute force HTTP"]
-        t3["MITM"]
-        t4["XSS reflejado"]
-        t5["Clickjacking"]
-        t6["MIME sniffing"]
-        t7["Robo de cert keys"]
+    subgraph subgraph_amenazas_mitigadas["Amenazas mitigadas por el server"]
+        amenaza_brute_force_ssh["Brute force SSH"]
+        amenaza_brute_force_http["Brute force HTTP"]
+        amenaza_mitm["MITM"]
+        amenaza_xss_reflejado["XSS reflejado"]
+        amenaza_clickjacking["Clickjacking"]
+        amenaza_mime_sniffing["MIME sniffing"]
+        amenaza_robo_cert_keys["Robo de cert keys"]
     end
 
-    subgraph no_mitigadas["Amenazas NO mitigadas (otras responsabilidades)"]
-        n1["Vulns del UI compilado<br/><i>(equipo UI)</i>"]
-        n2["Vulns de la API backend<br/><i>(equipo backend)</i>"]
-        n3["DDoS volumetrico<br/><i>(proveedor cloud/CDN)</i>"]
-        n4["Robo credenciales del operador<br/><i>(operador)</i>"]
+    subgraph subgraph_amenazas_no_mitigadas["Amenazas NO mitigadas (otras responsabilidades)"]
+        amenaza_no_mitigada_ui_vuln["Vulns del UI compilado<br/><i>(equipo UI)</i>"]
+        amenaza_no_mitigada_api_vuln["Vulns de la API backend<br/><i>(equipo backend)</i>"]
+        amenaza_no_mitigada_ddos["DDoS volumetrico<br/><i>(proveedor cloud/CDN)</i>"]
+        amenaza_no_mitigada_robo_credenciales["Robo credenciales del operador<br/><i>(operador)</i>"]
     end
 
     classDef mitigatedNode fill:#14532d,stroke:#4ade80,stroke-width:1px,color:#f0fdf4
     classDef nonMitigatedNode fill:#7c2d12,stroke:#fb923c,stroke-width:1px,color:#fff7ed
 
-    class t1,t2,t3,t4,t5,t6,t7 mitigatedNode
-    class n1,n2,n3,n4 nonMitigatedNode
+    class amenaza_brute_force_ssh,amenaza_brute_force_http,amenaza_mitm,amenaza_xss_reflejado,amenaza_clickjacking,amenaza_mime_sniffing,amenaza_robo_cert_keys mitigatedNode
+    class amenaza_no_mitigada_ui_vuln,amenaza_no_mitigada_api_vuln,amenaza_no_mitigada_ddos,amenaza_no_mitigada_robo_credenciales nonMitigatedNode
 ```
 
 Resumen informal de amenazas mitigadas:

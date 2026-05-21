@@ -26,23 +26,23 @@ el template [`template-e-comerce-ui`][repo-ui] en produccion:
   'fontSize': '14px'
 }}}%%
 flowchart TB
-    internet([Internet])
-    nginx["<b>Nginx :443</b><br/>Este repo provisiona"]
-    static[("Static UI bundle<br/><i>/srv/repos/ecom/<br/>template-e-comerce-ui/dist/</i>")]
-    api(["<b>$API_UPSTREAM</b><br/><i>Backend externo,<br/>fuera de scope</i>"])
+    internet_publica([Internet])
+    nginx_web_server["<b>Nginx :443</b><br/>Este repo provisiona"]
+    bundle_estatico_ui[("Static UI bundle<br/><i>/srv/repos/ecom/<br/>template-e-comerce-ui/dist/</i>")]
+    backend_api_upstream(["<b>$API_UPSTREAM</b><br/><i>Backend externo,<br/>fuera de scope</i>"])
 
-    internet -- "HTTPS<br/>Let's Encrypt acme.sh" --> nginx
-    nginx -- "Static + SPA<br/>catch-all" --> static
-    nginx -- "Reverse proxy<br/>/api/*" --> api
+    internet_publica -- "HTTPS<br/>Let's Encrypt acme.sh" --> nginx_web_server
+    nginx_web_server -- "Static + SPA<br/>catch-all" --> bundle_estatico_ui
+    nginx_web_server -- "Reverse proxy<br/>/api/*" --> backend_api_upstream
 
     classDef primaryNode fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
     classDef externalNode fill:#334155,stroke:#94a3b8,stroke-width:1px,color:#cbd5e1,stroke-dasharray: 5 5
     classDef internetNode fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
 
-    class nginx primaryNode
-    class static primaryNode
-    class api externalNode
-    class internet internetNode
+    class nginx_web_server primaryNode
+    class bundle_estatico_ui primaryNode
+    class backend_api_upstream externalNode
+    class internet_publica internetNode
 ```
 
 **Punto clave**: este server **no asume** que existe un backend
@@ -121,23 +121,23 @@ Nginx corre con master `root` que fork-ea workers a `www-data`
   'fontSize': '13px'
 }}}%%
 flowchart LR
-    subgraph cuentas["Cuentas Linux"]
-        deploy["<b>deploy</b><br/>UID 1000<br/>sudo"]
-        infra["<b>infra</b><br/>UID 1001<br/>sudo granular"]
-        develop["<b>develop</b><br/>UID 1002<br/>sin sudo"]
-        svcbackups["<b>svc-backups</b><br/>UID 999<br/>nologin"]
-        wwwdata["<b>www-data</b><br/>Nginx workers"]
+    subgraph subgraph_cuentas_linux["Cuentas Linux"]
+        cuenta_deploy["<b>deploy</b><br/>UID 1000<br/>sudo"]
+        cuenta_infra["<b>infra</b><br/>UID 1001<br/>sudo granular"]
+        cuenta_develop["<b>develop</b><br/>UID 1002<br/>sin sudo"]
+        cuenta_svc_backups["<b>svc-backups</b><br/>UID 999<br/>nologin"]
+        cuenta_www_data["<b>www-data</b><br/>Nginx workers"]
     end
 
-    subgraph storage["Almacenamiento"]
-        claseA[("Clase A<br/>/srv/repos/ecom/<br/>template-e-comerce-ui<br/><i>755/644</i>")]
-        claseB[("Clase B<br/>/srv/backups/<br/>project<br/><i>755</i>")]
+    subgraph subgraph_almacenamiento["Almacenamiento"]
+        storage_clase_a_codigo[("Clase A<br/>/srv/repos/ecom/<br/>template-e-comerce-ui<br/><i>755/644</i>")]
+        storage_clase_b_backups[("Clase B<br/>/srv/backups/<br/>project<br/><i>755</i>")]
     end
 
-    develop -- "owner" --> claseA
-    svcbackups -- "owner" --> claseB
-    wwwdata -- "lee como 'other'" --> claseA
-    deploy -- "ejecuta provisioners" --> infra
+    cuenta_develop -- "owner" --> storage_clase_a_codigo
+    cuenta_svc_backups -- "owner" --> storage_clase_b_backups
+    cuenta_www_data -- "lee como 'other'" --> storage_clase_a_codigo
+    cuenta_deploy -- "ejecuta provisioners" --> cuenta_infra
 ```
 
 ### Componente 5: clases de almacenamiento
@@ -187,23 +187,23 @@ F0a (validaciones iniciales). Viviran en [`docs/desarrollo/`][doc-desarrollo].
   'fontSize': '13px'
 }}}%%
 sequenceDiagram
-    actor Op as Operador (deploy)
-    participant Repo as Repo clonado
-    participant Sys as Ubuntu 24.04
-    participant LE as Let's Encrypt
+    actor Operador_deploy as Operador (deploy)
+    participant Repositorio_clonado as Repo clonado
+    participant Sistema_Ubuntu as Ubuntu 24.04
+    participant Lets_Encrypt_CA as Let's Encrypt
 
-    Op->>Repo: git clone
-    Op->>Repo: cp .env.example .env<br/>+ edit values
-    Op->>Sys: bash provisioners/nginx/install.sh
-    Op->>Sys: bash provisioners/firewall/setup_firewall.sh
-    Op->>Sys: bash provisioners/security/setup_fail2ban.sh
-    Op->>Sys: bash provisioners/security/setup_ssh_hardening.sh
-    Op->>Sys: bash provisioners/ssl/setup_ssl.sh
-    Sys->>LE: ACME HTTP-01 challenge
-    LE-->>Sys: Cert emitido
-    Op->>Sys: bash provisioners/nginx/setup_vhost.sh
-    Op->>Sys: bash scripts/verify.sh
-    Sys-->>Op: ~10 checks green
+    Operador_deploy->>Repositorio_clonado: git clone
+    Operador_deploy->>Repositorio_clonado: cp .env.example .env<br/>+ edit values
+    Operador_deploy->>Sistema_Ubuntu: bash provisioners/nginx/install.sh
+    Operador_deploy->>Sistema_Ubuntu: bash provisioners/firewall/setup_firewall.sh
+    Operador_deploy->>Sistema_Ubuntu: bash provisioners/security/setup_fail2ban.sh
+    Operador_deploy->>Sistema_Ubuntu: bash provisioners/security/setup_ssh_hardening.sh
+    Operador_deploy->>Sistema_Ubuntu: bash provisioners/ssl/setup_ssl.sh
+    Sistema_Ubuntu->>Lets_Encrypt_CA: ACME HTTP-01 challenge
+    Lets_Encrypt_CA-->>Sistema_Ubuntu: Cert emitido
+    Operador_deploy->>Sistema_Ubuntu: bash provisioners/nginx/setup_vhost.sh
+    Operador_deploy->>Sistema_Ubuntu: bash scripts/verify.sh
+    Sistema_Ubuntu-->>Operador_deploy: ~10 checks green
 ```
 
 Detalle paso a paso en [operaciones][doc-operaciones] cuando F10
@@ -222,35 +222,35 @@ lo produzca.
   'fontSize': '13px'
 }}}%%
 flowchart TD
-    user([Usuario en browser])
-    dns{{DNS resolve}}
-    nginx["<b>Nginx :443</b>"]
-    ssl[/"SSL handshake<br/>Let's Encrypt cert"/]
-    route{Routing por path}
-    asset["<b>Asset estatico</b><br/>/main.abc123.js<br/>Cache 1 year"]
-    spa["<b>SPA catch-all</b><br/>/cart, /checkout<br/>sirve index.html"]
-    proxy["<b>Reverse proxy</b><br/>/api/* → $API_UPSTREAM"]
-    headers["Headers de seguridad<br/>HSTS, X-Frame-Options"]
+    usuario_navegador([Usuario en browser])
+    resolucion_dns{{DNS resolve}}
+    nginx_web_server["<b>Nginx :443</b>"]
+    handshake_ssl[/"SSL handshake<br/>Let's Encrypt cert"/]
+    routing_por_path{Routing por path}
+    respuesta_asset_estatico["<b>Asset estatico</b><br/>/main.abc123.js<br/>Cache 1 year"]
+    respuesta_spa_indexhtml["<b>SPA catch-all</b><br/>/cart, /checkout<br/>sirve index.html"]
+    respuesta_reverse_proxy["<b>Reverse proxy</b><br/>/api/* → $API_UPSTREAM"]
+    headers_de_seguridad_anadidos["Headers de seguridad<br/>HSTS, X-Frame-Options"]
 
-    user --> dns
-    dns --> nginx
-    nginx --> ssl
-    ssl --> route
-    route -->|extension de asset| asset
-    route -->|sin extension| spa
-    route -->|/api/*| proxy
-    asset --> headers
-    spa --> headers
-    proxy --> headers
-    headers --> user
+    usuario_navegador --> resolucion_dns
+    resolucion_dns --> nginx_web_server
+    nginx_web_server --> handshake_ssl
+    handshake_ssl --> routing_por_path
+    routing_por_path -->|extension de asset| respuesta_asset_estatico
+    routing_por_path -->|sin extension| respuesta_spa_indexhtml
+    routing_por_path -->|/api/*| respuesta_reverse_proxy
+    respuesta_asset_estatico --> headers_de_seguridad_anadidos
+    respuesta_spa_indexhtml --> headers_de_seguridad_anadidos
+    respuesta_reverse_proxy --> headers_de_seguridad_anadidos
+    headers_de_seguridad_anadidos --> usuario_navegador
 
     classDef primaryNode fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
     classDef decisionNode fill:#334155,stroke:#94a3b8,stroke-width:1px,color:#f1f5f9
     classDef userNode fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
 
-    class nginx,asset,spa,proxy,headers primaryNode
-    class route,dns,ssl decisionNode
-    class user userNode
+    class nginx_web_server,respuesta_asset_estatico,respuesta_spa_indexhtml,respuesta_reverse_proxy,headers_de_seguridad_anadidos primaryNode
+    class routing_por_path,resolucion_dns,handshake_ssl decisionNode
+    class usuario_navegador userNode
 ```
 
 ### Flujo 3: renovacion automatica de SSL
@@ -269,24 +269,24 @@ flowchart TD
   'fontSize': '13px'
 }}}%%
 sequenceDiagram
-    participant Cron as Cron diario
-    participant Script as renew_ssl.sh
-    participant ACME as acme.sh
-    participant Nginx
-    participant LE as Let's Encrypt
+    participant Cron_diario as Cron diario
+    participant Script_renew_ssl as renew_ssl.sh
+    participant Cliente_ACME_sh as acme.sh
+    participant Servidor_Nginx as Nginx
+    participant Lets_Encrypt_CA as Let's Encrypt
 
-    Cron->>Script: Ejecucion programada
-    Script->>ACME: Verificar expiracion < 30 dias?
+    Cron_diario->>Script_renew_ssl: Ejecucion programada
+    Script_renew_ssl->>Cliente_ACME_sh: Verificar expiracion < 30 dias?
     alt Si por expirar
-        ACME->>LE: ACME HTTP-01 challenge
-        Note over Nginx,LE: Nginx sirve token en<br/>/.well-known/acme-challenge/<br/>(vhost :80 tiene excepcion)
-        LE-->>ACME: Valida dominio
-        LE-->>ACME: Cert renovado emitido
-        ACME->>ACME: Instalar cert en $SSL_CERT_DIR<br/>con permisos canonicos
-        Script->>Nginx: systemctl reload nginx
-        Nginx-->>Script: Toma nuevo cert sin downtime
+        Cliente_ACME_sh->>Lets_Encrypt_CA: ACME HTTP-01 challenge
+        Note over Servidor_Nginx,Lets_Encrypt_CA: Nginx sirve token en<br/>/.well-known/acme-challenge/<br/>(vhost :80 tiene excepcion)
+        Lets_Encrypt_CA-->>Cliente_ACME_sh: Valida dominio
+        Lets_Encrypt_CA-->>Cliente_ACME_sh: Cert renovado emitido
+        Cliente_ACME_sh->>Cliente_ACME_sh: Instalar cert en $SSL_CERT_DIR<br/>con permisos canonicos
+        Script_renew_ssl->>Servidor_Nginx: systemctl reload nginx
+        Servidor_Nginx-->>Script_renew_ssl: Toma nuevo cert sin downtime
     else No por expirar
-        ACME-->>Script: Nada que hacer
+        Cliente_ACME_sh-->>Script_renew_ssl: Nada que hacer
     end
 ```
 

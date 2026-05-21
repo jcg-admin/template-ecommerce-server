@@ -8,15 +8,15 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-001 | Abrir iniciativa: crear este documento + alcance + plan + progreso vacio | 30 min | **En ejecucion** | 5 archivos de iniciativa |
-| T-002 | Commit inicial del repo con estructura minima y los 5 archivos de iniciativa | 30 min | Pendiente | Commit 1 del repo (este) |
+| T-001 | Abrir iniciativa: crear este documento + alcance + plan + progreso vacio | 30 min | **Cerrada** | 5 archivos de iniciativa |
+| T-002 | Commit inicial del repo con estructura minima y los 5 archivos de iniciativa | 30 min | **Cerrada** | Commit `32f2b9e` |
 
 ## F0a — Validaciones iniciales (30 min)
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-011 | Verificar Nginx vs Apache: ratificar decision con el analisis previo, considerar Caddy como alternativa rapida | 15 min | Pendiente | Nota en progreso |
-| T-012 | Verificar acceso a la referencia: confirmar `/tmp/references/e-comerce-server/` accesible y enumerar archivos a portar | 15 min | Pendiente | Tabla en progreso |
+| T-011 | Verificar Nginx vs Apache: ratificar decision con el [analisis previo][analisis-ui], considerar Caddy como alternativa rapida. Producir [`docs/desarrollo/decision-nginx-vs-apache.md`][adr-nginx] | 15 min | Pendiente | ADR + nota en progreso |
+| T-012 | Verificar acceso a la referencia: confirmar [`/tmp/references/e-comerce-server/`][ref-ecomerce-server] accesible y enumerar archivos a portar. Producir [`docs/desarrollo/decision-modelo-cuentas.md`][adr-cuentas] y [`docs/desarrollo/decision-storage-clases.md`][adr-storage] | 15 min | Pendiente | Tabla en progreso + 2 ADRs |
 
 ## F1 — Estructura del repo (30 min)
 
@@ -47,20 +47,20 @@ hallazgos.
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
 | T-401 | `provisioners/nginx/install.sh`: apt nginx + verificar version + start + enable | 40 min | Pendiente | Script |
-| T-402 | `provisioners/nginx/setup_vhost.sh`: reemplazar `%%VAR%%` en configs, validar nginx -t, recargar | 60 min | Pendiente | Script |
+| T-402 | `provisioners/nginx/setup_vhost.sh`: reemplazar `%%VAR%%` en configs, validar `nginx -t`, recargar | 60 min | Pendiente | Script |
 | T-403 | Tests basicos manuales locales (en WSL2 o contenedor) | 20 min | Pendiente | Verificacion |
 
 ## F5 — Provisioner SSL (30 min)
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-501 | Portar `provisioners/ssl/setup_ssl.sh` del referente 1:1 + adaptar SSL_CERT_DIR | 30 min | Pendiente | Script |
+| T-501 | Portar `provisioners/ssl/setup_ssl.sh` del referente 1:1 + adaptar `SSL_CERT_DIR` | 30 min | Pendiente | Script |
 
 ## F6 — Provisioners seguridad (90 min)
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-601 | `provisioners/security/setup_fail2ban.sh`: adaptar jails (sshd + nginx-limit-req + nginx-botsearch) | 60 min | Pendiente | Script |
+| T-601 | `provisioners/security/setup_fail2ban.sh`: adaptar jails (`sshd` + `nginx-limit-req` + `nginx-botsearch`) | 60 min | Pendiente | Script |
 | T-602 | `provisioners/security/setup_ssh_hardening.sh`: portar 1:1 | 30 min | Pendiente | Script |
 
 ## F7 — Provisioner firewall (30 min)
@@ -80,7 +80,7 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-901 | `tests/test_provisioner_syntax.sh`: `bash -n` sobre todos los .sh | 15 min | Pendiente | Script |
+| T-901 | `tests/test_provisioner_syntax.sh`: `bash -n` sobre todos los `.sh` | 15 min | Pendiente | Script |
 | T-902 | `tests/test_install_idempotency.sh`: ejecutar install dos veces | 25 min | Pendiente | Script |
 | T-903 | `tests/test_ssl_self_signed.sh`: setup_ssl con dominio localhost | 20 min | Pendiente | Script |
 | T-904 | `tests/test_nginx_ssl_provisioning.sh`: integracion end-to-end | 20 min | Pendiente | Script |
@@ -90,10 +90,10 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-1001 | `docs/operaciones.md`: paso a paso de aprovisionamiento | 45 min | Pendiente | Documento |
+| T-1001 | [`docs/operaciones.md`][doc-operaciones]: paso a paso de aprovisionamiento | 45 min | Pendiente | Documento |
 | T-1002 | `docs/upgrade-server-systemless.md`: si aplica | 15 min | Pendiente | Documento |
 
-## F11 — Integracion con template-e-comerce-ui (30 min)
+## F11 — Integracion con [`template-e-comerce-ui`][repo-ui] (30 min)
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
@@ -118,3 +118,12 @@ hallazgos.
 | F10 | 2 | 60 min |
 | F11 | 2 | 30 min |
 | **Total** | **31 tareas** | **~14 horas** |
+
+<!-- Referencias Markdown -->
+[doc-operaciones]: ../../../operaciones.md
+[adr-nginx]: ../../../desarrollo/decision-nginx-vs-apache.md
+[adr-cuentas]: ../../../desarrollo/decision-modelo-cuentas.md
+[adr-storage]: ../../../desarrollo/decision-storage-clases.md
+[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
+[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

@@ -13,6 +13,8 @@ las clases definidas en el procedimiento.
 | 2026-05-21T20:55:03 | Inicio de tarea | T-001 | Comienzo T-001 (Fase F0). Crear los 5 documentos formales de iniciativa segun PROC-GESTION-001: index, alcance, plan, tareas, progreso. Esfuerzo estimado 30 min. |
 | 2026-05-21T20:55:04 | Cierre de tarea | T-001 | Cierre T-001. Los 5 documentos creados: `index.md`, `alcance-*.md`, `plan-*.md`, `tareas-*.md`, `progreso-*.md` (este). Total ~1400 lineas combinadas. Documenta el alcance completo de la iniciativa (lo que esta dentro y fuera de scope), 6 decisiones aprobadas, 12 fases con esfuerzo estimado por fase, 31 tareas con esfuerzo estimado por tarea, riesgos con mitigaciones. Siguiente tarea: T-002 (commit inicial del repo). |
 
+| 2026-05-21T21:05:29 | Hallazgo durante la ejecucion | T-002 | **Estructura de documentacion tecnica creada en F0 (no en F10 como originalmente planificado)**. Solicitud del usuario: 'En el server, crea tambien docs/desarrollo/ y docs/operaciones.md y otros docs ademas de los de PM'. **Decision tomada sin pausar**: producir el ANDAMIO de documentacion ahora (en F0) en lugar de esperar a F10. La estructura se establece desde el inicio; el contenido sustantivo se llena segun avanzan las fases. **5 archivos producidos** (859 lineas totales): (1) `docs/desarrollo/index.md` (55 lineas) -- enumera documentos planificados que viviran en esta carpeta (ADRs, notas de portacion, analisis especificos). (2) `docs/arquitectura.md` (217 lineas) -- **CONTENIDO REAL Y COMPLETO**: vista 3-tier, 5 componentes detallados (web server Nginx, SSL acme.sh, hardening de seguridad, modelo de cuentas, clases de almacenamiento), 6 decisiones aprobadas referenciadas, 3 flujos importantes (aprovisionar, request de usuario, renovacion SSL), tabla de diferencias vs referente. (3) `docs/operaciones.md` (321 lineas) -- **ESQUELETO**: indice de 8 secciones, marcadores explicitos `[Pendiente F<n>]` por seccion, contenido provisional en Prerequisitos y Configuracion inicial. Listo para que F10 lo cierre. (4) `docs/seguridad.md` (199 lineas) -- **ESQUELETO CON DECISIONES**: resumen de postura (6 capas de defensa), decisiones aprobadas con detalle (cuentas, storage, SSL/TLS, SSH hardening, fail2ban, UFW, headers HTTP), modelo de amenazas informal, listas de responsabilidades NO mitigadas. Detalles concretos pendientes F5/F6/F7. (5) `docs/glosario.md` (67 lineas) -- **CONTENIDO REAL**: ~30 terminos alfabeticos (ACME, acme.sh, deploy, fail2ban, HSTS, SPA, SPA catch-all, vhost, WSGI, www-data, X-Forwarded-Proto, Yoruba como nota historica, etc) + comparaciones rapidas de cuentas y storage. **Beneficio de esta decision**: cualquier persona que llegue al repo ahora tiene contexto tecnico completo (arquitectura + glosario + esqueleto de operaciones + decisiones de seguridad) sin tener que consultar el repo UI. F10 se vuelve menos costoso porque solo llena huecos en lugar de escribir desde cero. **Lo que no cambia**: T-1001 y T-1002 de F10 siguen siendo necesarias para completar `docs/operaciones.md` (paso a paso real) y producir `docs/upgrade-server-systemless.md`. **Validacion**: no aplica tests (sin codigo aun); working tree consistente. |
+| 2026-05-21T21:05:30 | Cierre de tarea | T-002 | **Adelanto parcial de F10 ejecutado y registrado**. F0 cierra a continuacion con T-001 (los 5 documentos de PM, ya commiteados en root commit `32f2b9e`) + T-002 (este commit que anade los 5 documentos tecnicos). Siguiente fase F0a (Validaciones iniciales, ~30 min): ratificar decision Nginx vs Apache, confirmar acceso a la referencia clonada, enumerar archivos del referente a portar. |
 ## Contadores
 
 | Clase | Conteo |
@@ -23,9 +25,9 @@ las clases definidas en el procedimiento.
 | Plan | 1 |
 | Cambio de estado | 0 |
 | Replan | 0 |
-| Hallazgo durante la ejecucion | 0 |
+| Hallazgo durante la ejecucion | 1 |
 | Inicio de tarea | 1 |
-| Cierre de tarea | 1 |
+| Cierre de tarea | 2 |
 | Fase cerrada | 0 |
 | Bloqueo | 0 |
 | Desbloqueo | 0 |

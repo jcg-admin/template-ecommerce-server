@@ -33,7 +33,7 @@ hallazgos.
 | T-202 | Portar `utils/logging.sh` (1:1 si es posible) | 15 min | **Cerrada** | `utils/logging.sh` |
 | T-203 | Portar `utils/network.sh` (1:1) | 10 min | **Cerrada** | `utils/network.sh` |
 | T-204 | Portar `utils/validation.sh` con adaptacion (vars de entorno propias) | 20 min | **Cerrada** | `utils/validation.sh` |
-| T-205 | Disenar `.env.example` propio (~80 lineas, basado en analisis previo) | 20 min | Pendiente | `.env.example` |
+| T-205 | Disenar `.env.example` propio (~80 lineas, basado en analisis previo) | 20 min | **Cerrada** | `.env.example` |
 
 ## F3 — Configuracion Nginx (60 min)
 

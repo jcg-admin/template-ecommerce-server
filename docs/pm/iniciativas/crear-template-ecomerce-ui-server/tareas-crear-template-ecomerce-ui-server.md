@@ -15,8 +15,8 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-011 | Verificar Nginx vs Apache: ratificar decision con el [analisis previo][analisis-ui], considerar Caddy como alternativa rapida. Producir [`docs/desarrollo/decision-nginx-vs-apache.md`][adr-nginx] | 15 min | Pendiente | ADR + nota en progreso |
-| T-012 | Verificar acceso a la referencia: confirmar [`/tmp/references/e-comerce-server/`][ref-ecomerce-server] accesible y enumerar archivos a portar. Producir [`docs/desarrollo/decision-modelo-cuentas.md`][adr-cuentas] y [`docs/desarrollo/decision-storage-clases.md`][adr-storage] | 15 min | Pendiente | Tabla en progreso + 2 ADRs |
+| T-011 | Verificar Nginx vs Apache: ratificar decision con el [analisis previo][analisis-ui], considerar Caddy como alternativa rapida. Producir [`docs/desarrollo/decision-nginx-vs-apache.md`][adr-nginx] | 15 min | **Cerrada** | ADR + nota en progreso |
+| T-012 | Verificar acceso a la referencia: confirmar [`/tmp/references/e-comerce-server/`][ref-ecomerce-server] accesible y enumerar archivos a portar. Producir [`docs/desarrollo/decision-modelo-cuentas.md`][adr-cuentas] y [`docs/desarrollo/decision-storage-clases.md`][adr-storage] | 15 min | **Cerrada** | Tabla en progreso + 2 ADRs |
 
 ## F1 — Estructura del repo (30 min)
 

@@ -22,6 +22,9 @@ Distinta de:
 | [arquitectura.md][doc-arquitectura] | Inicial. Arquitectura aprobada al abrir la iniciativa. | F0 (apertura) |
 | [seguridad.md][doc-seguridad] | Esqueleto. Decisiones aprobadas, detalles pendientes. | F0 esqueleto / F5,F6,F7 lo llenan |
 | [glosario.md][doc-glosario] | Activo. Terminologia de uso comun en este repo. | F0 (apertura) |
+| [decision-nginx-vs-apache.md][adr-nginx] | ADR aceptado. Ratificacion formal de D-WS. | F0a |
+| [decision-modelo-cuentas.md][adr-cuentas] | ADR aceptado. Justificacion de 4 vs 5 cuentas. | F0a |
+| [decision-storage-clases.md][adr-storage] | ADR aceptado. Justificacion de 2 vs 3 clases. | F0a |
 
 ## Documentos planificados (que viviran aqui)
 
@@ -30,9 +33,6 @@ Conforme la iniciativa avance, vivirán aquí:
 | Documento | Cuando se produce |
 |-----------|-------------------|
 | `portacion-utils-de-referente.md` | F2: cuando se porten los utils desde [`jcg-admin/e-comerce-server`][ref-ecomerce-server] |
-| `decision-nginx-vs-apache.md` (ADR) | F0a: ratificacion formal de D-WS |
-| `decision-modelo-cuentas.md` (ADR) | F0a: justificacion de 4 vs 5 cuentas |
-| `decision-storage-clases.md` (ADR) | F0a: justificacion de 2 vs 3 clases |
 | `notas-adaptacion-fail2ban-nginx.md` | F6: jails `sshd` + `nginx-limit-req` + `nginx-botsearch` |
 | `analisis-webpack-output-vs-nginx.md` | F11: validar que `dist/` del UI sirve correctamente |
 
@@ -69,6 +69,9 @@ Conforme la iniciativa avance, vivirán aquí:
 [doc-glosario]: ../glosario.md
 [doc-operaciones]: ../operaciones.md
 [doc-pm]: ../pm/iniciativas/
+[adr-nginx]: decision-nginx-vs-apache.md
+[adr-cuentas]: decision-modelo-cuentas.md
+[adr-storage]: decision-storage-clases.md
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
 [analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
 [mermaid]: https://mermaid.js.org/

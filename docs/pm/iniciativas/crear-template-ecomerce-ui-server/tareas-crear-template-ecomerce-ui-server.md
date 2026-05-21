@@ -39,7 +39,7 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-301 | Crear `config/nginx/template-http.conf` (redirect HTTPS + ACME excepcion) | 20 min | Pendiente | Archivo |
+| T-301 | Crear `config/nginx/template-http.conf` (redirect HTTPS + ACME excepcion) | 20 min | **Cerrada** | Archivo |
 | T-302 | Crear `config/nginx/template-https.conf` (SSL + UI static + SPA catch-all + reverse proxy + headers) | 40 min | Pendiente | Archivo |
 
 ## F4 — Provisioners Nginx (120 min)

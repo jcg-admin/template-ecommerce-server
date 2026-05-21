@@ -1,44 +1,54 @@
 # template-ecomerce-ui-server
 
 Repositorio de infraestructura de servidor web para servir el
-build de produccion del template `template-e-comerce-ui`.
-Proyecto hermano: provisiona un Ubuntu listo para servir el UI
-React via Nginx + SSL Let's Encrypt + fail2ban + SSH hardening.
+build de produccion del template
+[`template-e-comerce-ui`][repo-ui]. Proyecto hermano: provisiona
+un Ubuntu listo para servir el UI React via Nginx + SSL
+Let's Encrypt + fail2ban + SSH hardening.
 
 | Campo | Valor |
 |-------|-------|
 | Naturaleza | Devops / aprovisionamiento de servidor Linux |
 | OS objetivo | Ubuntu 24.04 LTS |
-| Stack | Nginx + SSL via acme.sh + fail2ban + UFW |
-| Proyecto al que sirve | `template-e-comerce-ui` (UI React) |
+| Stack | Nginx + SSL via [`acme.sh`][acme-sh] + fail2ban + UFW |
+| Proyecto al que sirve | [`template-e-comerce-ui`][repo-ui] (UI React) |
 | Backend | **Externo, agnostic** (reverse-proxy a `$API_UPSTREAM`) |
-| Inspirado en | `jcg-admin/e-comerce-server` (Apache + Django) |
+| Inspirado en | [`jcg-admin/e-comerce-server`][ref-ecomerce-server] (Apache + Django) |
 | Estado | En desarrollo. Estructura inicial creada; provisioners pendientes. |
 | Autor | Nestor Monroy |
 | Procedimiento de gestion | PROC-GESTION-001 v4.0.0 + arc42 |
 
 ## Arquitectura 3-tier
 
-```
-Internet
-   |
-   |  HTTPS :443
-   v
-+---------+
-|  Nginx  |  ← este repo provisiona
-+---------+
-   |       |
-   |       |  /api/* -> $API_UPSTREAM
-   |       |  (backend externo, fuera de scope de este repo)
-   |       v
-   |   Backend API (otro repo, otra iniciativa, otro equipo)
-   |
-   |  / (catch-all SPA)
-   |  *.js, *.css, *.png ...
-   v
-Filesystem static UI:
-  /srv/repos/ecom/template-e-comerce-ui/dist
-  (output de 'npm run build' en template-e-comerce-ui)
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': {
+  'background': '#0f172a',
+  'primaryColor': '#1e293b',
+  'primaryTextColor': '#f1f5f9',
+  'primaryBorderColor': '#94a3b8',
+  'lineColor': '#cbd5e1',
+  'secondaryColor': '#334155',
+  'tertiaryColor': '#1e3a8a',
+  'fontSize': '13px'
+}}}%%
+flowchart TB
+    internet([Internet])
+    nginx["<b>Nginx :443</b><br/>Este repo provisiona"]
+    static[("Static UI bundle<br/><i>$UI_DIST</i><br/><i>(output de npm run build)</i>")]
+    api(["<b>$API_UPSTREAM</b><br/><i>Backend externo<br/>fuera de scope</i>"])
+
+    internet -- "HTTPS :443" --> nginx
+    nginx -- "Static + SPA catch-all<br/>/, /cart, /checkout..." --> static
+    nginx -- "Reverse proxy<br/>/api/*" --> api
+
+    classDef primaryNode fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
+    classDef externalNode fill:#334155,stroke:#94a3b8,stroke-width:1px,color:#cbd5e1,stroke-dasharray: 5 5
+    classDef internetNode fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
+
+    class nginx primaryNode
+    class static primaryNode
+    class api externalNode
+    class internet internetNode
 ```
 
 **Punto clave**: este server **no asume** que existe un backend
@@ -46,16 +56,20 @@ API ni que tecnologia usa. Provee la capa de servir el UI y un
 reverse proxy configurable hacia donde la API exista cuando
 exista.
 
+Detalle completo en [`docs/arquitectura.md`][doc-arquitectura].
+
 ## Estado actual del repositorio
 
 Este repositorio acaba de ser creado (commit inicial). La
 estructura existente es:
 
-- `docs/pm/iniciativas/crear-template-ecomerce-ui-server/`:
+- [`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`][doc-iniciativa]:
   iniciativa formal abierta para crear el repo siguiendo
   PROC-GESTION-001 (alcance, plan, tareas, progreso).
-- `docs/desarrollo/`: documentacion tecnica del repo (vacia
-  por ahora, se va llenando segun avanza la iniciativa).
+- [`docs/desarrollo/`][doc-desarrollo]: documentacion tecnica
+  del repo (arquitectura, seguridad, glosario, ADRs futuros).
+- [`docs/operaciones.md`][doc-operaciones]: manual operativo
+  (esqueleto, se llena en F10).
 - `backups/`: placeholder para bind-mount de cuenta
   `svc-backups` (proximamente).
 
@@ -81,7 +95,7 @@ Cuando este completo:
 - Acceso `sudo` al servidor
 - Dominio publico (para SSL Let's Encrypt real; opcional para
   setup self-signed en desarrollo)
-- `template-e-comerce-ui` clonado en
+- [`template-e-comerce-ui`][repo-ui] clonado en
   `/srv/repos/ecom/template-e-comerce-ui` y compilado con
   `npm run build` (produce el `dist/` que Nginx sirve)
 
@@ -98,10 +112,10 @@ separacion estricta de privilegios:
 | `svc-backups` | 999 | Backups del proyecto | NO + nologin |
 
 El procedimiento externo
-`Procedimiento-Implementacion-Almacenamiento-WSL2-ecomerce-p001
-v1.0.0` rige la creacion de cuentas y storage layout.
+`Procedimiento-Implementacion-Almacenamiento-WSL2-ecomerce-p001 v1.0.0`
+rige la creacion de cuentas y storage layout.
 
-## Diferencias con el referente `jcg-admin/e-comerce-server`
+## Diferencias con el referente [`jcg-admin/e-comerce-server`][ref-ecomerce-server]
 
 | Aspecto | Referente | Este repo |
 |---------|-----------|-----------|
@@ -113,17 +127,27 @@ v1.0.0` rige la creacion de cuentas y storage layout.
 | fail2ban jails | sshd + apache-auth | sshd + nginx-* |
 
 Justificacion completa de la eleccion Nginx en el documento de
-analisis: `template-e-comerce-ui/docs/desarrollo/analisis-servidor-para-template.md`
+analisis: [analisis-servidor-para-template.md][analisis-ui]
 (en el repo del UI).
 
 ## Como contribuir
 
 Sigue PROC-GESTION-001 v4.0.0. Trabajo registrado en la
 iniciativa
-`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`.
+[`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`][doc-iniciativa].
 Commits siguen el formato Tim Pope (subject <=50 chars, body
 wrap 72 chars).
 
 ## Licencia
 
 A definir.
+
+<!-- Referencias Markdown -->
+[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
+[acme-sh]: https://github.com/acmesh-official/acme.sh
+[doc-arquitectura]: docs/arquitectura.md
+[doc-iniciativa]: docs/pm/iniciativas/crear-template-ecomerce-ui-server/
+[doc-desarrollo]: docs/desarrollo/
+[doc-operaciones]: docs/operaciones.md
+[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

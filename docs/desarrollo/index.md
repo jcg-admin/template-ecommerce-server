@@ -7,19 +7,21 @@ documento que apoye decisiones tecnicas durante la creacion
 del repo.
 
 Distinta de:
-- `docs/operaciones.md`: manual operativo (como aprovisionar,
-  como mantener, como recuperar de fallos). Para el operador.
-- `docs/pm/iniciativas/`: gestion del proyecto (PROC-GESTION-001):
-  alcance, plan, tareas, progreso de cada iniciativa. Para el
-  responsable de proyecto.
+
+- [`docs/operaciones.md`][doc-operaciones]: manual operativo
+  (como aprovisionar, como mantener, como recuperar de fallos).
+  Para el operador.
+- [`docs/pm/iniciativas/`][doc-pm]: gestion del proyecto
+  (PROC-GESTION-001): alcance, plan, tareas, progreso de cada
+  iniciativa. Para el responsable de proyecto.
 
 ## Documentos actuales
 
 | Documento | Estado | Producido en |
 |-----------|--------|--------------|
-| [arquitectura.md](../arquitectura.md) | Inicial. Arquitectura aprobada al abrir la iniciativa. | F0 (apertura) |
-| [seguridad.md](../seguridad.md) | Esqueleto. Decisiones aprobadas, detalles pendientes. | F0 esqueleto / F5,F6,F7 lo llenan |
-| [glosario.md](../glosario.md) | Activo. Terminologia de uso comun en este repo. | F0 (apertura) |
+| [arquitectura.md][doc-arquitectura] | Inicial. Arquitectura aprobada al abrir la iniciativa. | F0 (apertura) |
+| [seguridad.md][doc-seguridad] | Esqueleto. Decisiones aprobadas, detalles pendientes. | F0 esqueleto / F5,F6,F7 lo llenan |
+| [glosario.md][doc-glosario] | Activo. Terminologia de uso comun en este repo. | F0 (apertura) |
 
 ## Documentos planificados (que viviran aqui)
 
@@ -27,29 +29,46 @@ Conforme la iniciativa avance, vivirán aquí:
 
 | Documento | Cuando se produce |
 |-----------|-------------------|
-| `portacion-utils-de-referente.md` | F2: cuando se porten los utils desde `jcg-admin/e-comerce-server` |
+| `portacion-utils-de-referente.md` | F2: cuando se porten los utils desde [`jcg-admin/e-comerce-server`][ref-ecomerce-server] |
 | `decision-nginx-vs-apache.md` (ADR) | F0a: ratificacion formal de D-WS |
 | `decision-modelo-cuentas.md` (ADR) | F0a: justificacion de 4 vs 5 cuentas |
 | `decision-storage-clases.md` (ADR) | F0a: justificacion de 2 vs 3 clases |
-| `notas-adaptacion-fail2ban-nginx.md` | F6: jails sshd + nginx-limit-req + nginx-botsearch |
+| `notas-adaptacion-fail2ban-nginx.md` | F6: jails `sshd` + `nginx-limit-req` + `nginx-botsearch` |
 | `analisis-webpack-output-vs-nginx.md` | F11: validar que `dist/` del UI sirve correctamente |
 
 ## Convenciones
 
 - **Naming**: `<tipo>-<asunto>.md`. Tipos: `decision-`, `notas-`,
   `analisis-`, `portacion-`, `ratificacion-`.
-- **ADRs**: usar prefijo `decision-` y formato canonico (contexto,
-  decision, alternativas, consecuencias).
+- **ADRs**: usar prefijo `decision-` y formato canonico
+  (contexto, decision, alternativas, consecuencias).
 - **Sin tildes en archivos sueltos**: prosa de doc con tildes
-  cuando lo natural lo pida, pero nombres de archivo sin tildes.
+  cuando lo natural lo pida, pero nombres de archivo sin
+  tildes.
 - **Cross-references**: si un doc aqui referencia algo de
   `docs/pm/iniciativas/`, usar rutas relativas
   `../pm/iniciativas/...`.
+- **Diagramas**: usar [Mermaid][mermaid] con tema dark
+  (`%%{init: {'theme':'base', ...}}%%` con colores de la
+  paleta del repo) para asegurar buen contraste.
+- **Referencias**: usar formato de enlace Markdown
+  `[texto](url)` o referencias `[texto][id]` con lista de IDs
+  al final del documento.
 
 ## Referencias externas
 
 - Repo de referencia clonado:
-  `/tmp/references/e-comerce-server/`
+  [`/tmp/references/e-comerce-server/`][ref-ecomerce-server].
 - Analisis previo (vive en el repo UI):
-  `template-e-comerce-ui/docs/desarrollo/analisis-servidor-para-template.md`
-- Procedimiento de gestion: PROC-GESTION-001 v4.0.0 + arc42
+  [analisis-servidor-para-template.md][analisis-ui].
+- Procedimiento de gestion: PROC-GESTION-001 v4.0.0 + arc42.
+
+<!-- Referencias Markdown -->
+[doc-arquitectura]: ../arquitectura.md
+[doc-seguridad]: ../seguridad.md
+[doc-glosario]: ../glosario.md
+[doc-operaciones]: ../operaciones.md
+[doc-pm]: ../pm/iniciativas/
+[ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
+[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[mermaid]: https://mermaid.js.org/

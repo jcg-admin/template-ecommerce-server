@@ -1,0 +1,39 @@
+# =============================================================================
+# .gitignore — template-ecomerce-ui-server
+# =============================================================================
+
+# Variables de entorno (nunca commitear)
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Backups locales (existen en filesystem pero no se versionan)
+backups/*
+!backups/.gitkeep
+
+# Secretos
+*.pem
+*.key
+*.crt
+secrets/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temp
+tmp/
+temp/
+*.tmp

@@ -1,0 +1,4 @@
+# Placeholder. La carpeta backups/ existe como bind-mount point
+# para el procedimiento de almacenamiento; los archivos reales
+# de backup se generan en tiempo de provisioning y no se versionan
+# (ver .gitignore).

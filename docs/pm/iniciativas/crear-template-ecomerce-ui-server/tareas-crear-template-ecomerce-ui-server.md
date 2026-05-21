@@ -54,7 +54,7 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-501 | Portar `provisioners/ssl/setup_ssl.sh` del referente 1:1 + adaptar `SSL_CERT_DIR` | 30 min | Pendiente | Script |
+| T-501 | Portar `provisioners/ssl/setup_ssl.sh` del referente 1:1 + adaptar `SSL_CERT_DIR` | 30 min | **Cerrada** | Script |
 
 ## F6 — Provisioners seguridad (90 min)
 

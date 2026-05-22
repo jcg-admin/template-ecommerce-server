@@ -67,7 +67,7 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-701 | `provisioners/firewall/setup_firewall.sh`: portar 1:1 | 30 min | Pendiente | Script |
+| T-701 | `provisioners/firewall/setup_firewall.sh`: UFW con privilegio minimo (SSH/HTTP/HTTPS) | 30 min | **Cerrada** | Script |
 
 ## F8 — Scripts de operacion (90 min)
 

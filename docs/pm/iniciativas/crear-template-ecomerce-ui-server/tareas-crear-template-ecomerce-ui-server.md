@@ -74,7 +74,7 @@ hallazgos.
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
 | T-801 | `scripts/verify.sh`: 12 checks end-to-end del entorno completo (Nginx + SSL + API + SPA + firewall + fail2ban + SSH) | 60 min | **Cerrada** | Script |
-| T-802 | `scripts/renew_ssl.sh`: portar 1:1 | 30 min | Pendiente | Script |
+| T-802 | `scripts/renew_ssl.sh`: renovacion cron-friendly del certificado SSL via acme.sh | 30 min | **Cerrada** | Script |
 
 ## F9 — Tests bash (90 min)
 

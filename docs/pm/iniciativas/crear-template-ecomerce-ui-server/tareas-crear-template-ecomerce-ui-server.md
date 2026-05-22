@@ -60,7 +60,7 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-601 | `provisioners/security/setup_fail2ban.sh`: adaptar jails (`sshd` + `nginx-limit-req` + `nginx-botsearch`) | 60 min | Pendiente | Script |
+| T-601 | `provisioners/security/setup_fail2ban.sh`: instalar fail2ban y configurar jails (sshd + nginx-limit-req + nginx-botsearch) | 50 min | **Cerrada** | Script |
 | T-602 | `provisioners/security/setup_ssh_hardening.sh`: portar 1:1 | 30 min | Pendiente | Script |
 
 ## F7 — Provisioner firewall (30 min)

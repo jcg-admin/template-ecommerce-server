@@ -97,8 +97,8 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-1101 | Commit en el repo UI documentando la relacion con este server | 15 min | Pendiente | Commit en otro repo |
-| T-1102 | Verificar que `npm run build` del UI produce `dist/` consumible por Nginx (paths relativos, etc) | 15 min | Pendiente | Nota en progreso |
+| T-1101 | Commit en el repo UI documentando la relacion con este server | 15 min | **Cerrada** | Commit en otro repo |
+| T-1102 | Verificar que `npm run build` del UI produce `dist/` consumible por Nginx (paths relativos, etc) | 15 min | **Cerrada** | Nota en progreso |
 
 ## Resumen ejecutivo
 

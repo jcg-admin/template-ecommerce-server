@@ -90,8 +90,8 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-1001 | [`docs/operaciones.md`][doc-operaciones]: paso a paso de aprovisionamiento | 45 min | Pendiente | Documento |
-| T-1002 | `docs/upgrade-server-systemless.md`: si aplica | 15 min | Pendiente | Documento |
+| T-1001 | [`docs/operaciones.md`][doc-operaciones]: paso a paso de aprovisionamiento | 45 min | **Cerrada** | Documento |
+| T-1002 | `docs/upgrade-server-systemless.md`: si aplica | 15 min | **Cerrada** | Documento |
 
 ## F11 — Integracion con [`template-e-comerce-ui`][repo-ui] (30 min)
 

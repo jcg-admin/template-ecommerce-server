@@ -80,11 +80,11 @@ hallazgos.
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
-| T-901 | `tests/test_provisioner_syntax.sh`: `bash -n` sobre todos los `.sh` | 15 min | Pendiente | Script |
-| T-902 | `tests/test_install_idempotency.sh`: ejecutar install dos veces | 25 min | Pendiente | Script |
-| T-903 | `tests/test_ssl_self_signed.sh`: setup_ssl con dominio localhost | 20 min | Pendiente | Script |
-| T-904 | `tests/test_nginx_ssl_provisioning.sh`: integracion end-to-end | 20 min | Pendiente | Script |
-| T-905 | `tests/run_all.sh` + `tests/test_systemd_detection.sh` | 10 min | Pendiente | Scripts |
+| T-901 | `tests/test_provisioner_syntax.sh`: `bash -n` sobre todos los `.sh` | 15 min | **Cerrada** | Script |
+| T-902 | `tests/test_install_idempotency.sh`: ejecutar install dos veces | 25 min | **Cerrada** | Script |
+| T-903 | `tests/test_ssl_self_signed.sh`: setup_ssl con dominio localhost | 20 min | **Cerrada** | Script |
+| T-904 | `tests/test_nginx_ssl_provisioning.sh`: integracion end-to-end | 20 min | **Cerrada** | Script |
+| T-905 | `tests/run_all.sh` + `tests/test_systemd_detection.sh` | 10 min | **Cerrada** | Scripts |
 
 ## F10 — Documentacion (60 min)
 

@@ -14,7 +14,7 @@ Let's Encrypt + fail2ban + SSH hardening.
 | Proyecto al que sirve | [`template-e-comerce-ui`][repo-ui] (UI React) |
 | Backend | **Externo, agnostic** (reverse-proxy a `$API_UPSTREAM`) |
 | Inspirado en | [`jcg-admin/e-comerce-server`][ref-ecomerce-server] (Apache + Django) |
-| Estado | En desarrollo. Estructura inicial creada; provisioners pendientes. |
+| Estado | **Operativo**. Iniciativa cerrada (12 fases, 31 tareas, 29 commits). |
 | Autor | Nestor Monroy |
 | Procedimiento de gestion | PROC-GESTION-001 v4.0.0 + arc42 |
 
@@ -60,49 +60,100 @@ Detalle completo en [`docs/arquitectura.md`][doc-arquitectura].
 
 ## Estado actual del repositorio
 
-Este repositorio acaba de ser creado (commit inicial). La
-estructura existente es:
+Iniciativa
+[`crear-template-ecomerce-ui-server`][doc-iniciativa]
+**cerrada**: 12 fases, 31 tareas, 29 commits unitarios. Todos los
+provisioners, scripts operativos, tests, configs y documentacion
+estan en su lugar.
 
-- [`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`][doc-iniciativa]:
-  iniciativa formal abierta para crear el repo siguiendo
-  PROC-GESTION-001 (alcance, plan, tareas, progreso).
-- [`docs/desarrollo/`][doc-desarrollo]: documentacion tecnica
-  del repo (arquitectura, seguridad, glosario, ADRs futuros).
-- [`docs/operaciones.md`][doc-operaciones]: manual operativo
-  (esqueleto, se llena en F10).
-- `backups/`: placeholder para bind-mount de cuenta
-  `svc-backups` (proximamente).
+### Inventario
 
-Pendiente (segun el plan de la iniciativa):
+| Categoria | Path | LOC |
+|-----------|------|-----|
+| Utils bash | [`utils/`](utils/) (4 archivos) | 832 |
+| Provisioners | [`provisioners/`](provisioners/) (6 archivos en nginx/, ssl/, security/, firewall/) | 2315 |
+| Scripts operativos | [`scripts/verify.sh`](scripts/verify.sh) + [`renew_ssl.sh`](scripts/renew_ssl.sh) | 802 |
+| Tests bash | [`tests/`](tests/) (6 scripts: 5 suites + run_all) | 707 |
+| Templates Nginx | [`config/nginx/template-{http,https}.conf`](config/nginx/) | 388 |
+| Docs tecnica | [`docs/`](docs/) (arquitectura, operaciones, seguridad, glosario, upgrade-systemless) | ~2200 (Markdown) |
+| Docs PM (iniciativa) | [`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`][doc-iniciativa] | ~5000 (Markdown) |
 
-- `provisioners/nginx/install.sh` y `setup_vhost.sh`
-- `provisioners/firewall/setup_firewall.sh`
-- `provisioners/security/setup_fail2ban.sh`,
-  `setup_ssh_hardening.sh`
-- `provisioners/ssl/setup_ssl.sh`
-- `config/nginx/template-http.conf`,
-  `template-https.conf`
-- `scripts/renew_ssl.sh`, `verify.sh`
-- `tests/test_*.sh`
-- `utils/core.sh`, `logging.sh`, `network.sh`, `validation.sh`
-- `.env.example`
+**Tests agregados**: 5 suites OK, 72 PASS / 0 FAIL / 1 SKIP
+(ejecutar `bash tests/run_all.sh`).
+
+## Quick start
+
+> **Antes de empezar**: verifica que tienes clave SSH en
+> `~/.ssh/authorized_keys` o el paso 3 te dejara locked-out.
+
+```bash
+# 0. Clonar
+git clone https://github.com/jcg-admin/template-ecomerce-ui-server.git
+cd template-ecomerce-ui-server
+
+# 1. Configurar
+cp .env.example .env
+nano .env   # editar DOMAIN, UI_DIST, SSL_EMAIL, SSH_PORT, SSL_STAGING=true
+
+# 2. Instalar Nginx
+sudo bash provisioners/nginx/install.sh
+
+# 3. Endurecer SSH (cambia el puerto; reconectar despues)
+sudo bash provisioners/security/setup_ssh_hardening.sh
+# >>> reconectar: ssh -p $SSH_PORT deploy@server <<<
+
+# 4. Firewall (permite SSH_PORT ANTES de activar UFW)
+sudo bash provisioners/firewall/setup_firewall.sh
+
+# 5. fail2ban (requiere UFW activo)
+sudo bash provisioners/security/setup_fail2ban.sh
+
+# 6. SSL (empezar con SSL_STAGING=true; cambiar a false cuando todo funcione)
+sudo bash provisioners/ssl/setup_ssl.sh
+
+# 7. Activar virtualhosts (sustituye placeholders %%VAR%% con valores de .env)
+sudo bash provisioners/nginx/setup_vhost.sh
+
+# 8. Verificar (12 checks end-to-end)
+bash scripts/verify.sh
+```
+
+**Orden critico** (no es arbitrario):
+
+1. `nginx install` primero -- los provisioners siguientes asumen
+   que `/etc/nginx/sites-available/` existe.
+2. `ssh_hardening` **ANTES** que `firewall` -- el hardening
+   define `SSH_PORT` efectivo; UFW debe permitirlo antes de
+   activarse o cortas tu propia sesion.
+3. `firewall` **ANTES** que `fail2ban` -- `banaction=ufw`
+   requiere UFW activo.
+4. `ssl` **ANTES** que `setup_vhost` -- el template HTTPS
+   referencia el cert; si no existe, `nginx -t` falla.
+5. `verify.sh` al final.
+
+Detalle completo y operacion continua en
+[`docs/operaciones.md`][doc-operaciones] (955 lineas, 8 secciones,
+incluye walkthrough VPS Ubuntu fresh + recuperacion de fallos +
+FAQ + apendices).
+
+Para entornos sin systemd (WSL2, contenedores, CI), ver
+[`docs/upgrade-server-systemless.md`][doc-upgrade].
 
 ## Pre-requisitos
-
-Cuando este completo:
 
 - Ubuntu 24.04 LTS (servidor) o WSL2 (desarrollo)
 - Acceso `sudo` al servidor
 - Dominio publico (para SSL Let's Encrypt real; opcional para
-  setup self-signed en desarrollo)
+  setup self-signed en desarrollo via `--dev`)
 - [`template-e-comerce-ui`][repo-ui] clonado en
-  `/srv/repos/ecom/template-e-comerce-ui` y compilado con
-  `npm run build` (produce el `dist/` que Nginx sirve)
+  `/srv/repos/ecom/template-e-comerce-ui` (o donde decidas, ajustando
+  `UI_DIST` en `.env`) y compilado con `npm run build` (produce el
+  `dist/` que Nginx sirve)
 
 ## Modelo de cuentas
 
-Cuando este completo, el server operara bajo 4 cuentas Linux con
-separacion estricta de privilegios:
+El server opera bajo 4 cuentas Linux con separacion estricta de
+privilegios:
 
 | Cuenta | UID | Función | Sudo |
 |--------|-----|---------|------|
@@ -150,4 +201,5 @@ A definir.
 [doc-iniciativa]: docs/pm/iniciativas/crear-template-ecomerce-ui-server/
 [doc-desarrollo]: docs/desarrollo/
 [doc-operaciones]: docs/operaciones.md
+[doc-upgrade]: docs/upgrade-server-systemless.md
 [analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

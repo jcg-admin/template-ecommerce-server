@@ -1,4 +1,4 @@
-# Documentacion de desarrollo — `template-ecomerce-ui-server`
+# Documentacion de desarrollo — `template-ecommerce-server`
 
 Esta carpeta contiene documentacion **tecnica de desarrollo**:
 decisiones de arquitectura, analisis de exploracion, ADRs,
@@ -73,5 +73,5 @@ Conforme la iniciativa avance, vivirán aquí:
 [adr-cuentas]: decision-modelo-cuentas.md
 [adr-storage]: decision-storage-clases.md
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
-[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
 [mermaid]: https://mermaid.js.org/

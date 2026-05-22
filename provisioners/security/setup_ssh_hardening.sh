@@ -1,19 +1,19 @@
 #!/bin/bash
 # =============================================================================
 # provisioners/security/setup_ssh_hardening.sh
-# Aplica hardening de OpenSSH para template-ecomerce-ui-server
+# Aplica hardening de OpenSSH para template-ecommerce-server
 # =============================================================================
 # Portado 1:1 del referente jcg-admin/e-comerce-server/provisioners/security/
 # setup_ssh_hardening.sh (417 LOC). El referente es 100% agnostic al web
 # server (no menciona Apache, Django ni Nginx en ninguna linea ejecutable).
 # Adaptacion unica: cambio de marca en headers, comentarios, y nombre del
-# archivo de override (PracticaYoruba -> template-ecomerce-ui-server).
+# archivo de override (PracticaYoruba -> template-ecommerce-server).
 #
 # IDEMPOTENTE: si el override ya existe con la configuracion correcta y
 # sshd esta corriendo con esa configuracion, no hace nada.
 #
 # Estrategia de override:
-#   Crea /etc/ssh/sshd_config.d/99-template-ecomerce-ui-server.conf en
+#   Crea /etc/ssh/sshd_config.d/99-template-ecommerce-server.conf en
 #   lugar de modificar /etc/ssh/sshd_config directamente. Esto preserva
 #   la compatibilidad con actualizaciones del sistema operativo y permite
 #   revertir borrando el archivo de override.
@@ -77,7 +77,7 @@ SSH_PORT="${SSH_PORT:-22}"
 # Ruta del archivo de override -- 99- garantiza que carga ultimo,
 # sobrescribiendo cualquier otra configuracion. Nombre del archivo
 # adaptado al repo (vs 99-practicayoruba.conf del referente).
-readonly OVERRIDE_FILE="/etc/ssh/sshd_config.d/99-template-ecomerce-ui-server.conf"
+readonly OVERRIDE_FILE="/etc/ssh/sshd_config.d/99-template-ecommerce-server.conf"
 
 # =============================================================================
 # Genera el contenido esperado del override
@@ -397,7 +397,7 @@ _verify_hardening() {
 # =============================================================================
 # MAIN
 # =============================================================================
-log_header "Hardening de SSH -- template-ecomerce-ui-server"
+log_header "Hardening de SSH -- template-ecommerce-server"
 log_info "  SSH_PORT: ${SSH_PORT}"
 log_info "  Override: ${OVERRIDE_FILE}"
 echo ""

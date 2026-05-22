@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
 # provisioners/firewall/setup_firewall.sh
-# Configura el firewall UFW para template-ecomerce-ui-server
+# Configura el firewall UFW para template-ecommerce-server
 # =============================================================================
 # Portado 1:1 del referente jcg-admin/e-comerce-server/provisioners/firewall/
 # setup_firewall.sh (215 LOC). El referente es 100% agnostic al web server
@@ -60,7 +60,7 @@ ENV_FILE="${PROJECT_ROOT}/.env"
 # Puerto SSH -- configurable para instalaciones no estandar
 SSH_PORT="${SSH_PORT:-22}"
 
-# Puertos requeridos por template-ecomerce-ui-server
+# Puertos requeridos por template-ecommerce-server
 readonly REQUIRED_PORTS=("${SSH_PORT}/tcp" "80/tcp" "443/tcp")
 
 # =============================================================================
@@ -156,7 +156,7 @@ _configure_rules() {
 
     # HTTPS -- trafico de la aplicacion (template-https.conf)
     log_info "  Permitiendo HTTPS en puerto 443/tcp"
-    ufw allow 443/tcp comment "HTTPS -- template-ecomerce-ui-server aplicacion" > /dev/null 2>&1
+    ufw allow 443/tcp comment "HTTPS -- template-ecommerce-server aplicacion" > /dev/null 2>&1
     log_success "  HTTPS 443/tcp: ALLOW"
 }
 
@@ -217,7 +217,7 @@ _verify_rules() {
 # =============================================================================
 # MAIN
 # =============================================================================
-log_header "Configuracion de firewall UFW -- template-ecomerce-ui-server"
+log_header "Configuracion de firewall UFW -- template-ecommerce-server"
 log_info "  Principio de privilegio minimo: solo puertos SSH/HTTP/HTTPS"
 log_info "  SSH_PORT: ${SSH_PORT}"
 echo ""

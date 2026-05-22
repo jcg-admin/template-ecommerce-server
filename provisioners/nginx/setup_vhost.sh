@@ -120,7 +120,7 @@ _check_required_vars() {
     if [[ ! -d "$UI_DIST" ]]; then
         log_warn "UI_DIST no existe todavia: ${UI_DIST}"
         log_warn "  Nginx arrancara pero servira 404 hasta que el bundle exista."
-        log_warn "  Ejecuta 'npm run build' en template-e-comerce-ui."
+        log_warn "  Ejecuta 'npm run build' en template-ecommerce-ui."
     else
         log_success "UI_DIST existe: ${UI_DIST}"
     fi
@@ -342,7 +342,7 @@ _reload_nginx() {
 # =============================================================================
 # MAIN
 # =============================================================================
-log_header "Setup de virtualhosts -- template-ecomerce-ui-server"
+log_header "Setup de virtualhosts -- template-ecommerce-server"
 log_info "  Dominio:  ${DOMAIN:-<no definido>}"
 log_info "  UI_DIST:  ${UI_DIST:-<no definido>}"
 log_info "  API:      ${API_UPSTREAM:-<vacio -- /api/ comentado>}"

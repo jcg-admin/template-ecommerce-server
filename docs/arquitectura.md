@@ -1,4 +1,4 @@
-# Arquitectura — `template-ecomerce-ui-server`
+# Arquitectura — `template-ecommerce-server`
 
 | Campo | Valor |
 |-------|-------|
@@ -11,7 +11,7 @@
 ## Vista de alto nivel
 
 El server es la **capa 1 de una arquitectura 3-tier** que sirve
-el template [`template-e-comerce-ui`][repo-ui] en produccion:
+el template [`template-ecommerce-ui`][repo-ui] en produccion:
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': {
@@ -28,7 +28,7 @@ el template [`template-e-comerce-ui`][repo-ui] en produccion:
 flowchart TB
     internet_publica([Internet])
     nginx_web_server["<b>Nginx :443</b><br/>Este repo provisiona"]
-    bundle_estatico_ui[("Static UI bundle<br/><i>/srv/repos/ecom/<br/>template-e-comerce-ui/dist/</i>")]
+    bundle_estatico_ui[("Static UI bundle<br/><i>/srv/repos/ecom/<br/>template-ecommerce-ui/dist/</i>")]
     backend_api_upstream(["<b>$API_UPSTREAM</b><br/><i>Backend externo,<br/>fuera de scope</i>"])
 
     internet_publica -- "HTTPS<br/>Let's Encrypt acme.sh" --> nginx_web_server
@@ -130,7 +130,7 @@ flowchart LR
     end
 
     subgraph subgraph_almacenamiento["Almacenamiento"]
-        storage_clase_a_codigo[("Clase A<br/>/srv/repos/ecom/<br/>template-e-comerce-ui<br/><i>755/644</i>")]
+        storage_clase_a_codigo[("Clase A<br/>/srv/repos/ecom/<br/>template-ecommerce-ui<br/><i>755/644</i>")]
         storage_clase_b_backups[("Clase B<br/>/srv/backups/<br/>project<br/><i>755</i>")]
     end
 
@@ -146,7 +146,7 @@ Dos clases (en lugar de las tres del referente):
 
 | Clase | Path | Owner / perms | Contenido |
 |-------|------|---------------|-----------|
-| A | `/srv/repos/ecom/template-e-comerce-ui` | `develop:develop` 755/644 | Codigo del UI |
+| A | `/srv/repos/ecom/template-ecommerce-ui` | `develop:develop` 755/644 | Codigo del UI |
 | B | `/srv/backups/project` | `svc-backups:svc-backups` 755 | Backups del proyecto |
 
 Clase C del referente (`/srv/backups/database`) **excluida** por
@@ -162,7 +162,7 @@ Estas son las **6 decisiones aprobadas al abrir la iniciativa**
 | D-WS | Nginx en lugar de Apache | Catch-all SPA en 1 linea, reverse proxy nativo, footprint menor, agnostic a tecnologia backend. Justificacion en el [analisis previo del UI][analisis-ui]. |
 | D-CUENTAS | 4 cuentas Linux (sin `svc-dbdata`) | No hay BD en scope. |
 | D-STORAGE | 2 clases (A, B) sin C | Idem. |
-| D-NOMBRE | `template-ecomerce-ui-server` sin guion entre `e` y `comerce` | Decision explicita del usuario. Asimetria intencional vs [`template-e-comerce-ui`][repo-ui] que tiene guion. |
+| D-NOMBRE | `template-ecommerce-server` sin guion entre `e` y `comerce` | Decision explicita del usuario. Asimetria intencional vs [`template-ecommerce-ui`][repo-ui] que tiene guion. |
 | D-BACKEND-AGNOSTIC | El server NO asume tecnologia backend | `$API_UPSTREAM` es variable de entorno; vacio por defecto. Si la API no esta, `/api/*` devuelve 502 hasta configurar. |
 | D-PROVISIONER-PATTERN | Heredar patron shell idempotente con placeholders `%%VAR%%` del referente | Probado en [`jcg-admin/e-comerce-server`][ref-ecomerce-server], reutilizable. |
 
@@ -332,11 +332,11 @@ Tabla rapida vs [`jcg-admin/e-comerce-server`][ref-ecomerce-server]:
 - Glosario de terminos: [glosario][doc-glosario].
 
 <!-- Referencias Markdown (link references) -->
-[doc-alcance]: pm/iniciativas/crear-template-ecomerce-ui-server/alcance-crear-template-ecomerce-ui-server.md
+[doc-alcance]: pm/iniciativas/crear-template-ecommerce-server/alcance-crear-template-ecommerce-server.md
 [doc-operaciones]: operaciones.md
 [doc-seguridad]: seguridad.md
 [doc-desarrollo]: desarrollo/index.md
 [doc-glosario]: glosario.md
-[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
-[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server

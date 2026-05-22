@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
 # scripts/verify.sh
-# Verificacion completa del entorno de template-ecomerce-ui-server
+# Verificacion completa del entorno de template-ecommerce-server
 # =============================================================================
 # Portado del referente jcg-admin/e-comerce-server/scripts/verify.sh
 # (599 LOC, 13 checks) con adaptaciones documentadas en 8 hallazgos de
@@ -323,7 +323,7 @@ check_spa_catchall() {
 
     # Path inexistente, unico para este repo -- no debe matchear con
     # ningun endpoint real ni con la regex de assets (sin extension)
-    local test_path="/test-spa-catch-all-template-ecomerce-ui-server"
+    local test_path="/test-spa-catch-all-template-ecommerce-server"
     local http_code
     http_code=$(curl \
         --silent \
@@ -347,7 +347,7 @@ check_spa_catchall() {
         log_error "  Posibles causas:"
         log_error "    - UI_DIST no apunta a un directorio con index.html"
         log_error "    - try_files mal configurado en config/nginx/template-https.conf"
-        log_error "    - bundle UI no desplegado (ejecuta npm run build en template-e-comerce-ui)"
+        log_error "    - bundle UI no desplegado (ejecuta npm run build en template-ecommerce-ui)"
     else
         fail "SPA catch-all: respuesta inesperada -- HTTP ${http_code}"
         log_error "  Se esperaba HTTP 200 (catch-all) o HTTP 404 (sin catch-all)"
@@ -565,7 +565,7 @@ check_ssh_hardening() {
 # =============================================================================
 # MAIN
 # =============================================================================
-log_header "template-ecomerce-ui-server -- Verificacion completa"
+log_header "template-ecommerce-server -- Verificacion completa"
 log_info "  Dominio: ${DOMAIN:-<no definido>}"
 echo ""
 

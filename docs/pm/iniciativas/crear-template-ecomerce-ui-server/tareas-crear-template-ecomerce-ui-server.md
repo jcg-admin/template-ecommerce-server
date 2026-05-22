@@ -1,4 +1,4 @@
-# Tareas — `crear-template-ecomerce-ui-server`
+# Tareas — `crear-template-ecommerce-server`
 
 Lista de tareas detalladas por fase. Cada tarea genera uno o
 mas commits unitarios. El esfuerzo es estimado y se afina segun
@@ -93,7 +93,7 @@ hallazgos.
 | T-1001 | [`docs/operaciones.md`][doc-operaciones]: paso a paso de aprovisionamiento | 45 min | **Cerrada** | Documento |
 | T-1002 | `docs/upgrade-server-systemless.md`: si aplica | 15 min | **Cerrada** | Documento |
 
-## F11 — Integracion con [`template-e-comerce-ui`][repo-ui] (30 min)
+## F11 — Integracion con [`template-ecommerce-ui`][repo-ui] (30 min)
 
 | ID | Tarea | Esfuerzo | Estado | Salida |
 |----|-------|----------|--------|--------|
@@ -124,6 +124,6 @@ hallazgos.
 [adr-nginx]: ../../../desarrollo/decision-nginx-vs-apache.md
 [adr-cuentas]: ../../../desarrollo/decision-modelo-cuentas.md
 [adr-storage]: ../../../desarrollo/decision-storage-clases.md
-[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
-[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

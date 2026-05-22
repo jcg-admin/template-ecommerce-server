@@ -1,4 +1,4 @@
-# Plan — `crear-template-ecomerce-ui-server`
+# Plan — `crear-template-ecommerce-server`
 
 ## Fases F0..F11
 
@@ -20,7 +20,7 @@ produce uno o mas commits unitarios.
 | **F8** | Scripts de operacion | 90 min | F7 cerrada | `scripts/verify.sh` (~10 checks adaptados), `renew_ssl.sh` (1:1) |
 | **F9** | Tests bash | 90 min | F8 cerrada | 5 tests adaptados + `run_all.sh` |
 | **F10** | Documentacion | 60 min | F9 cerrada | [`docs/operaciones.md`][doc-operaciones], `docs/upgrade-server-systemless.md` |
-| **F11** | Integracion con [`template-e-comerce-ui`][repo-ui] | 30 min | F10 cerrada | Commit en el repo UI documentando la relacion |
+| **F11** | Integracion con [`template-ecommerce-ui`][repo-ui] | 30 min | F10 cerrada | Commit en el repo UI documentando la relacion |
 | **Total** | | **~14 horas (~1.75 dias)** | | |
 
 ## Disciplina por fase
@@ -43,7 +43,7 @@ Tim Pope (subject <=50 chars, wrap body 72 chars). Cada fase
 puede producir 1 o N commits. Subject sugerido:
 `<Verbo> <objeto> (F<n>)`. Ejemplos:
 
-- `Open initiative crear-template-ecomerce-ui-server`
+- `Open initiative crear-template-ecommerce-server`
 - `Bootstrap repo structure (F1)`
 - `Port shell utils from reference (F2)`
 - `Add Nginx vhost templates (F3)`
@@ -87,7 +87,7 @@ puede producir 1 o N commits. Subject sugerido:
 
 Cuando se cierre:
 
-1. El repo [`template-ecomerce-ui-server`][repo-server] queda
+1. El repo [`template-ecommerce-server`][repo-server] queda
    listo para clone y ejecucion en un Ubuntu 24.04 real.
 2. Se puede reanudar la iniciativa SCSS
    `mapear-y-corregir-scss-completo` (T-202 pendiente).
@@ -95,9 +95,9 @@ Cuando se cierre:
    Actions ejecutando `tests/run_all.sh` en cada PR).
 
 <!-- Referencias Markdown -->
-[doc-progreso]: progreso-crear-template-ecomerce-ui-server.md
+[doc-progreso]: progreso-crear-template-ecommerce-server.md
 [doc-operaciones]: ../../../operaciones.md
-[repo-server]: https://github.com/jcg-admin/template-ecomerce-ui-server
-[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[repo-server]: https://github.com/jcg-admin/template-ecommerce-server
+[repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
-[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

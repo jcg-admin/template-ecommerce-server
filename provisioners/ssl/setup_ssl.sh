@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
 # provisioners/ssl/setup_ssl.sh
-# Obtiene y configura el certificado SSL del template-ecomerce-ui-server
+# Obtiene y configura el certificado SSL del template-ecommerce-server
 # =============================================================================
 # Portado del referente jcg-admin/e-comerce-server/provisioners/ssl/setup_ssl.sh
 # (510 LOC) con adaptaciones a Nginx documentadas en progreso F5 (3 hallazgos
@@ -313,7 +313,7 @@ _generate_self_signed() {
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout "$key_file" \
         -out    "$cert_file" \
-        -subj   "/CN=${DOMAIN}/O=template-ecomerce-ui-server Dev/C=MX" \
+        -subj   "/CN=${DOMAIN}/O=template-ecommerce-server Dev/C=MX" \
         2>/dev/null
 
     # Para self-signed, fullchain es igual al certificado (sin cadena
@@ -503,7 +503,7 @@ _verify_certificate() {
 # =============================================================================
 # MAIN
 # =============================================================================
-log_header "Configuracion SSL -- template-ecomerce-ui-server"
+log_header "Configuracion SSL -- template-ecommerce-server"
 case "$MODE" in
     dev)        log_info "  Modo: --dev (self-signed con OpenSSL)" ;;
     staging)    log_info "  Modo: --staging (Let's Encrypt staging)" ;;

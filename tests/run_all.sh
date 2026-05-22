@@ -44,7 +44,7 @@ else
 fi
 
 echo ""
-echo -e "${_CLR_BOLD}${_CLR_CYAN}template-ecomerce-ui-server -- tests/run_all.sh${_CLR_RESET}"
+echo -e "${_CLR_BOLD}${_CLR_CYAN}template-ecommerce-server -- tests/run_all.sh${_CLR_RESET}"
 echo "============================================================"
 echo ""
 

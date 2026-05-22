@@ -1,8 +1,8 @@
-# template-ecomerce-ui-server
+# template-ecommerce-server
 
 Repositorio de infraestructura de servidor web para servir el
 build de produccion del template
-[`template-e-comerce-ui`][repo-ui]. Proyecto hermano: provisiona
+[`template-ecommerce-ui`][repo-ui]. Proyecto hermano: provisiona
 un Ubuntu listo para servir el UI React via Nginx + SSL
 Let's Encrypt + fail2ban + SSH hardening.
 
@@ -11,7 +11,7 @@ Let's Encrypt + fail2ban + SSH hardening.
 | Naturaleza | Devops / aprovisionamiento de servidor Linux |
 | OS objetivo | Ubuntu 24.04 LTS |
 | Stack | Nginx + SSL via [`acme.sh`][acme-sh] + fail2ban + UFW |
-| Proyecto al que sirve | [`template-e-comerce-ui`][repo-ui] (UI React) |
+| Proyecto al que sirve | [`template-ecommerce-ui`][repo-ui] (UI React) |
 | Backend | **Externo, agnostic** (reverse-proxy a `$API_UPSTREAM`) |
 | Inspirado en | [`jcg-admin/e-comerce-server`][ref-ecomerce-server] (Apache + Django) |
 | Estado | **Operativo**. Iniciativa cerrada (12 fases, 31 tareas, 29 commits). |
@@ -61,7 +61,7 @@ Detalle completo en [`docs/arquitectura.md`][doc-arquitectura].
 ## Estado actual del repositorio
 
 Iniciativa
-[`crear-template-ecomerce-ui-server`][doc-iniciativa]
+[`crear-template-ecommerce-server`][doc-iniciativa]
 **cerrada**: 12 fases, 31 tareas, 29 commits unitarios. Todos los
 provisioners, scripts operativos, tests, configs y documentacion
 estan en su lugar.
@@ -76,7 +76,7 @@ estan en su lugar.
 | Tests bash | [`tests/`](tests/) (6 scripts: 5 suites + run_all) | 707 |
 | Templates Nginx | [`config/nginx/template-{http,https}.conf`](config/nginx/) | 388 |
 | Docs tecnica | [`docs/`](docs/) (arquitectura, operaciones, seguridad, glosario, upgrade-systemless) | ~2200 (Markdown) |
-| Docs PM (iniciativa) | [`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`][doc-iniciativa] | ~5000 (Markdown) |
+| Docs PM (iniciativa) | [`docs/pm/iniciativas/crear-template-ecommerce-server/`][doc-iniciativa] | ~5000 (Markdown) |
 
 **Tests agregados**: 5 suites OK, 72 PASS / 0 FAIL / 1 SKIP
 (ejecutar `bash tests/run_all.sh`).
@@ -88,8 +88,8 @@ estan en su lugar.
 
 ```bash
 # 0. Clonar
-git clone https://github.com/jcg-admin/template-ecomerce-ui-server.git
-cd template-ecomerce-ui-server
+git clone https://github.com/jcg-admin/template-ecommerce-server.git
+cd template-ecommerce-server
 
 # 1. Configurar
 cp .env.example .env
@@ -145,8 +145,8 @@ Para entornos sin systemd (WSL2, contenedores, CI), ver
 - Acceso `sudo` al servidor
 - Dominio publico (para SSL Let's Encrypt real; opcional para
   setup self-signed en desarrollo via `--dev`)
-- [`template-e-comerce-ui`][repo-ui] clonado en
-  `/srv/repos/ecom/template-e-comerce-ui` (o donde decidas, ajustando
+- [`template-ecommerce-ui`][repo-ui] clonado en
+  `/srv/repos/ecom/template-ecommerce-ui` (o donde decidas, ajustando
   `UI_DIST` en `.env`) y compilado con `npm run build` (produce el
   `dist/` que Nginx sirve)
 
@@ -185,7 +185,7 @@ analisis: [analisis-servidor-para-template.md][analisis-ui]
 
 Sigue PROC-GESTION-001 v4.0.0. Trabajo registrado en la
 iniciativa
-[`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`][doc-iniciativa].
+[`docs/pm/iniciativas/crear-template-ecommerce-server/`][doc-iniciativa].
 Commits siguen el formato Tim Pope (subject <=50 chars, body
 wrap 72 chars).
 
@@ -194,12 +194,12 @@ wrap 72 chars).
 A definir.
 
 <!-- Referencias Markdown -->
-[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
 [acme-sh]: https://github.com/acmesh-official/acme.sh
 [doc-arquitectura]: docs/arquitectura.md
-[doc-iniciativa]: docs/pm/iniciativas/crear-template-ecomerce-ui-server/
+[doc-iniciativa]: docs/pm/iniciativas/crear-template-ecommerce-server/
 [doc-desarrollo]: docs/desarrollo/
 [doc-operaciones]: docs/operaciones.md
 [doc-upgrade]: docs/upgrade-server-systemless.md
-[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

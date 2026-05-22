@@ -1,10 +1,10 @@
 #!/bin/bash
 # =============================================================================
 # utils/core.sh -- Funciones utilitarias core
-#                  template-ecomerce-ui-server
+#                  template-ecommerce-server
 # =============================================================================
 # Portado desde jcg-admin/e-comerce-server/utils/core.sh con adaptaciones:
-#   - Marca cambiada (PracticaYoruba-server -> template-ecomerce-ui-server)
+#   - Marca cambiada (PracticaYoruba-server -> template-ecommerce-server)
 #   - Wrappers svc_* adaptados: apache2 -> nginx en todas las ramas
 #     (svc_start/stop/reload/restart)
 #   - Funciones agnostic (command_exists, is_systemd, log_manual_start)

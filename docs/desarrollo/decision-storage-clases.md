@@ -7,7 +7,7 @@
 | Fecha de decision | 2026-05-21 |
 | Decididor | Nestor Monroy |
 | Fase | F0a — Validaciones iniciales |
-| Iniciativa | [crear-template-ecomerce-ui-server][doc-iniciativa] |
+| Iniciativa | [crear-template-ecommerce-server][doc-iniciativa] |
 
 ## Contexto
 
@@ -34,10 +34,10 @@ eliminamos?
 
 | Clase | Path | Owner / perms | Contenido |
 |-------|------|---------------|-----------|
-| A | `/srv/repos/ecom/template-e-comerce-ui` | `develop:develop` 755/644 | Codigo del UI |
+| A | `/srv/repos/ecom/template-ecommerce-ui` | `develop:develop` 755/644 | Codigo del UI |
 | B | `/srv/backups/project` | `svc-backups:svc-backups` 755 | Backups del proyecto |
 
-Path canonico para el codigo: `/srv/repos/ecom/template-e-comerce-ui`
+Path canonico para el codigo: `/srv/repos/ecom/template-ecommerce-ui`
 (con guion, nombre del [repo UI][repo-ui]).
 
 ## Alternativas evaluadas
@@ -96,7 +96,7 @@ Path canonico para el codigo: `/srv/repos/ecom/template-e-comerce-ui`
   B para backups (solo `svc-backups` puede escribir).
 - **Separacion de privilegios preservada**: backups no
   accesibles por la cuenta de desarrollo.
-- **Path canonico definido**: `/srv/repos/ecom/template-e-comerce-ui`.
+- **Path canonico definido**: `/srv/repos/ecom/template-ecommerce-ui`.
 
 ### Negativas
 
@@ -121,7 +121,7 @@ Path canonico para el codigo: `/srv/repos/ecom/template-e-comerce-ui`
 Detalle aplicado en F4/F5/F6 a los componentes que tocan estos
 paths:
 
-### Clase A — `/srv/repos/ecom/template-e-comerce-ui`
+### Clase A — `/srv/repos/ecom/template-ecommerce-ui`
 
 ```
 owner: develop:develop
@@ -165,7 +165,7 @@ ven la key.
 
 ## Path canonico para el UI
 
-El path canonico es `/srv/repos/ecom/template-e-comerce-ui`
+El path canonico es `/srv/repos/ecom/template-ecommerce-ui`
 (notese el **guion** entre `e` y `comerce`, siguiendo el naming
 del [repo UI][repo-ui]).
 
@@ -208,11 +208,11 @@ con el procedimiento, no una violacion.
 - Decision relacionada: [D-CUENTAS][adr-cuentas].
 
 <!-- Referencias Markdown -->
-[doc-iniciativa]: ../pm/iniciativas/crear-template-ecomerce-ui-server/index.md
+[doc-iniciativa]: ../pm/iniciativas/crear-template-ecommerce-server/index.md
 [doc-arquitectura]: ../arquitectura.md
 [doc-seguridad]: ../seguridad.md
 [doc-glosario]: ../glosario.md
 [doc-operaciones]: ../operaciones.md
 [adr-cuentas]: decision-modelo-cuentas.md
-[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server

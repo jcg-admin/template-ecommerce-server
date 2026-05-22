@@ -1,4 +1,4 @@
-# Manual de operaciones — `template-ecomerce-ui-server`
+# Manual de operaciones — `template-ecommerce-server`
 
 | Campo | Valor |
 |-------|-------|
@@ -143,8 +143,8 @@ El orden de los 8 pasos NO es arbitrario. Razones por dependencia:
 ```bash
 # Como cuenta deploy:
 cd /srv/repos/ecom/  # o donde decidas
-git clone https://github.com/jcg-admin/template-ecomerce-ui-server.git
-cd template-ecomerce-ui-server
+git clone https://github.com/jcg-admin/template-ecommerce-server.git
+cd template-ecommerce-server
 ```
 
 ### Paso 1: crear `.env`
@@ -158,7 +158,7 @@ Variables criticas (listado completo en `.env.example`):
 
 - `DOMAIN`: el dominio publico (e.g. `midominio.com`).
 - `UI_DIST`: path al build del UI
-  (`/srv/repos/ecom/template-e-comerce-ui/dist`).
+  (`/srv/repos/ecom/template-ecommerce-ui/dist`).
 - `API_UPSTREAM`: URL del backend
   (`http://127.0.0.1:8000` para dev local, etc).
   Vacio (`API_UPSTREAM=`): `/api/*` queda comentado en el
@@ -201,7 +201,7 @@ sudo bash provisioners/security/setup_ssh_hardening.sh
 > `/home/*/.ssh/`.
 
 Detalle: crea
-`/etc/ssh/sshd_config.d/99-template-ecomerce-ui-server.conf`
+`/etc/ssh/sshd_config.d/99-template-ecommerce-server.conf`
 con `Port $SSH_PORT`, `PermitRootLogin no`,
 `PasswordAuthentication no`, `MaxAuthTries 3`,
 `LoginGraceTime 30`, `ClientAliveInterval 300`,
@@ -236,7 +236,7 @@ sudo bash provisioners/security/setup_fail2ban.sh
 ```
 
 Detalle: instala fail2ban, escribe
-`/etc/fail2ban/jail.d/template-ecomerce-ui-server.conf` con 3
+`/etc/fail2ban/jail.d/template-ecommerce-server.conf` con 3
 jails:
 
 - `sshd`: 5 intentos / 600s / ban 3600s. Monitorea
@@ -388,8 +388,8 @@ ssh deploy@TU_VPS_IP
 sudo mkdir -p /srv/repos/ecom
 sudo chown deploy:deploy /srv/repos/ecom
 cd /srv/repos/ecom
-git clone https://github.com/jcg-admin/template-ecomerce-ui-server.git
-cd template-ecomerce-ui-server
+git clone https://github.com/jcg-admin/template-ecommerce-server.git
+cd template-ecommerce-server
 ```
 
 #### 3. Configurar `.env`
@@ -403,7 +403,7 @@ Editar las variables criticas:
 
 ```ini
 DOMAIN=mitemplate.com
-UI_DIST=/srv/repos/ecom/template-e-comerce-ui/dist
+UI_DIST=/srv/repos/ecom/template-ecommerce-ui/dist
 API_UPSTREAM=                       # o http://127.0.0.1:8000
 SSL_EMAIL=admin@mitemplate.com
 SSL_STAGING=false                   # true para LE staging
@@ -459,7 +459,7 @@ para que Nginx lo sirva.
   'fontSize': '13px'
 }}}%%
 flowchart LR
-    maquina_desarrollo["<b>Maquina dev / CI</b><br/>template-e-comerce-ui"]
+    maquina_desarrollo["<b>Maquina dev / CI</b><br/>template-ecommerce-ui"]
     paso_npm_build["<i>npm install</i><br/><i>npm run build</i>"]
     directorio_dist[("dist/<br/>chunks + index.html")]
     paso_rsync["<i>rsync -av</i>"]
@@ -486,8 +486,8 @@ flowchart LR
 #### En la maquina de desarrollo / CI
 
 ```bash
-git clone https://github.com/jcg-admin/template-e-comerce-ui.git
-cd template-e-comerce-ui
+git clone https://github.com/jcg-admin/template-ecommerce-ui.git
+cd template-ecommerce-ui
 npm install
 npm run build
 ls dist/   # verificar que existe index.html + assets/
@@ -496,7 +496,7 @@ ls dist/   # verificar que existe index.html + assets/
 #### Sincronizar al server
 
 ```bash
-rsync -avz --delete dist/ deploy@SERVER:/srv/repos/ecom/template-e-comerce-ui/dist/
+rsync -avz --delete dist/ deploy@SERVER:/srv/repos/ecom/template-ecommerce-ui/dist/
 ```
 
 Opciones criticas:
@@ -509,7 +509,7 @@ Opciones criticas:
 
 ```bash
 # Verificar que Nginx ve los archivos
-ls -la /srv/repos/ecom/template-e-comerce-ui/dist/
+ls -la /srv/repos/ecom/template-ecommerce-ui/dist/
 # Forzar test del SPA catch-all
 curl -k https://$DOMAIN/cualquier-ruta-inexistente
 # Debe retornar HTTP 200 con el index.html del bundle
@@ -544,7 +544,7 @@ internamente solo renueva si el cert tiene < 30 dias de validez.
 
 ```bash
 # Cron sugerido (ejecutar como root):
-0 2 * * 1 /bin/bash /srv/repos/ecom/template-ecomerce-ui-server/scripts/renew_ssl.sh
+0 2 * * 1 /bin/bash /srv/repos/ecom/template-ecommerce-server/scripts/renew_ssl.sh
 ```
 
 El reload de Nginx ocurre automaticamente via el `--reloadcmd
@@ -598,8 +598,8 @@ contenido sensible. Items que conviene respaldar periodicamente:
 - `/etc/nginx/sites-available/template-*.conf` (configs activas)
 - `${SSL_CERT_DIR}/` (cert + key + fullchain)
 - `${PROJECT_ROOT}/.env` (config del servidor)
-- `/etc/ssh/sshd_config.d/99-template-ecomerce-ui-server.conf`
-- `/etc/fail2ban/jail.d/template-ecomerce-ui-server.conf`
+- `/etc/ssh/sshd_config.d/99-template-ecommerce-server.conf`
+- `/etc/fail2ban/jail.d/template-ecommerce-server.conf`
 
 ---
 
@@ -628,7 +628,7 @@ Causas frecuentes:
 
 Diagnostico:
 ```bash
-cat /srv/repos/ecom/template-ecomerce-ui-server/logs/renew_ssl.log
+cat /srv/repos/ecom/template-ecommerce-server/logs/renew_ssl.log
 ~/.acme.sh/acme.sh --info -d $DOMAIN
 ```
 
@@ -827,7 +827,7 @@ sudo ufw delete allow PUERTO_VIEJO/tcp
 | `UI_DIST` | (sin default) | Path absoluto al `dist/` del UI. |
 | `API_UPSTREAM` | vacio | URL del backend; vacio = `/api/` comentado. |
 | `SSL_EMAIL` | (sin default) | Email para Let's Encrypt notifications. |
-| `SSL_CERT_DIR` | `/etc/ssl/template-ecomerce-ui-server` | Donde vive el cert. |
+| `SSL_CERT_DIR` | `/etc/ssl/template-ecommerce-server` | Donde vive el cert. |
 | `SSL_CERT_DAYS_WARN` | 30 | Umbral WARN para `validate_ssl_cert`. |
 | `SSL_CERT_DAYS_ERR` | 7 | Umbral ERR. |
 | `SSL_STAGING` | false | true para Let's Encrypt staging. |
@@ -923,7 +923,7 @@ sudo systemctl stop fail2ban
 sudo ufw --force disable
 
 # 2. Restaurar sshd al default
-sudo rm /etc/ssh/sshd_config.d/99-template-ecomerce-ui-server.conf
+sudo rm /etc/ssh/sshd_config.d/99-template-ecommerce-server.conf
 sudo systemctl reload sshd     # ahora vuelve a aceptar passwords
 
 # 3. Deshacer configs Nginx
@@ -934,7 +934,7 @@ sudo nginx -t && sudo systemctl reload nginx
 
 # 4. Eliminar acme.sh y certs (opcional)
 ~/.acme.sh/acme.sh --uninstall
-sudo rm -rf /etc/ssl/template-ecomerce-ui-server
+sudo rm -rf /etc/ssl/template-ecommerce-server
 
 # 5. Purgar paquetes (opcional, destructivo)
 sudo apt-get purge nginx fail2ban ufw
@@ -950,6 +950,6 @@ sudo apt-get purge nginx fail2ban ufw
 [doc-arquitectura]: arquitectura.md
 [doc-upgrade]: upgrade-server-systemless.md
 [arq-flujo-3]: arquitectura.md#flujo-3-renovacion-automatica-de-ssl
-[tarea-T-1001]: pm/iniciativas/crear-template-ecomerce-ui-server/tareas-crear-template-ecomerce-ui-server.md
-[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[tarea-T-1001]: pm/iniciativas/crear-template-ecommerce-server/tareas-crear-template-ecommerce-server.md
+[repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server

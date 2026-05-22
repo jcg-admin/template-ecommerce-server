@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
 # utils/logging.sh -- Funciones de logging
-#                     template-ecomerce-ui-server
+#                     template-ecommerce-server
 # =============================================================================
 # Portado 1:1 desde jcg-admin/e-comerce-server/utils/logging.sh sin cambios
 # funcionales. Adaptacion unica: cambio de marca en el header.

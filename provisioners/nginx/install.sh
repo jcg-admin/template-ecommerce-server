@@ -291,7 +291,7 @@ _verify_installation() {
 # =============================================================================
 # MAIN
 # =============================================================================
-log_header "Instalacion Nginx -- template-ecomerce-ui-server"
+log_header "Instalacion Nginx -- template-ecommerce-server"
 log_info "  Objetivo: Nginx ${NGINX_TARGET_SERIES}.x+ (sin mod_wsgi, D-WS)"
 echo ""
 

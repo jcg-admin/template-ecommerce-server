@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
 # utils/validation.sh -- Funciones de validacion
-#                        template-ecomerce-ui-server
+#                        template-ecommerce-server
 # =============================================================================
 # Portado desde jcg-admin/e-comerce-server/utils/validation.sh con
 # adaptaciones significativas al contexto de este repo (sin Django,

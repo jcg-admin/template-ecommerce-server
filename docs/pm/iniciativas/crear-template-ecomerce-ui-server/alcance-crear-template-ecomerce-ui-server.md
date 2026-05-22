@@ -1,13 +1,13 @@
-# Alcance — `crear-template-ecomerce-ui-server`
+# Alcance — `crear-template-ecommerce-server`
 
 ## Resumen del alcance
 
-Crear el repositorio [`template-ecomerce-ui-server`][repo-server],
+Crear el repositorio [`template-ecommerce-server`][repo-server],
 un proyecto de aprovisionamiento de servidor Linux,
 **inspirado en** [`jcg-admin/e-comerce-server`][ref-ecomerce-server]
 pero **adaptado al contexto del template UI**. Resultado:
 scripts ejecutables que dejan un Ubuntu 24.04 listo para servir
-el build de produccion del [`template-e-comerce-ui`][repo-ui]
+el build de produccion del [`template-ecommerce-ui`][repo-ui]
 con SSL, fail2ban, SSH hardening, UFW y reverse proxy hacia una
 API externa.
 
@@ -86,7 +86,7 @@ API externa.
    reverse-proxy a `$API_UPSTREAM` pero no decide ni provee
    tecnologia (Django, Node, Go, etc).
 
-2. **No se modifica el repo** [`template-e-comerce-ui`][repo-ui]
+2. **No se modifica el repo** [`template-ecommerce-ui`][repo-ui]
    mas alla de un commit final que documente la relacion entre
    ambos (paso F11). Cualquier ajuste al `webpack.config.js` o
    al build del template UI es decision separada y no
@@ -117,7 +117,7 @@ API externa.
 | D-WS | Nginx en lugar de Apache | Ver analisis exhaustivo en [analisis-servidor-para-template.md][analisis-ui]. Resumido: catch-all SPA en 1 linea, reverse proxy nativo, footprint menor, agnostic a tecnologia backend. |
 | D-CUENTAS | 4 cuentas (sin `svc-dbdata`) | No hay BD en scope. |
 | D-STORAGE | 2 clases (A, B) sin C | Idem. |
-| D-NOMBRE | `template-ecomerce-ui-server` (sin guion entre `e` y `comerce`) | Decision explicita del usuario en este turno. Difiere del template UI que usa `template-e-comerce-ui` con guion (asimetria intencional registrada). |
+| D-NOMBRE | `template-ecommerce-server` (sin guion entre `e` y `comerce`) | Decision explicita del usuario en este turno. Difiere del template UI que usa `template-ecommerce-ui` con guion (asimetria intencional registrada). |
 | D-BACKEND-AGNOSTIC | El server NO asume tecnologia backend | `$API_UPSTREAM` es variable de entorno; vacio por defecto. Si la API no esta, `/api/*` devuelve 502 hasta configurar. |
 | D-PROVISIONER-PATTERN | Heredar patron de scripts shell idempotentes con `%%VAR%%` placeholders del referente | Probado y reutilizable. |
 
@@ -125,7 +125,7 @@ API externa.
 
 La iniciativa se considera cerrada cuando:
 
-1. El repo [`template-ecomerce-ui-server`][repo-server] existe
+1. El repo [`template-ecommerce-server`][repo-server] existe
    en `/tmp/project/` con commits limpios.
 2. Los 4 provisioners principales (Nginx, SSL, seguridad,
    firewall) estan implementados con tests basicos bash.
@@ -134,7 +134,7 @@ La iniciativa se considera cerrada cuando:
 4. Los 5 tests bash pasan: `bash tests/run_all.sh` (a definir).
 5. El [README][doc-readme] del repo describe la arquitectura,
    el modelo de cuentas, los pre-requisitos y como aprovisionar.
-6. `template-e-comerce-ui`/README.md (en el otro repo, commit
+6. `template-ecommerce-ui`/README.md (en el otro repo, commit
    separado) referencia este repo como su server de produccion.
 
 ## Riesgos
@@ -153,10 +153,10 @@ La iniciativa se considera cerrada cuando:
 F0..F11. Detalle en [plan][doc-plan].
 
 <!-- Referencias Markdown -->
-[doc-plan]: plan-crear-template-ecomerce-ui-server.md
+[doc-plan]: plan-crear-template-ecommerce-server.md
 [doc-readme]: ../../../../README.md
 [doc-operaciones]: ../../../operaciones.md
-[repo-server]: https://github.com/jcg-admin/template-ecomerce-ui-server
-[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[repo-server]: https://github.com/jcg-admin/template-ecommerce-server
+[repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
-[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

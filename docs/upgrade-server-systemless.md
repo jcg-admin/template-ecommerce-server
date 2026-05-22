@@ -125,7 +125,7 @@ sudo fail2ban-client status   # verificar
 
 Diferencia interesante: el script funciona aun sin sshd
 corriendo. Escribe el override en
-`/etc/ssh/sshd_config.d/99-template-ecomerce-ui-server.conf`,
+`/etc/ssh/sshd_config.d/99-template-ecommerce-server.conf`,
 valida con `sshd -t`, pero NO recarga sshd si no detecta
 PID. La config se aplicara cuando sshd arranque.
 

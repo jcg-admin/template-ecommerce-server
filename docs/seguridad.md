@@ -1,4 +1,4 @@
-# Seguridad — `template-ecomerce-ui-server`
+# Seguridad — `template-ecommerce-server`
 
 | Campo | Valor |
 |-------|-------|
@@ -81,7 +81,7 @@ drop-privileges del master `root`.
 
 | Clase | Path | Owner / perms |
 |-------|------|---------------|
-| A | `/srv/repos/ecom/template-e-comerce-ui` | `develop:develop` 755/644 |
+| A | `/srv/repos/ecom/template-ecommerce-ui` | `develop:develop` 755/644 |
 | B | `/srv/backups/project` | `svc-backups:svc-backups` 755 |
 
 Permisos de SSL:
@@ -276,7 +276,7 @@ Cuando complete:
 - fail2ban manual: `man jail.conf`.
 
 <!-- Referencias Markdown -->
-[doc-alcance]: pm/iniciativas/crear-template-ecomerce-ui-server/alcance-crear-template-ecomerce-ui-server.md
+[doc-alcance]: pm/iniciativas/crear-template-ecommerce-server/alcance-crear-template-ecommerce-server.md
 [doc-operaciones]: operaciones.md
 [doc-arquitectura]: arquitectura.md
 [mozilla-ssl]: https://ssl-config.mozilla.org/

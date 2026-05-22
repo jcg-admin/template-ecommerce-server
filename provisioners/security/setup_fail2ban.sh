@@ -78,7 +78,7 @@ F2B_NGINX_BOTSEARCH_FINDTIME="${F2B_NGINX_BOTSEARCH_FINDTIME:-600}"
 F2B_NGINX_BOTSEARCH_BANTIME="${F2B_NGINX_BOTSEARCH_BANTIME:-86400}"
 
 # Ruta del archivo de configuracion de jails
-readonly JAIL_CONF="/etc/fail2ban/jail.d/template-ecomerce-ui-server.conf"
+readonly JAIL_CONF="/etc/fail2ban/jail.d/template-ecommerce-server.conf"
 
 # Logs de Nginx (configurados en config/nginx/template-*.conf F3)
 readonly NGINX_HTTP_ACCESS_LOG="/var/log/nginx/template-http-access.log"
@@ -372,7 +372,7 @@ _verify_jails() {
 # =============================================================================
 # MAIN
 # =============================================================================
-log_header "Configuracion de fail2ban -- template-ecomerce-ui-server"
+log_header "Configuracion de fail2ban -- template-ecommerce-server"
 log_info "  SSH_PORT:                      ${SSH_PORT}"
 log_info "  sshd:              ${F2B_SSH_MAXRETRY}/${F2B_SSH_FINDTIME}s/${F2B_SSH_BANTIME}s"
 log_info "  nginx-limit-req:   ${F2B_NGINX_LIMIT_REQ_MAXRETRY}/${F2B_NGINX_LIMIT_REQ_FINDTIME}s/${F2B_NGINX_LIMIT_REQ_BANTIME}s"

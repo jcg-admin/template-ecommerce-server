@@ -7,7 +7,7 @@
 | Fecha de decision | 2026-05-21 |
 | Decididor | Nestor Monroy (autor del repo) |
 | Fase | F0a — Validaciones iniciales |
-| Iniciativa | [crear-template-ecomerce-ui-server][doc-iniciativa] |
+| Iniciativa | [crear-template-ecommerce-server][doc-iniciativa] |
 
 ## Contexto
 
@@ -18,7 +18,7 @@ declara: "Provisiona Apache 2.4 con mod_wsgi para el API
 Django, servicio de archivos estaticos del UI React,
 terminacion SSL...".
 
-Nuestro repo `template-ecomerce-ui-server` se inspira en ese
+Nuestro repo `template-ecommerce-server` se inspira en ese
 referente pero tiene **un contexto distinto**:
 
 - **No incluye backend**. La decision aprobada D-BACKEND-AGNOSTIC
@@ -158,7 +158,7 @@ o cambiamos a Nginx?
   previo, tabla "Apache vs Nginx" lado a lado.
 
 <!-- Referencias Markdown -->
-[doc-iniciativa]: ../pm/iniciativas/crear-template-ecomerce-ui-server/index.md
-[doc-plan]: ../pm/iniciativas/crear-template-ecomerce-ui-server/plan-crear-template-ecomerce-ui-server.md
+[doc-iniciativa]: ../pm/iniciativas/crear-template-ecommerce-server/index.md
+[doc-plan]: ../pm/iniciativas/crear-template-ecommerce-server/plan-crear-template-ecommerce-server.md
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
-[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

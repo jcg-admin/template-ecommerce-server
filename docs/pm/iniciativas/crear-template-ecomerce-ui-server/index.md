@@ -1,17 +1,17 @@
-# Iniciativa: `crear-template-ecomerce-ui-server`
+# Iniciativa: `crear-template-ecommerce-server`
 
 | Campo | Valor |
 |-------|-------|
-| Slug | `crear-template-ecomerce-ui-server` |
+| Slug | `crear-template-ecommerce-server` |
 | Estado | En ejecucion |
 | Orden de backlog | (no aplica: abierta directamente sin pasar por backlog) |
 | Fecha de creacion (directorio) | 2026-05-21 |
 | Fecha de apertura formal | 2026-05-21 |
 | Autor / responsable | Nestor Monroy |
 | Procedimiento de gestion | PROC-GESTION-001 v4.0.0 + arc42 |
-| Repositorio | [`template-ecomerce-ui-server`][repo-server] (recien creado, commit inicial pendiente) |
+| Repositorio | [`template-ecommerce-server`][repo-server] (recien creado, commit inicial pendiente) |
 | Iniciativa origen / inspiracion | [`jcg-admin/e-comerce-server`][ref-ecomerce-server] (clonado en `/tmp/references/e-comerce-server/`) |
-| Iniciativa hermana | `mapear-y-corregir-scss-completo` (en [`template-e-comerce-ui`][repo-ui], pausada para priorizar esta) |
+| Iniciativa hermana | `mapear-y-corregir-scss-completo` (en [`template-ecommerce-ui`][repo-ui], pausada para priorizar esta) |
 
 ## Que hace esta iniciativa
 
@@ -25,7 +25,7 @@ simplificadas a A y B (sin C).
 El resultado sera un repositorio de scripts de
 aprovisionamiento que, ejecutados en un Ubuntu 24.04 (VPS o
 WSL2), dejen el servidor listo para servir el build de
-produccion del [`template-e-comerce-ui`][repo-ui] con SSL,
+produccion del [`template-ecommerce-ui`][repo-ui] con SSL,
 fail2ban, SSH hardening, UFW, y reverse-proxy configurable
 hacia una API externa cuyo binding tecnico no es problema de
 este repo.
@@ -35,10 +35,10 @@ este repo.
 | Documento | Estado |
 |-----------|--------|
 | [index.md][doc-index] | Este archivo |
-| [alcance-crear-template-ecomerce-ui-server.md][doc-alcance] | Completado |
-| [plan-crear-template-ecomerce-ui-server.md][doc-plan] | Completado |
-| [tareas-crear-template-ecomerce-ui-server.md][doc-tareas] | Completado |
-| [progreso-crear-template-ecomerce-ui-server.md][doc-progreso] | Activo (bitacora cronologica) |
+| [alcance-crear-template-ecommerce-server.md][doc-alcance] | Completado |
+| [plan-crear-template-ecommerce-server.md][doc-plan] | Completado |
+| [tareas-crear-template-ecommerce-server.md][doc-tareas] | Completado |
+| [progreso-crear-template-ecommerce-server.md][doc-progreso] | Activo (bitacora cronologica) |
 
 ## Referencias externas
 
@@ -55,15 +55,15 @@ este repo.
 
 <!-- Referencias Markdown -->
 [doc-index]: index.md
-[doc-alcance]: alcance-crear-template-ecomerce-ui-server.md
-[doc-plan]: plan-crear-template-ecomerce-ui-server.md
-[doc-tareas]: tareas-crear-template-ecomerce-ui-server.md
-[doc-progreso]: progreso-crear-template-ecomerce-ui-server.md
+[doc-alcance]: alcance-crear-template-ecommerce-server.md
+[doc-plan]: plan-crear-template-ecommerce-server.md
+[doc-tareas]: tareas-crear-template-ecommerce-server.md
+[doc-progreso]: progreso-crear-template-ecommerce-server.md
 [doc-arquitectura]: ../../../arquitectura.md
 [doc-seguridad]: ../../../seguridad.md
 [doc-glosario]: ../../../glosario.md
 [doc-desarrollo]: ../../../desarrollo/index.md
-[repo-server]: https://github.com/jcg-admin/template-ecomerce-ui-server
-[repo-ui]: https://github.com/jcg-admin/template-e-comerce-ui
+[repo-server]: https://github.com/jcg-admin/template-ecommerce-server
+[repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
-[analisis-ui]: https://github.com/jcg-admin/template-e-comerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md
+[analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

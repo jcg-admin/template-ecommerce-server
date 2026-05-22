@@ -21,7 +21,7 @@
 #   Otro      -> error -- el script sale con codigo 1 para que cron notifique
 #
 # Cron semanal sugerido (ejecutar como root):
-#   0 2 * * 1 /bin/bash /opt/template-ecomerce-ui-server/scripts/renew_ssl.sh
+#   0 2 * * 1 /bin/bash /opt/template-ecommerce-server/scripts/renew_ssl.sh
 #
 # El resultado de cada ejecucion se registra en logs/renew_ssl.log.
 #
@@ -177,7 +177,7 @@ _verify_after_renewal() {
 # =============================================================================
 # MAIN
 # =============================================================================
-log_header "Renovacion de certificado SSL -- template-ecomerce-ui-server"
+log_header "Renovacion de certificado SSL -- template-ecommerce-server"
 log_info "  Fecha: $(date '+%Y-%m-%d %H:%M:%S')"
 echo ""
 

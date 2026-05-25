@@ -65,3 +65,13 @@ entornos sin systemd (WSL2). Reutiliza `svc_is_active` y
 [i-start]: iniciativas/crear-start-sh/index-crear-start-sh.md
 
 <!-- indice actualizado al cerrar INI-SRV-005 y INI-SRV-006 -->
+| [`auditar-gaps-server-y-ui`][i-audit] | Auditoria y correccion | En ejecucion | 2026-05-25 | — | Nestor Monroy |
+
+### `auditar-gaps-server-y-ui`
+
+Confronta el documento de analisis `analisis-servidor-para-template.md`
+contra la implementacion real. 16/17 propuestas cumplen en el server.
+Bug critico en el UI: `apiService.js` bypasea el proxy Nginx cuando
+`API_URL` tiene el fallback `http://localhost:8000` hardcodeado.
+
+[i-audit]: iniciativas/auditar-gaps-server-y-ui/index-auditar-gaps-server-y-ui.md

@@ -5,9 +5,10 @@
 | Artefacto | INI-SRV-006 |
 | Tipo | Iniciativa de desarrollo |
 | Submodulo | server (template-ecommerce-server) |
-| Estado | En ejecucion |
+| Estado | Cerrada |
 | Version | 1.0.0 |
 | Fecha de creacion | 2026-05-25 |
+| Fecha de cierre | 2026-05-25 |
 | Autor | NestorMonroy |
 | Clasificacion | Interno |
 | Procedimiento de gestion | PROC-GESTION-001 v4.0.0 |
@@ -43,9 +44,9 @@ Excepciones explicitas:
 
 | Entregable | Estado al cierre |
 |------------|------------------|
-| `scripts/start.sh` | Pendiente — script de arranque de daemons (Nginx + fail2ban) |
-| `README.md` actualizado | Pendiente — seccion de arranque en entornos WSL2 sin systemd |
-| `docs/upgrade-server-systemless.md` actualizado | Pendiente — referencia a `start.sh` en el resumen ejecutivo |
+| `scripts/start.sh` | Producido — 144 lineas, 1 funcion _start_daemon, idempotente |
+| `README.md` actualizado | Producido — seccion arranque WSL2 con start.sh |
+| `docs/upgrade-server-systemless.md` actualizado | Producido — resumen ejecutivo referencia start.sh |
 
 ## Indice de documentos
 
@@ -57,6 +58,7 @@ Excepciones explicitas:
 | [plan-crear-start-sh.md](plan-crear-start-sh.md) | DAG de fases, tareas por fase con esfuerzo. |
 | [tareas-crear-start-sh.md](tareas-crear-start-sh.md) | Lista plana de tareas con estado y entregable. |
 | [progreso-crear-start-sh.md](progreso-crear-start-sh.md) | Bitacora cronologica de eventos atomizados. |
+| [decisiones-crear-start-sh.md](decisiones-crear-start-sh.md) | Decisiones de diseno, hallazgos y verificacion post-ejecucion. |
 
 ## Decisiones aprobadas
 

@@ -148,6 +148,10 @@ _check_requisites() {
         log_warn "  Entorno sin sshd detectado -- estas en un contenedor, WSL2 o CI?"
         log_warn "  En ese caso este script no aplica -- es solo para servidores"
         log_warn "  Ubuntu con acceso SSH real (VPS, bare-metal)."
+        log_warn ""
+        log_warn "  Puedes continuar con los siguientes pasos del aprovisionamiento:"
+        log_warn "    Firewall:  sudo bash provisioners/firewall/setup_firewall.sh"
+        log_warn "    SSL:       sudo bash provisioners/ssl/setup_ssl.sh --dev"
         exit 1
     }
     log_success "sshd disponible"

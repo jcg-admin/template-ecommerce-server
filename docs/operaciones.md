@@ -587,13 +587,51 @@ Log: `${PROJECT_ROOT}/logs/renew_ssl.log`.
 
 | Log | Path | Rotacion |
 |-----|------|----------|
+| Operaciones del repo | `${PROJECT_ROOT}/logs/operations.log` | manual |
 | Nginx HTTP access | `/var/log/nginx/template-http-access.log` | logrotate Ubuntu |
 | Nginx HTTPS access | `/var/log/nginx/template-https-access.log` | logrotate Ubuntu |
 | Nginx HTTPS error | `/var/log/nginx/template-https-error.log` | logrotate Ubuntu |
 | fail2ban | `/var/log/fail2ban.log` | logrotate Ubuntu |
 | SSH | `/var/log/auth.log` | logrotate Ubuntu |
 | acme.sh | `~deploy/.acme.sh/acme.sh.log` | acme.sh lo maneja |
-| renew_ssl | `${PROJECT_ROOT}/logs/renew_ssl.log` | manual (rm si crece) |
+
+#### Log de operaciones del repo (`logs/operations.log`)
+
+Todos los scripts y provisioners del repo escriben en este archivo.
+Cada ejecucion agrega un bloque precedido por la fecha y hora de inicio:
+
+```
+=== 2026-05-26 01:00:00 -- Inicio ===
+01:00:01 HEADER template-ecommerce-server -- Verificacion completa
+01:00:01 INFO   Dominio: midominio.com
+01:00:02 OK   [OK]   DOMAIN=midominio.com
+...
+```
+
+Consulta en tiempo real durante una operacion:
+
+```bash
+tail -f logs/operations.log
+```
+
+Post-mortem (ver las ultimas N lineas):
+
+```bash
+tail -200 logs/operations.log
+```
+
+Buscar el inicio de la ultima ejecucion de cualquier script:
+
+```bash
+grep -n "Inicio ===" logs/operations.log | tail -5
+```
+
+Rotacion manual cuando el archivo crece demasiado:
+
+```bash
+mv logs/operations.log logs/operations.log.bak
+# El proximo script crea logs/operations.log nuevo automaticamente
+```
 
 ### Comandos de inspeccion diaria
 

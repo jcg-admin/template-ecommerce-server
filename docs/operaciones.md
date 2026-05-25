@@ -950,6 +950,6 @@ sudo apt-get purge nginx fail2ban ufw
 [doc-arquitectura]: arquitectura.md
 [doc-upgrade]: upgrade-server-systemless.md
 [arq-flujo-3]: arquitectura.md#flujo-3-renovacion-automatica-de-ssl
-[tarea-T-1001]: pm/iniciativas/crear-template-ecommerce-server/tareas-crear-template-ecommerce-server.md
+[tarea-T-1001]: pm/iniciativas/crear-template-ecomerce-ui-server/tareas-crear-template-ecomerce-ui-server.md
 [repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server

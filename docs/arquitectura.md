@@ -332,7 +332,7 @@ Tabla rapida vs [`jcg-admin/e-comerce-server`][ref-ecomerce-server]:
 - Glosario de terminos: [glosario][doc-glosario].
 
 <!-- Referencias Markdown (link references) -->
-[doc-alcance]: pm/iniciativas/crear-template-ecommerce-server/alcance-crear-template-ecommerce-server.md
+[doc-alcance]: pm/iniciativas/crear-template-ecomerce-ui-server/alcance-crear-template-ecomerce-ui-server.md
 [doc-operaciones]: operaciones.md
 [doc-seguridad]: seguridad.md
 [doc-desarrollo]: desarrollo/index.md

@@ -276,7 +276,7 @@ Cuando complete:
 - fail2ban manual: `man jail.conf`.
 
 <!-- Referencias Markdown -->
-[doc-alcance]: pm/iniciativas/crear-template-ecommerce-server/alcance-crear-template-ecommerce-server.md
+[doc-alcance]: pm/iniciativas/crear-template-ecomerce-ui-server/alcance-crear-template-ecomerce-ui-server.md
 [doc-operaciones]: operaciones.md
 [doc-arquitectura]: arquitectura.md
 [mozilla-ssl]: https://ssl-config.mozilla.org/

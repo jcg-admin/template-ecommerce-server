@@ -7,7 +7,7 @@
 | Fecha de decision | 2026-05-21 |
 | Decididor | Nestor Monroy |
 | Fase | F0a — Validaciones iniciales |
-| Iniciativa | [crear-template-ecommerce-server][doc-iniciativa] |
+| Iniciativa | [crear-template-ecomerce-ui-server][doc-iniciativa] |
 
 ## Contexto
 
@@ -208,7 +208,7 @@ con el procedimiento, no una violacion.
 - Decision relacionada: [D-CUENTAS][adr-cuentas].
 
 <!-- Referencias Markdown -->
-[doc-iniciativa]: ../pm/iniciativas/crear-template-ecommerce-server/index.md
+[doc-iniciativa]: ../pm/iniciativas/crear-template-ecomerce-ui-server/index.md
 [doc-arquitectura]: ../arquitectura.md
 [doc-seguridad]: ../seguridad.md
 [doc-glosario]: ../glosario.md

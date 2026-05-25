@@ -22,3 +22,8 @@
 | 2026-05-25T22:21:01 | Inicio de tarea | T-004 | Comienzo T-004. Crear 6 documentos PM. |
 | 2026-05-25T22:40:00 | Cierre de tarea | T-004 | Cierre T-004. 6 archivos PM creados con hallazgos concretos, evidencia de codigo, diagrama de secuencia del flujo correcto en produccion. |
 | 2026-05-25T22:40:01 | Fase cerrada | F0 | **Cierre de Fase F0 (Auditoria + PM docs).** 4 tareas cerradas. 4 gaps identificados: 1 en server (verify.sh, menor), 3 en UI (apiService critico + 2 archivos relacionados). 3 hallazgos positivos: 16/17 propuestas cumplen, MSW guardado correctamente, dist/ compatible con Nginx. Esfuerzo real: ~40 min. Siguiente: F1 y F2 en paralelo. |
+| 2026-05-25T22:45:00 | Inicio de fase | F1 | **Inicio de Fase F1 (Corregir verify.sh).** Esfuerzo estimado 5 min. 3 ocurrencias de `systemctl start nginx/fail2ban` a reemplazar. |
+| 2026-05-25T22:45:01 | Inicio de tarea | T-101 | Comienzo T-101. Reemplazar mensajes de error en verify.sh. |
+| 2026-05-25T22:47:00 | Cierre de tarea | T-101 | Cierre T-101. 3 ocurrencias reemplazadas: lineas 157 (start.sh), 292 (start.sh), 474 (start.sh). La linea 158 de `systemctl status nginx` se mantiene como informacion adicional de diagnostico (no es un comando de arranque). |
+| 2026-05-25T22:47:01 | Cierre de tarea | T-102 | Cierre T-102. `bash -n verify.sh`: OK. `bash tests/run_all.sh`: 74 PASS / 0 FAIL / 1 SKIP. Sin regresion. |
+| 2026-05-25T22:47:02 | Fase cerrada | F1 | **Cierre de Fase F1 (Corregir verify.sh).** 2 tareas cerradas. verify.sh corregido: 3 mensajes de error actualizados. Esfuerzo real: ~3 min. |

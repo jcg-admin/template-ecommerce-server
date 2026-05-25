@@ -154,8 +154,8 @@ check_nginx_port_80() {
         ok "Nginx responde en :80"
     else
         fail "Nginx no responde en :80"
-        log_error "  Arranca con: sudo systemctl start nginx"
-        log_error "  Estado: sudo systemctl status nginx"
+        log_error "  Arranca con: sudo bash scripts/start.sh"
+        log_error "  Estado: sudo systemctl status nginx  (o revisa logs en /var/log/nginx/)"
     fi
 }
 
@@ -289,7 +289,7 @@ check_http_redirect() {
 
     if [[ "$http_code" == "000" ]]; then
         fail "No hay respuesta en http://${DOMAIN}/ (puerto 80)"
-        log_error "  Nginx activo? sudo systemctl status nginx"
+        log_error "  Nginx activo? sudo bash scripts/start.sh"
         return
     fi
 
@@ -471,7 +471,7 @@ check_fail2ban() {
     # Verificar que el servicio esta activo
     if ! svc_is_active fail2ban; then
         fail "fail2ban instalado pero inactivo"
-        log_error "  Arranca con: sudo systemctl start fail2ban"
+        log_error "  Arranca con: sudo bash scripts/start.sh"
         log_error "  O reconfigura: sudo bash provisioners/security/setup_fail2ban.sh"
         return
     fi

@@ -269,29 +269,41 @@ check_http_redirect() {
         return
     fi
 
-    local http_code location_header
+    # Intenta contra DOMAIN. Si falla por DNS (000), reintenta contra
+    # localhost con el header Host: para simular la peticion correctamente.
+    local http_code location_header target_url="http://${DOMAIN}/"
+
     http_code=$(curl \
-        --silent \
-        --max-time 10 \
+        --silent --max-time 10 \
         --output /dev/null \
         --write-out "%{http_code}" \
-        "http://${DOMAIN}/" 2>/dev/null \
-        || true)
+        "$target_url" 2>/dev/null || true)
     [[ -z "$http_code" ]] && http_code="000"
 
-    location_header=$(curl \
-        --silent \
-        --max-time 10 \
-        --head \
-        "http://${DOMAIN}/" 2>/dev/null \
-        | grep -i "^location:" | head -1 \
-        || echo "")
+    if [[ "$http_code" == "000" ]]; then
+        log_warn "  DNS de ${DOMAIN} no resuelve -- reintentando contra localhost"
+        log_warn "  (entorno de desarrollo: ${DOMAIN} no apunta a este servidor)"
+        target_url="http://localhost/"
+        http_code=$(curl \
+            --silent --max-time 10 \
+            --output /dev/null \
+            --write-out "%{http_code}" \
+            --header "Host: ${DOMAIN}" \
+            "$target_url" 2>/dev/null || true)
+        [[ -z "$http_code" ]] && http_code="000"
+    fi
 
     if [[ "$http_code" == "000" ]]; then
-        fail "No hay respuesta en http://${DOMAIN}/ (puerto 80)"
+        fail "No hay respuesta en http://${DOMAIN}/ ni en localhost (puerto 80)"
         log_error "  Nginx activo? sudo bash scripts/start.sh"
         return
     fi
+
+    location_header=$(curl \
+        --silent --max-time 10 --head \
+        --header "Host: ${DOMAIN}" \
+        "http://localhost/" 2>/dev/null \
+        | grep -i "^location:" | head -1 || echo "")
 
     if [[ "$http_code" != "301" ]]; then
         fail "Redirect HTTP -> HTTPS no es 301 (obtenido: HTTP ${http_code})"
@@ -321,22 +333,32 @@ check_spa_catchall() {
         return
     fi
 
-    # Path inexistente, unico para este repo -- no debe matchear con
-    # ningun endpoint real ni con la regex de assets (sin extension)
     local test_path="/test-spa-catch-all-template-ecommerce-server"
-    local http_code
+    local http_code target_url="https://${DOMAIN}${test_path}"
+
     http_code=$(curl \
-        --silent \
-        --max-time 10 \
-        --insecure \
+        --silent --max-time 10 --insecure \
         --output /dev/null \
         --write-out "%{http_code}" \
-        "https://${DOMAIN}${test_path}" 2>/dev/null \
-        || true)
+        "$target_url" 2>/dev/null || true)
     [[ -z "$http_code" ]] && http_code="000"
 
     if [[ "$http_code" == "000" ]]; then
-        fail "Sin respuesta en https://${DOMAIN}${test_path}"
+        log_warn "  DNS de ${DOMAIN} no resuelve -- reintentando contra localhost"
+        log_warn "  (entorno de desarrollo: ${DOMAIN} no apunta a este servidor)"
+        target_url="https://localhost${test_path}"
+        http_code=$(curl \
+            --silent --max-time 10 --insecure \
+            --output /dev/null \
+            --write-out "%{http_code}" \
+            --header "Host: ${DOMAIN}" \
+            "$target_url" 2>/dev/null || true)
+        [[ -z "$http_code" ]] && http_code="000"
+    fi
+
+    if [[ "$http_code" == "000" ]]; then
+        fail "Sin respuesta en https://${DOMAIN}${test_path} ni en localhost"
+        log_error "  Nginx activo? sudo bash scripts/start.sh"
         return
     fi
 

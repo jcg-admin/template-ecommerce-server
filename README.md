@@ -147,7 +147,8 @@ sudo bash scripts/start.sh
 ## Pre-requisitos
 
 - Ubuntu 24.04 LTS (servidor) o WSL2 (desarrollo)
-- Acceso `sudo` al servidor
+- Acceso `sudo` al servidor como cuenta `deploy` (UID 1000).
+  `develop` no tiene sudo y no puede ejecutar provisioners ni scripts.
 - Dominio publico (para SSL Let's Encrypt real; opcional para
   setup self-signed en desarrollo via `--dev`)
 - [`template-ecommerce-ui`][repo-ui] clonado en

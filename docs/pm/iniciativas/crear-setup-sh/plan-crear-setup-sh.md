@@ -38,7 +38,7 @@ flowchart LR
     classDef pending fill:#1e293b,stroke:#94a3b8,stroke-width:1px,color:#f1f5f9
 
     class f0 done
-    class f1,f2,f3 pending
+    class f1,f2,f3 done
 ```
 
 ## Disciplina por fase

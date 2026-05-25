@@ -4,7 +4,7 @@
 |-------|-------|
 | Artefacto | `crear-setup-sh` |
 | Tipo | Iniciativa de desarrollo |
-| Estado | En ejecucion |
+| Estado | Cerrada |
 | Version | 1.0.0 |
 | Fecha de creacion | 2026-05-25 |
 | Fecha de apertura formal | 2026-05-25 |

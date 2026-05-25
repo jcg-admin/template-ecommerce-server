@@ -389,8 +389,21 @@ check_firewall() {
         return
     fi
 
+    # ufw status requiere privilegios de root. Si el script corre
+    # como un usuario sin sudo (ej: deploy sin -s, develop), se omite
+    # el check con un WARN explicativo en lugar de abortar el script.
+    local ufw_output
+    ufw_output=$(sudo ufw status 2>/dev/null || true)
+
+    if [[ -z "$ufw_output" ]]; then
+        warn "ufw status requiere privilegios -- check omitido"
+        log_warn "  Verifica manualmente como root:"
+        log_warn "    sudo ufw status"
+        return
+    fi
+
     local ufw_status_line
-    ufw_status_line=$(ufw status 2>/dev/null | head -1)
+    ufw_status_line=$(echo "$ufw_output" | head -1)
 
     if ! echo "$ufw_status_line" | grep -q "Status: active"; then
         fail "UFW inactivo -- el servidor esta expuesto sin firewall"
@@ -399,16 +412,13 @@ check_firewall() {
     fi
     ok "UFW activo"
 
-    local ufw_rules
-    ufw_rules=$(ufw status 2>/dev/null)
-
     # SSH_PORT configurable -- default 22
     local required_ports=("$SSH_PORT" "80" "443")
     local port_names=("SSH(${SSH_PORT})" "HTTP(80)" "HTTPS(443)")
 
     local i=0
     for port in "${required_ports[@]}"; do
-        if echo "$ufw_rules" | grep -qE "^${port}[[:space:]]|^${port}/tcp[[:space:]]"; then
+        if echo "$ufw_output" | grep -qE "^${port}[[:space:]]|^${port}/tcp[[:space:]]"; then
             ok "Puerto ${port_names[$i]} permitido en UFW"
         else
             fail "Puerto ${port_names[$i]} NO permitido en UFW"

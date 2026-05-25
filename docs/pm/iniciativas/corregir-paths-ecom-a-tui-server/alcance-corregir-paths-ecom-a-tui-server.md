@@ -29,7 +29,7 @@
 | Rutas en scripts `.sh` | Los scripts no tienen rutas hardcoded; usan variables de `.env` |
 | Referentes externos | `jcg-admin/e-comerce-server` y `ecomerce-p001` son nombres reales preservados |
 
-## Estimacion de esfuerzo
+## Estimacion de esfuerzo por fase
 
 | Fase | Estimado |
 |------|----------|

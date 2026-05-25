@@ -31,7 +31,7 @@
 | Documentacion de la iniciativa WSL2 | Es una iniciativa separada con su propio alcance. |
 | Correccion de nomenclatura en `progreso-*.md` de iniciativas cerradas | Historico inmutable per D-COMMITS-HISTORIA. |
 
-## Estimacion de esfuerzo (real)
+## Estimacion de esfuerzo por fase
 
 | Fase | Esfuerzo real |
 |------|---------------|

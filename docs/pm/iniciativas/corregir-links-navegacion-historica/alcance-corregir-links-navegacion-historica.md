@@ -35,7 +35,7 @@
 | Titulos y slugs con el nombre de la iniciativa | Texto historico inmutable. El patron incluye `.md` como sufijo para no tocarlos. |
 | Otras iniciativas PM | Sin links rotos confirmado por auditoria. |
 
-## Estimacion de esfuerzo
+## Estimacion de esfuerzo por fase
 
 | Fase | Estimado |
 |------|----------|

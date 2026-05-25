@@ -2,14 +2,17 @@
 
 | Campo | Valor |
 |-------|-------|
-| Slug | `integrar-commits-backup-20260522` |
+| Artefacto | `integrar-commits-backup-20260522` |
+| Tipo | Mantenimiento retroactivo |
 | Estado | Cerrada |
-| Fecha de apertura | 2026-05-25 |
+| Version | 1.0.0 |
+| Fecha de creacion | 2026-05-25 |
+| Fecha de apertura formal | 2026-05-25 |
 | Fecha de cierre | 2026-05-25 |
-| Autor / responsable | Nestor Monroy |
+| Autor | Nestor Monroy |
 | Procedimiento de gestion | PROC-GESTION-001 v4.0.0 |
 | Repositorio | [`template-ecommerce-server`][repo-server] |
-| Tipo | Mantenimiento retroactivo (documentada post-ejecucion) |
+| Orden de backlog | (no aplica: abierta directamente al detectar divergencia de historial entre backup y repo activo) |
 
 ## Que hace esta iniciativa
 
@@ -31,13 +34,23 @@ Esta iniciativa integra ambos commits via cherry-pick usando el
 tarball en Clase B como remoto local, preservando autor, fecha y
 mensaje original de cada commit.
 
-## Entregables
+## Filosofia rectora
+
+Usar la infraestructura de almacenamiento existente (Clase B,
+remotos locales de git) en lugar de soluciones ad-hoc. No
+reescribir historial: los commits faltantes se integran via
+cherry-pick, preservando autor, fecha y mensaje originales.
+
+Excepciones explicitas: ninguna. Esta iniciativa no modifica
+el historial existente ni altera archivos de codigo.
+
+## Que produce
 
 | Entregable | Descripcion |
 |------------|-------------|
 | `c481ca0` | Cherry-pick de `10abbf9` — README actualizado |
-| `ae77a46` | Cherry-pick de `fd5fda8` — Renombre 28 archivos |
-| Tarball en Clase B | `template-ecommerce-server-FULL-20260522-050927-source.tar.gz` |
+| `ae77a46` | Cherry-pick de `fd5fda8` — Renombre en 28 archivos |
+| Tarball en Clase B | `template-ecommerce-server-FULL-20260522-050927-source.tar.gz` preservado como referencia historica |
 
 ## Documentos de la iniciativa
 
@@ -52,11 +65,26 @@ mensaje original de cada commit.
 
 ## Decisiones aprobadas
 
-| ID | Descripcion |
-|----|-------------|
-| D-REMOTO-LOCAL | Usar el repo extraido en Clase B como remoto local para el cherry-pick, preservando metadatos originales del commit (autor, fecha, mensaje). Alternativa rechazada: aplicar cambios manualmente con sed. |
-| D-CLASE-B | Extraer el tarball en `/srv/backups/project/template-ecommerce-server/` (Clase B) siguiendo el modelo de almacenamiento del proyecto. Alternativa rechazada: `/tmp/backup-extract/` (fuera del modelo). |
-| D-SAFE-DIRECTORY | Agregar excepcion `safe.directory` para que `develop` pueda acceder al repo en Clase B (propietario `svc-backups`). El warning `dubious ownership` es esperado y documentado en H-3 del procedimiento de almacenamiento. |
+| ID | Decision | Justificacion |
+|----|----------|---------------|
+| D-REMOTO-LOCAL | Usar el repo extraido en Clase B como remoto local para el cherry-pick. | Preserva metadatos originales del commit (autor, fecha, mensaje) sin necesidad de reescribir nada. Alternativa rechazada: aplicar cambios manualmente con sed (perderia los metadatos). |
+| D-CLASE-B | Extraer el tarball en `/srv/backups/project/template-ecommerce-server/` (Clase B). | Sigue el modelo de almacenamiento del proyecto. Alternativa rechazada: `/tmp/backup-extract/` (temporal, fuera del modelo, no persiste entre sesiones). |
+| D-SAFE-DIRECTORY | Agregar excepcion `safe.directory` para que `develop` pueda hacer fetch del repo en Clase B. | El repo en Clase B es propiedad de `svc-backups`; git rechaza el acceso por `dubious ownership`. La excepcion es el mecanismo correcto; no cambia permisos del filesystem. |
+
+## Alcance cruzado con otros repos
+
+No aplica. Esta iniciativa opera exclusivamente sobre
+`template-ecommerce-server`. El tarball usado como fuente
+proviene de un backup local; no se modifica ningun otro repo.
+
+## Iniciativas relacionadas
+
+- `crear-template-ecomerce-ui-server` (cerrada): produjo el
+  historial que el backup preserva y que esta iniciativa
+  reintegra.
+- `corregir-paths-ecom-a-tui-server` (cerrada): iniciativa
+  siguiente que corrigio nomenclatura en los docs operativos
+  que los commits reintegrados habian actualizado.
 
 <!-- Referencias Markdown -->
 [doc-index]: index-integrar-commits-backup-20260522.md

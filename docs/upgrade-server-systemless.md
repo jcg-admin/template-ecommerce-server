@@ -266,8 +266,11 @@ Resultados esperados:
 
 - Los provisioners detectan systemd via `is_systemd()` y degradan
   funcionalmente cuando no esta.
-- En entornos sin systemd, el operador debe arrancar los daemons
-  manualmente (`nginx`, `fail2ban-server -b`).
+- En entornos sin systemd, usar `sudo bash scripts/start.sh` para
+  arrancar Nginx y fail2ban. El script detecta el entorno y usa
+  los comandos correctos (`/usr/sbin/nginx`, `fail2ban-server -b`).
+- Arranque manual equivalente (si no se usa `start.sh`):
+  `nginx` y `fail2ban-server -b`.
 - WSL2 puede habilitar systemd via `/etc/wsl.conf`.
 - Contenedores: NO recomendado intentar systemd; el repo
   funciona sin el.

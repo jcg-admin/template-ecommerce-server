@@ -135,6 +135,15 @@ FAQ + apendices).
 Para entornos sin systemd (WSL2, contenedores, CI), ver
 [`docs/upgrade-server-systemless.md`][doc-upgrade].
 
+**Arranque de daemons en WSL2 (cada reinicio):**
+
+En WSL2 sin systemd los daemons no arrancan automaticamente.
+Tras cada reinicio:
+
+```bash
+sudo bash scripts/start.sh
+```
+
 ## Pre-requisitos
 
 - Ubuntu 24.04 LTS (servidor) o WSL2 (desarrollo)

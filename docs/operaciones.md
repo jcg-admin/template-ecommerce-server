@@ -142,7 +142,7 @@ El orden de los 8 pasos NO es arbitrario. Razones por dependencia:
 
 ```bash
 # Como cuenta deploy:
-cd /srv/repos/ecom/  # o donde decidas
+cd /srv/repos/tui/  # o donde decidas
 git clone https://github.com/jcg-admin/template-ecommerce-server.git
 cd template-ecommerce-server
 ```
@@ -158,7 +158,7 @@ Variables criticas (listado completo en `.env.example`):
 
 - `DOMAIN`: el dominio publico (e.g. `midominio.com`).
 - `UI_DIST`: path al build del UI
-  (`/srv/repos/ecom/template-ecommerce-ui/dist`).
+  (`/srv/repos/tui/template-ecommerce-ui/dist`).
 - `API_UPSTREAM`: URL del backend
   (`http://127.0.0.1:8000` para dev local, etc).
   Vacio (`API_UPSTREAM=`): `/api/*` queda comentado en el
@@ -403,7 +403,7 @@ Editar las variables criticas:
 
 ```ini
 DOMAIN=mitemplate.com
-UI_DIST=/srv/repos/ecom/template-ecommerce-ui/dist
+UI_DIST=/srv/repos/tui/template-ecommerce-ui/dist
 API_UPSTREAM=                       # o http://127.0.0.1:8000
 SSL_EMAIL=admin@mitemplate.com
 SSL_STAGING=false                   # true para LE staging
@@ -496,7 +496,7 @@ ls dist/   # verificar que existe index.html + assets/
 #### Sincronizar al server
 
 ```bash
-rsync -avz --delete dist/ deploy@SERVER:/srv/repos/ecom/template-ecommerce-ui/dist/
+rsync -avz --delete dist/ deploy@SERVER:/srv/repos/tui/template-ecommerce-ui/dist/
 ```
 
 Opciones criticas:
@@ -509,7 +509,7 @@ Opciones criticas:
 
 ```bash
 # Verificar que Nginx ve los archivos
-ls -la /srv/repos/ecom/template-ecommerce-ui/dist/
+ls -la /srv/repos/tui/template-ecommerce-ui/dist/
 # Forzar test del SPA catch-all
 curl -k https://$DOMAIN/cualquier-ruta-inexistente
 # Debe retornar HTTP 200 con el index.html del bundle
@@ -544,7 +544,7 @@ internamente solo renueva si el cert tiene < 30 dias de validez.
 
 ```bash
 # Cron sugerido (ejecutar como root):
-0 2 * * 1 /bin/bash /srv/repos/ecom/template-ecommerce-server/scripts/renew_ssl.sh
+0 2 * * 1 /bin/bash /srv/repos/tui/template-ecommerce-server/scripts/renew_ssl.sh
 ```
 
 El reload de Nginx ocurre automaticamente via el `--reloadcmd
@@ -628,7 +628,7 @@ Causas frecuentes:
 
 Diagnostico:
 ```bash
-cat /srv/repos/ecom/template-ecommerce-server/logs/renew_ssl.log
+cat /srv/repos/tui/template-ecommerce-server/logs/renew_ssl.log
 ~/.acme.sh/acme.sh --info -d $DOMAIN
 ```
 

@@ -81,7 +81,7 @@ drop-privileges del master `root`.
 
 | Clase | Path | Owner / perms |
 |-------|------|---------------|
-| A | `/srv/repos/ecom/template-ecommerce-ui` | `develop:develop` 755/644 |
+| A | `/srv/repos/tui/template-ecommerce-ui` | `develop:develop` 755/644 |
 | B | `/srv/backups/project` | `svc-backups:svc-backups` 755 |
 
 Permisos de SSL:

@@ -28,7 +28,7 @@ el template [`template-ecommerce-ui`][repo-ui] en produccion:
 flowchart TB
     internet_publica([Internet])
     nginx_web_server["<b>Nginx :443</b><br/>Este repo provisiona"]
-    bundle_estatico_ui[("Static UI bundle<br/><i>/srv/repos/ecom/<br/>template-ecommerce-ui/dist/</i>")]
+    bundle_estatico_ui[("Static UI bundle<br/><i>/srv/repos/tui/<br/>template-ecommerce-ui/dist/</i>")]
     backend_api_upstream(["<b>$API_UPSTREAM</b><br/><i>Backend externo,<br/>fuera de scope</i>"])
 
     internet_publica -- "HTTPS<br/>Let's Encrypt acme.sh" --> nginx_web_server
@@ -100,7 +100,7 @@ Cuatro cuentas con separacion estricta de privilegios:
 |--------|-----|---------|------|-------|
 | `deploy` | 1000 | Operador admin, ejecuta provisioners | Si | Si |
 | `infra` | 1001 | Sudo granular NOPASSWD por binario | Granular | Si |
-| `develop` | 1002 | Owner del codigo del UI en `/srv/repos/ecom/` | NO | Si |
+| `develop` | 1002 | Owner del codigo del UI en `/srv/repos/tui/` | NO | Si |
 | `svc-backups` | 999 | Backups del proyecto | NO | nologin |
 
 Cuenta del referente **excluida**: `svc-dbdata` (UID 997) porque
@@ -130,7 +130,7 @@ flowchart LR
     end
 
     subgraph subgraph_almacenamiento["Almacenamiento"]
-        storage_clase_a_codigo[("Clase A<br/>/srv/repos/ecom/<br/>template-ecommerce-ui<br/><i>755/644</i>")]
+        storage_clase_a_codigo[("Clase A<br/>/srv/repos/tui/<br/>template-ecommerce-ui<br/><i>755/644</i>")]
         storage_clase_b_backups[("Clase B<br/>/srv/backups/<br/>project<br/><i>755</i>")]
     end
 
@@ -146,7 +146,7 @@ Dos clases (en lugar de las tres del referente):
 
 | Clase | Path | Owner / perms | Contenido |
 |-------|------|---------------|-----------|
-| A | `/srv/repos/ecom/template-ecommerce-ui` | `develop:develop` 755/644 | Codigo del UI |
+| A | `/srv/repos/tui/template-ecommerce-ui` | `develop:develop` 755/644 | Codigo del UI |
 | B | `/srv/backups/project` | `svc-backups:svc-backups` 755 | Backups del proyecto |
 
 Clase C del referente (`/srv/backups/database`) **excluida** por

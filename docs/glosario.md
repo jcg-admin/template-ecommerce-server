@@ -10,7 +10,7 @@ Mantenido alfabeticamente.
 | **API_UPSTREAM** | Variable de entorno definida en `.env`. Apunta al backend al que Nginx reverse-proxy-eara `/api/*`. Vacio por defecto: el server NO asume tecnologia backend. Ver [arquitectura][doc-arquitectura]. |
 | **arc42** | Estandar de documentacion de arquitectura (<https://arc42.org/>). Junto con PROC-GESTION-001 forma la base de la documentacion de este repo. |
 | **deploy** | Cuenta Linux UID 1000. Operador admin que ejecuta los provisioners con sudo. |
-| **develop** | Cuenta Linux UID 1002. Owner del codigo del UI en `/srv/repos/ecom/`. Sin sudo. |
+| **develop** | Cuenta Linux UID 1002. Owner del codigo del UI en `/srv/repos/tui/`. Sin sudo. |
 | **`dist/`** | Output del build de webpack en [`template-ecommerce-ui`][repo-ui]. Producido por `npm run build`. Es lo que Nginx sirve directamente desde filesystem. |
 | **fail2ban** | Demonio que monitoriza logs y banea IPs con patrones de abuso. Web: <https://www.fail2ban.org/>. En este repo: jails `sshd` + `nginx-limit-req` + `nginx-botsearch`. |
 | **HSTS** | HTTP Strict Transport Security. Header HTTP que instruye al browser a usar SOLO HTTPS por un periodo de tiempo. En este repo: 1 año + includeSubDomains + preload. Ver [seguridad][doc-seguridad]. |
@@ -28,7 +28,7 @@ Mantenido alfabeticamente.
 | **`template-ecommerce-ui`** | Repositorio del UI React, **con guion** entre `e` y `comerce`. Naming historico. Repo en GitHub: <https://github.com/jcg-admin/template-ecommerce-ui>. |
 | **`template-ecommerce-server`** | Este repositorio. **Sin guion** entre `e` y `comerce`. Naming canonico aprobado por el usuario; asimetria intencional vs el repo UI. |
 | **UFW** | Uncomplicated Firewall. Frontend amigable de iptables/nftables. Configura la politica de red del server. En este repo: deny incoming + allow outgoing + abre `SSH_PORT`, `80`, `443`. |
-| **UI_DIST** | Variable de entorno. Path absoluto donde vive el `dist/` del UI. Default WSL2: `/srv/repos/ecom/template-ecommerce-ui/dist`. |
+| **UI_DIST** | Variable de entorno. Path absoluto donde vive el `dist/` del UI. Default WSL2: `/srv/repos/tui/template-ecommerce-ui/dist`. |
 | **vhost** | Virtual host. Configuracion de Nginx (o Apache) que define como se sirve un dominio en particular. En este repo: dos vhosts, uno HTTP `:80` (redirige a HTTPS) y uno HTTPS `:443` (sirve UI + reverse proxy a API). |
 | **WSGI** | Web Server Gateway Interface. Estandar Python ([PEP 3333][pep-3333]) para comunicar web servers con apps Python. Usado por el referente con Django; **NO usado en este repo**. |
 | **WSL2** | Windows Subsystem for Linux v2. Permite ejecutar un kernel Linux real en Windows. Soportado por los provisioners de este repo via deteccion del entorno (skip de sshd y UFW segun corresponda). |
@@ -68,7 +68,7 @@ flowchart LR
 
 | Clase | Path | Owner | Perms | Contiene |
 |-------|------|-------|-------|----------|
-| A | `/srv/repos/ecom/template-ecommerce-ui` | `develop:develop` | `755/644` (world-readable) | Codigo del UI |
+| A | `/srv/repos/tui/template-ecommerce-ui` | `develop:develop` | `755/644` (world-readable) | Codigo del UI |
 | B | `/srv/backups/project` | `svc-backups:svc-backups` | `755` | Backups del proyecto |
 
 ## Como contribuir al glosario

@@ -17,7 +17,7 @@ define un **layout de tres clases de almacenamiento**:
 
 | Clase | Path | Owner / perms | Contenido |
 |-------|------|---------------|-----------|
-| A | `/srv/repos/ecom/<repo>` | `develop:develop` 755/644 | Codigo de los submodulos |
+| A | `/srv/repos/tui/<repo>` | `develop:develop` 755/644 | Codigo de los submodulos |
 | B | `/srv/backups/project` | `svc-backups:svc-backups` 755 | Backups del proyecto |
 | C | `/srv/backups/database` | `svc-dbdata:svc-dbdata` 755 | Dumps de BD |
 
@@ -34,10 +34,10 @@ eliminamos?
 
 | Clase | Path | Owner / perms | Contenido |
 |-------|------|---------------|-----------|
-| A | `/srv/repos/ecom/template-ecommerce-ui` | `develop:develop` 755/644 | Codigo del UI |
+| A | `/srv/repos/tui/template-ecommerce-ui` | `develop:develop` 755/644 | Codigo del UI |
 | B | `/srv/backups/project` | `svc-backups:svc-backups` 755 | Backups del proyecto |
 
-Path canonico para el codigo: `/srv/repos/ecom/template-ecommerce-ui`
+Path canonico para el codigo: `/srv/repos/tui/template-ecommerce-ui`
 (con guion, nombre del [repo UI][repo-ui]).
 
 ## Alternativas evaluadas
@@ -96,7 +96,7 @@ Path canonico para el codigo: `/srv/repos/ecom/template-ecommerce-ui`
   B para backups (solo `svc-backups` puede escribir).
 - **Separacion de privilegios preservada**: backups no
   accesibles por la cuenta de desarrollo.
-- **Path canonico definido**: `/srv/repos/ecom/template-ecommerce-ui`.
+- **Path canonico definido**: `/srv/repos/tui/template-ecommerce-ui`.
 
 ### Negativas
 
@@ -121,7 +121,7 @@ Path canonico para el codigo: `/srv/repos/ecom/template-ecommerce-ui`
 Detalle aplicado en F4/F5/F6 a los componentes que tocan estos
 paths:
 
-### Clase A — `/srv/repos/ecom/template-ecommerce-ui`
+### Clase A — `/srv/repos/tui/template-ecommerce-ui`
 
 ```
 owner: develop:develop
@@ -165,13 +165,13 @@ ven la key.
 
 ## Path canonico para el UI
 
-El path canonico es `/srv/repos/ecom/template-ecommerce-ui`
+El path canonico es `/srv/repos/tui/template-ecommerce-ui`
 (notese el **guion** entre `e` y `comerce`, siguiendo el naming
 del [repo UI][repo-ui]).
 
 Diferencias intencionales con el referente:
 
-- Referente usa `/srv/repos/ecom/<repo>` con `<repo>` variable
+- Referente usa `/srv/repos/tui/<repo>` con `<repo>` variable
   (multiples submodulos).
 - Nuestro repo solo tiene **un consumer**: el repo UI. El path
   es fijo.

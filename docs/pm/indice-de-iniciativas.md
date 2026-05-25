@@ -85,3 +85,13 @@ punto de entrada de la documentacion siguiendo el modelo arc42
 adaptado del repo hermano `template-ecommerce-ui`.
 
 [i-docs]: iniciativas/actualizar-readme-y-crear-docs-indice/index-actualizar-readme-y-crear-docs-indice.md
+| [`agregar-logging-a-archivo`][i-log] | Desarrollo | En ejecucion | 2026-05-26 | — | Nestor Monroy |
+
+### `agregar-logging-a-archivo`
+
+Activa `init_log "operations"` en los 10 scripts y provisioners del
+repo para escribir a `logs/operations.log`. La infraestructura
+(`init_log`, `_write_log`) ya existe en `utils/logging.sh` desde
+INI-SRV-001 pero ningun script la usaba.
+
+[i-log]: iniciativas/agregar-logging-a-archivo/index-agregar-logging-a-archivo.md

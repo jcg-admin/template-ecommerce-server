@@ -38,8 +38,7 @@ export PROJECT_ROOT
 source "${PROJECT_ROOT}/utils/logging.sh"
 source "${PROJECT_ROOT}/utils/core.sh"
 
-# =============================================================================
-# _start_daemon <nombre>
+init_log "operations"
 #   Arranca un daemon si no esta corriendo. Idempotente.
 #
 #   Flujo:

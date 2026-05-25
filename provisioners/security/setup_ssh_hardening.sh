@@ -66,6 +66,8 @@ source "${PROJECT_ROOT}/utils/logging.sh"
 source "${PROJECT_ROOT}/utils/core.sh"
 source "${PROJECT_ROOT}/utils/validation.sh"
 
+init_log "operations"
+
 # =============================================================================
 # Cargar .env (opcional)
 # =============================================================================

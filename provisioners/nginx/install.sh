@@ -40,6 +40,8 @@ source "${PROJECT_ROOT}/utils/core.sh"
 source "${PROJECT_ROOT}/utils/network.sh"
 source "${PROJECT_ROOT}/utils/validation.sh"
 
+init_log "operations"
+
 readonly NGINX_TARGET_MAJOR="1"
 readonly NGINX_TARGET_MINOR="24"
 readonly NGINX_TARGET_SERIES="${NGINX_TARGET_MAJOR}.${NGINX_TARGET_MINOR}"

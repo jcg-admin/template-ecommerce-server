@@ -53,6 +53,8 @@ source "${PROJECT_ROOT}/utils/logging.sh"
 source "${PROJECT_ROOT}/utils/core.sh"
 source "${PROJECT_ROOT}/utils/validation.sh"
 
+init_log "operations"
+
 # Cargar .env si existe (para que SSH_PORT venga de ahi automaticamente)
 ENV_FILE="${PROJECT_ROOT}/.env"
 [[ -f "$ENV_FILE" ]] && { set -a; source "$ENV_FILE"; set +a; }

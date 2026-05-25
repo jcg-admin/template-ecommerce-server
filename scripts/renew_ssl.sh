@@ -46,8 +46,7 @@ source "${PROJECT_ROOT}/utils/logging.sh"
 source "${PROJECT_ROOT}/utils/core.sh"
 source "${PROJECT_ROOT}/utils/validation.sh"
 
-# =============================================================================
-# Cargar .env -- requerido
+init_log "operations"
 # =============================================================================
 ENV_FILE="${PROJECT_ROOT}/.env"
 if [[ ! -f "$ENV_FILE" ]]; then

@@ -54,6 +54,8 @@ source "${PROJECT_ROOT}/utils/logging.sh"
 source "${PROJECT_ROOT}/utils/core.sh"
 source "${PROJECT_ROOT}/utils/validation.sh"
 
+init_log "operations"
+
 # Nombres canonicos de los vhosts en Nginx sites-available
 readonly VHOST_HTTP_NAME="template-http.conf"
 readonly VHOST_HTTPS_NAME="template-https.conf"

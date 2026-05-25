@@ -69,6 +69,8 @@ source "${PROJECT_ROOT}/utils/core.sh"
 source "${PROJECT_ROOT}/utils/network.sh"
 source "${PROJECT_ROOT}/utils/validation.sh"
 
+init_log "operations"
+
 # Path canonico del webroot ACME (alineado con template-http.conf F3).
 readonly ACME_WEBROOT="/var/www/acme-challenge"
 

@@ -53,7 +53,7 @@ export PROJECT_ROOT
 source "${PROJECT_ROOT}/utils/logging.sh"
 source "${PROJECT_ROOT}/utils/core.sh"
 
-# Variables globales de flags
+init_log "operations"
 _CONTINUE=false
 _SKIP_SSH=false
 _SSL_FLAG=""

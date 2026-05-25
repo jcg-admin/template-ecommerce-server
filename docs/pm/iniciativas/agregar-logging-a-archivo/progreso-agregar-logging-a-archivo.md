@@ -16,3 +16,15 @@
 | 2026-05-26T01:36:01 | Inicio de tarea | T-002 | Comienzo T-002. Crear 6 documentos PM. |
 | 2026-05-26T01:55:00 | Cierre de tarea | T-002 | Cierre T-002. 6 archivos PM creados: index (5 decisiones D-*), alcance (tabla de 10 scripts, criterio de completitud, fuera de alcance), analisis (auditoria de init_log, problema de permisos, inventario, formato del log, riesgos), plan (DAG Mermaid, fases con esfuerzo), tareas (10 tareas F1-F3), progreso (este archivo). |
 | 2026-05-26T01:55:01 | Fase cerrada | F0 | **Cierre de Fase F0 (Analisis + PM docs).** 2 tareas cerradas (T-001, T-002). 3 hallazgos documentados. 5 decisiones D-* aprobadas. Esfuerzo real: ~25 min. Siguiente: F1 (activar init_log en 10 scripts). |
+| 2026-05-26T02:00:00 | Inicio de fase | F1 | **Inicio de Fase F1 (.gitignore, .gitkeep, init_log en 10 scripts).** Esfuerzo estimado 20 min. Tareas T-101..T-106. |
+| 2026-05-26T02:00:01 | Inicio de tarea | T-101 | Comienzo T-101. Crear o actualizar .gitignore con entrada logs/*.log. |
+| 2026-05-26T02:02:00 | Hallazgo durante la ejecucion | T-101 | **.gitignore ya existe con entrada `logs/` que ignoraba TODO el directorio** incluyendo `.gitkeep`. Corregido a `logs/*.log` + `!logs/.gitkeep` para que el directorio sea versionable pero los archivos .log no. |
+| 2026-05-26T02:02:01 | Cierre de tarea | T-101 | Cierre T-101. .gitignore actualizado: `logs/` reemplazado por `logs/*.log` + `!logs/.gitkeep`. |
+| 2026-05-26T02:02:02 | Inicio de tarea | T-102 | Comienzo T-102. Crear logs/.gitkeep. |
+| 2026-05-26T02:03:00 | Cierre de tarea | T-102 | Cierre T-102. logs/.gitkeep creado (archivo vacio). El directorio logs/ ahora existe en el repo y sera ignorado por .gitignore excepto .gitkeep. |
+| 2026-05-26T02:03:01 | Inicio de tarea | T-103 | Comienzo T-103. Agregar init_log "operations" a los 4 scripts en scripts/: setup.sh, start.sh, verify.sh, renew_ssl.sh. |
+| 2026-05-26T02:10:00 | Cierre de tarea | T-103 | Cierre T-103. init_log "operations" agregado a los 4 scripts de scripts/: setup.sh (linea 55), start.sh (linea 40), verify.sh (linea 51), renew_ssl.sh (linea 48). Posicion: inmediatamente despues del ultimo bloque de source. |
+| 2026-05-26T02:10:01 | Cierre de tarea | T-104 | Cierre T-104. init_log "operations" agregado a los 6 provisioners: install.sh (linea 43), setup_vhost.sh (57), setup_ssl.sh (72), setup_fail2ban.sh (62), setup_ssh_hardening.sh (69), setup_firewall.sh (56). |
+| 2026-05-26T02:10:02 | Cierre de tarea | T-105 | Cierre T-105. bash -n en los 10 scripts: 10/10 OK. Sin errores de sintaxis. |
+| 2026-05-26T02:10:03 | Cierre de tarea | T-106 | Cierre T-106. bash tests/run_all.sh: 74 PASS / 0 FAIL / 1 SKIP. Sin regresiones. |
+| 2026-05-26T02:10:04 | Fase cerrada | F1 | **Cierre de Fase F1.** 6 tareas cerradas (T-101..T-106). Entregables: .gitignore actualizado, logs/.gitkeep creado, init_log en 10 scripts. Hallazgo notable: .gitignore ya tenia entrada `logs/` que ignoraba .gitkeep tambien; corregido a `logs/*.log` + `!logs/.gitkeep`. Esfuerzo real: ~12 min. Siguiente: F2. |

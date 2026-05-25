@@ -60,25 +60,36 @@ Detalle completo en [`docs/arquitectura.md`][doc-arquitectura].
 
 ## Estado actual del repositorio
 
-Iniciativa
-[`crear-template-ecomerce-ui-server`][doc-iniciativa]
-**cerrada**: 12 fases, 31 tareas, 29 commits unitarios. Todos los
-provisioners, scripts operativos, tests, configs y documentacion
-estan en su lugar.
+7 iniciativas cerradas (INI-SRV-001..007) + 1 en ejecucion
+(INI-SRV-008). 61 commits. Todos los provisioners, scripts
+operativos, tests, configs y documentacion estan en su lugar.
+
+| Iniciativa | Descripcion | Estado |
+|------------|-------------|--------|
+| [INI-SRV-001][doc-ini-001] | Crear template-ecommerce-server (12 fases, 31 tareas) | Cerrada |
+| [INI-SRV-002][doc-ini-002] | Integrar commits faltantes desde backup 20260522 | Cerrada |
+| [INI-SRV-003][doc-ini-003] | Corregir rutas ecom a tui y nomenclatura en docs | Cerrada |
+| [INI-SRV-004][doc-ini-004] | Corregir links de navegacion rotos en iniciativa historica | Cerrada |
+| [INI-SRV-005][doc-ini-005] | Crear script de aprovisionamiento unificado (setup.sh) | Cerrada |
+| [INI-SRV-006][doc-ini-006] | Crear script de arranque de daemons (start.sh) | Cerrada |
+| [INI-SRV-007][doc-ini-007] | Auditar y corregir gaps entre analisis y la implementacion | Cerrada |
+| [INI-SRV-008][doc-ini-008] | Actualizar README y crear indice de documentacion | En ejecucion |
+
+Ver [indice completo de iniciativas][doc-indice-ini].
 
 ### Inventario
 
 | Categoria | Path | LOC |
 |-----------|------|-----|
 | Utils bash | [`utils/`](utils/) (4 archivos) | 832 |
-| Provisioners | [`provisioners/`](provisioners/) (6 archivos en nginx/, ssl/, security/, firewall/) | 2315 |
-| Scripts operativos | [`scripts/verify.sh`](scripts/verify.sh) + [`renew_ssl.sh`](scripts/renew_ssl.sh) | 802 |
-| Tests bash | [`tests/`](tests/) (6 scripts: 5 suites + run_all) | 707 |
+| Provisioners | [`provisioners/`](provisioners/) (6 archivos en nginx/, ssl/, security/, firewall/) | 2326 |
+| Scripts operativos | [`scripts/`](scripts/) (4 archivos: `setup.sh`, `start.sh`, `verify.sh`, `renew_ssl.sh`) | 1318 |
+| Tests bash | [`tests/`](tests/) (6 scripts: 5 suites + run_all) | 907 |
 | Templates Nginx | [`config/nginx/template-{http,https}.conf`](config/nginx/) | 388 |
 | Docs tecnica | [`docs/`](docs/) (arquitectura, operaciones, seguridad, glosario, upgrade-systemless) | ~2200 (Markdown) |
-| Docs PM (iniciativa) | [`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`][doc-iniciativa] | ~5000 (Markdown) |
+| Docs PM | [`docs/pm/iniciativas/`](docs/pm/iniciativas/) (8 iniciativas INI-SRV-001..008) | ~15000 (Markdown) |
 
-**Tests agregados**: 5 suites OK, 72 PASS / 0 FAIL / 1 SKIP
+**Tests agregados**: 5 suites OK, 74 PASS / 0 FAIL / 1 SKIP
 (ejecutar `bash tests/run_all.sh`).
 
 ## Quick start
@@ -197,9 +208,8 @@ analisis: [analisis-servidor-para-template.md][analisis-ui]
 
 ## Como contribuir
 
-Sigue PROC-GESTION-001 v4.0.0. Trabajo registrado en la
-iniciativa
-[`docs/pm/iniciativas/crear-template-ecomerce-ui-server/`][doc-iniciativa].
+Sigue PROC-GESTION-001 v4.0.0 + arc42. El trabajo se registra en
+iniciativas bajo [`docs/pm/iniciativas/`][doc-indice-ini].
 Commits siguen el formato Tim Pope (subject <=50 chars, body
 wrap 72 chars).
 
@@ -212,8 +222,17 @@ A definir.
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
 [acme-sh]: https://github.com/acmesh-official/acme.sh
 [doc-arquitectura]: docs/arquitectura.md
-[doc-iniciativa]: docs/pm/iniciativas/crear-template-ecomerce-ui-server/
-[doc-desarrollo]: docs/desarrollo/
 [doc-operaciones]: docs/operaciones.md
 [doc-upgrade]: docs/upgrade-server-systemless.md
+[doc-desarrollo]: docs/desarrollo/
+[doc-docs]: docs/README.md
+[doc-indice-ini]: docs/pm/indice-de-iniciativas.md
+[doc-ini-001]: docs/pm/iniciativas/crear-template-ecomerce-ui-server/
+[doc-ini-002]: docs/pm/iniciativas/integrar-commits-backup-20260522/index-integrar-commits-backup-20260522.md
+[doc-ini-003]: docs/pm/iniciativas/corregir-paths-ecom-a-tui-server/index-corregir-paths-ecom-a-tui-server.md
+[doc-ini-004]: docs/pm/iniciativas/corregir-links-navegacion-historica/index-corregir-links-navegacion-historica.md
+[doc-ini-005]: docs/pm/iniciativas/crear-setup-sh/index-crear-setup-sh.md
+[doc-ini-006]: docs/pm/iniciativas/crear-start-sh/index-crear-start-sh.md
+[doc-ini-007]: docs/pm/iniciativas/auditar-gaps-server-y-ui/index-auditar-gaps-server-y-ui.md
+[doc-ini-008]: docs/pm/iniciativas/actualizar-readme-y-crear-docs-indice/index-actualizar-readme-y-crear-docs-indice.md
 [analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

@@ -152,8 +152,16 @@ sudo bash scripts/start.sh
   setup self-signed en desarrollo via `--dev`)
 - [`template-ecommerce-ui`][repo-ui] clonado en
   `/srv/repos/tui/template-ecommerce-ui` (o donde decidas, ajustando
-  `UI_DIST` en `.env`) y compilado con `npm run build` (produce el
-  `dist/` que Nginx sirve)
+  `UI_DIST` en `.env`) y compilado con `API_URL` vacio para activar
+  el proxy Nginx:
+  ```bash
+  cd template-ecommerce-ui
+  API_URL='' npm run build
+  ```
+  El `dist/` resultante usa URLs relativas (`/api/v1/...`) que Nginx
+  intercepta y proxea a `API_UPSTREAM`. Si el backend esta en un host
+  distinto al del servidor, configurar `API_URL=https://api.dominio.com`
+  en su lugar.
 
 ## Modelo de cuentas
 

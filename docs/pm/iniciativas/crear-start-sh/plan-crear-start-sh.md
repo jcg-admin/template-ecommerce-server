@@ -1,14 +1,4 @@
-# Plan — `crear-start-sh`
-
-## Fases F0..F3
-
-| Fase | Nombre | Esfuerzo | Pre-condiciones | Que produce |
-|------|--------|----------|-----------------|-------------|
-| **F0** | Analisis + PM docs | 20 min | Iniciativa abierta | 6 documentos PM, 1 diagrama Mermaid |
-| **F1** | Crear `scripts/start.sh` | 20 min | F0 cerrada | Script funcional con `_start_daemon`, idempotente |
-| **F2** | Actualizar documentacion | 10 min | F1 cerrada | `README.md`, `docs/upgrade-server-systemless.md` actualizados |
-| **F3** | Verificacion y cierre | 10 min | F2 cerrada | Tests pasando, iniciativa cerrada |
-| **Total** | | **~1 hora** | | |
+# Plan: Crear script de arranque de daemons
 
 ## DAG de fases
 
@@ -22,72 +12,58 @@
   'fontSize': '13px'
 }}}%%
 flowchart LR
-    f0["F0\nAnalisis + PM docs\n20 min"]
-    f1["F1\nCrear start.sh\n20 min"]
-    f2["F2\nActualizar docs\n10 min"]
-    f3["F3\nVerificacion\n10 min"]
+    fase_f0_apertura["<b>F0</b><br/>Analisis<br/>+ PM docs<br/><i>20 min</i>"]
+    fase_f1_script["<b>F1</b><br/>Crear<br/>start.sh<br/><i>20 min</i>"]
+    fase_f2_docs["<b>F2</b><br/>Actualizar<br/>docs<br/><i>10 min</i>"]
+    fase_f3_cierre["<b>F3</b><br/>Verificacion<br/>y cierre<br/><i>10 min</i>"]
 
-    f0 --> f1
-    f1 --> f2
-    f2 --> f3
+    fase_f0_apertura --> fase_f1_script
+    fase_f1_script --> fase_f2_docs
+    fase_f2_docs --> fase_f3_cierre
 
-    classDef done fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#f0fdf4
-    classDef pending fill:#1e293b,stroke:#94a3b8,stroke-width:1px,color:#f1f5f9
+    classDef doneNode fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#f0fdf4
+    classDef stepNode fill:#1e293b,stroke:#60a5fa,stroke-width:2px,color:#f1f5f9
 
-    class f0 done
-    class f1,f2,f3 pending
+    class fase_f0_apertura doneNode
+    class fase_f1_script,fase_f2_docs,fase_f3_cierre stepNode
 ```
 
-## Disciplina por fase
+## F0 - Analisis + PM docs (20 min)
 
-Para cada fase:
+| Tarea | Descripcion | Esfuerzo |
+|-------|-------------|----------|
+| T-001 | Leer `utils/core.sh` wrappers `svc_*`, `docs/upgrade-server-systemless.md` y `scripts/setup.sh` como referencia de patron | 10 min |
+| T-002 | Disenar flujo de `_start_daemon`, orden de arranque y riesgos; aprobar 5 decisiones D-* | 5 min |
+| T-003 | Crear 6 documentos PM siguiendo el procedimiento real del repo UI | 5 min |
 
-1. Registrar `Inicio de fase` en progreso antes de cualquier accion.
-2. Registrar `Inicio de tarea` al empezar cada tarea.
-3. Registrar hallazgos en el turno en que se producen.
-4. Verificar `bash -n` y `bash tests/run_all.sh` antes de commitear.
-5. Registrar `Fase cerrada` con metricas.
-6. Validar longitud del subject: `echo -n "$subj" | wc -c`.
+**Entregables**: 6 archivos PM en `crear-start-sh/`.
 
-## Estilo de commits
+## F1 - Crear `scripts/start.sh` (20 min)
 
-Tim Pope (subject <=50 chars). Ejemplos:
+| Tarea | Descripcion | Esfuerzo |
+|-------|-------------|----------|
+| T-101 | Header, boilerplate (`set -euo pipefail`, SCRIPT_DIR, PROJECT_ROOT, source utils) | 3 min |
+| T-102 | Funcion `_start_daemon`: guard de instalacion, `svc_is_active`, `svc_start`, sleep, verificacion post-arranque | 10 min |
+| T-103 | MAIN: check sudo/root, `_start_daemon nginx`, `_start_daemon fail2ban`, resumen final | 5 min |
+| T-104 | `bash -n scripts/start.sh` y `bash tests/run_all.sh` | 2 min |
 
-- `Add F0 PM docs for crear-start-sh`
-- `Implement scripts/start.sh (F1)`
-- `Update docs with start.sh reference (F2)`
-- `Close initiative crear-start-sh (F3)`
+**Entregables**: `scripts/start.sh` funcional; tests/run_all.sh PASS >= 74.
 
-## Decisiones aplicables a todas las fases
+## F2 - Actualizar documentacion (10 min)
 
-- Usar `svc_is_active` y `svc_start` de `core.sh`; no invocar
-  binarios directamente.
-- El orden de arranque es fijo: Nginx antes que fail2ban.
-- Sin flags: el script no necesita flags para su proposito
-  minimo. La idempotencia hace innecesario un `--force`.
+| Tarea | Descripcion | Esfuerzo |
+|-------|-------------|----------|
+| T-201 | Agregar seccion de arranque WSL2 en `README.md` | 5 min |
+| T-202 | Referenciar `start.sh` en `docs/upgrade-server-systemless.md` resumen ejecutivo | 5 min |
 
-## Pre-condiciones globales
+**Entregables**: `README.md` y `docs/upgrade-server-systemless.md` actualizados.
 
-- `utils/core.sh` sourceable desde `scripts/` (ya verificado
-  por `setup.sh` y `verify.sh`).
-- Los provisioners de Nginx y fail2ban ejecutados previamente
-  (el script los arranca; no los instala).
-- Working tree limpio antes de F1 (`git status -s` == 0).
+## F3 - Verificacion y cierre (10 min)
 
-## Riesgos del plan
+| Tarea | Descripcion | Esfuerzo |
+|-------|-------------|----------|
+| T-301 | `bash tests/run_all.sh` y auditoria de links | 5 min |
+| T-302 | Revision manual de `start.sh`: guards, orden, mensajes, idempotencia | 3 min |
+| T-303 | Crear `decisiones-crear-start-sh.md`; actualizar progreso, index, indice-de-iniciativas; commit de cierre | 2 min |
 
-| Riesgo | Mitigacion |
-|--------|------------|
-| `svc_is_active` no detecta correctamente en WSL2 un daemon que arranco pero fallo inmediatamente | Segunda verificacion post-arranque en `_start_daemon`; el script reporta el estado real en el resumen final |
-
-## Que sigue tras esta iniciativa
-
-- El repo tiene los 3 scripts operativos principales:
-  `setup.sh` (provisionar), `start.sh` (arrancar),
-  `verify.sh` (verificar).
-- Posible iniciativa futura: `scripts/stop.sh` para detener
-  daemons ordenadamente en entornos sin systemd.
-
-<!-- Referencias Markdown -->
-[doc-progreso]: progreso-crear-start-sh.md
-[repo-server]: https://github.com/jcg-admin/template-ecommerce-server
+**Entregables**: `decisiones-crear-start-sh.md`; iniciativa formalmente cerrada.

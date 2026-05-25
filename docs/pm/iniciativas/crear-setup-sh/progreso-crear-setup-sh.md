@@ -6,7 +6,7 @@ atomico y refleja lo que ocurrio en el momento en que se
 produjo; los hallazgos se registran al descubrirse, no al
 cerrar la tarea.
 
-## Eventos
+## Eventos atomizados
 
 | Timestamp (UTC) | Clase | Referencia | Detalle |
 |-----------------|-------|------------|---------|

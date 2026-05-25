@@ -1,4 +1,6 @@
-# Progreso — `corregir-paths-ecom-a-tui-server`
+# Progreso: Corregir rutas ecom a tui y nomenclatura en docs
+
+## Eventos atomizados
 
 | Timestamp | Clase | Referencia | Detalle |
 |-----------|-------|------------|---------|

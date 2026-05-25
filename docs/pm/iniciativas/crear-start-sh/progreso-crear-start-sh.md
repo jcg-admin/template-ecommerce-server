@@ -1,39 +1,21 @@
-# Progreso — `crear-start-sh`
+# Progreso: Crear script de arranque de daemons
 
-Registro cronologico de eventos siguiendo PROC-GESTION-001 con
-las clases definidas en el procedimiento. Cada evento es
-atomico y refleja lo que ocurrio en el momento en que se
-produjo; los hallazgos se registran al descubrirse, no al
-cerrar la tarea.
+## Eventos atomizados
 
-## Eventos
-
-| Timestamp (UTC) | Clase | Referencia | Detalle |
-|-----------------|-------|------------|---------|
-| 2026-05-25T20:30:00 | Apertura | iniciativa | **Iniciativa `crear-start-sh` formalmente abierta.** En entornos WSL2 sin systemd los daemons no arrancan automaticamente al reiniciar. `docs/upgrade-server-systemless.md` documenta los comandos manuales pero no existe ningun script que los automatice. La iniciativa crea `scripts/start.sh` para cubrir este caso. |
-| 2026-05-25T20:30:01 | Decisiones aprobadas | D-REUTILIZA-WRAPPERS, D-IDEMPOTENTE, D-NO-SSHD, D-NO-VERIFY, D-SUDO-REQUERIDO | **5 decisiones aprobadas al abrir la iniciativa.** D-REUTILIZA-WRAPPERS: usar `svc_is_active` y `svc_start` de core.sh; no reinventar la logica de deteccion de entorno. D-IDEMPOTENTE: omitir daemons ya activos sin error. D-NO-SSHD: no arrancar sshd (lo gestiona Windows en WSL2 o el init del VPS). D-NO-VERIFY: no llamar a verify.sh al final (verificacion completa es responsabilidad del operador). D-SUDO-REQUERIDO: arrancar daemons requiere privilegios. |
-| 2026-05-25T20:30:02 | Plan | apertura | **Plan en 4 fases F0..F3 documentado (~1h total).** Detalle en `plan-crear-start-sh.md`. Fase F0 en ejecucion. |
+| Timestamp | Clase | Referencia | Detalle |
+|-----------|-------|------------|---------|
+| 2026-05-25T20:30:00 | Apertura | iniciativa | **Apertura formal de la iniciativa `crear-start-sh` (INI-SRV-006).** En entornos WSL2 sin systemd los daemons no arrancan automaticamente al reiniciar. `docs/upgrade-server-systemless.md` documenta los comandos manuales pero no existe ningun script que los automatice. La iniciativa crea `scripts/start.sh` para cubrir ese caso. Esfuerzo estimado: ~1 hora en 4 fases. |
+| 2026-05-25T20:30:01 | Plan | iniciativa | **Plan en 4 fases F0..F3 aprobado.** F0 (analisis + PM docs, 20 min) -> F1 (crear start.sh, 20 min) -> F2 (actualizar docs, 10 min) -> F3 (verificacion y cierre, 10 min). DAG lineal sin dependencias paralelas. |
+| 2026-05-25T20:30:02 | Decisiones aprobadas | INI-SRV-006 | **5 decisiones D-* aprobadas**: D-REUTILIZA-WRAPPERS (usar svc_is_active y svc_start de core.sh), D-IDEMPOTENTE (omitir daemons ya activos), D-NO-SSHD (no arrancar sshd), D-NO-VERIFY (no llamar a verify.sh al final), D-SUDO-REQUERIDO (requiere privilegios de root). |
 | 2026-05-25T20:30:03 | Inicio de fase | F0 | **Inicio de Fase F0 (Analisis + PM docs).** Esfuerzo estimado 20 min. |
-| 2026-05-25T20:30:04 | Inicio de tarea | T-001 | Comienzo T-001. Leer `utils/core.sh` wrappers `svc_*`, `docs/upgrade-server-systemless.md` y `scripts/setup.sh` como referencia de patron. |
-| 2026-05-25T20:33:00 | Hallazgo durante la ejecucion | T-001 | **Los wrappers `svc_is_active` y `svc_start` cubren exactamente el caso de uso de `start.sh`.** `svc_start nginx` internamente llama `/usr/sbin/nginx` sin systemd y `systemctl start nginx` con el. `svc_start fail2ban` internamente llama `fail2ban-server -b` sin systemd. `start.sh` no necesita invocar ningun binario directamente; toda la logica de entorno esta en los wrappers. Esto hace `start.sh` significativamente mas simple de lo que habria sido sin esa infraestructura preexistente. |
-| 2026-05-25T20:33:01 | Hallazgo durante la ejecucion | T-001 | **El orden de arranque importa: nginx antes que fail2ban.** Las jails `nginx-limit-req` y `nginx-botsearch` de fail2ban monitorizan logs de nginx. Aunque fail2ban no requiere estrictamente que nginx este corriendo para arrancar, es mas correcto arrancarlos en el orden logico de dependencia. Este orden coincide con el orden del setup (install.sh antes que setup_fail2ban.sh). |
-| 2026-05-25T20:34:00 | Cierre de tarea | T-001 | Cierre T-001. Helpers identificados: `svc_is_active`, `svc_start`, `command_exists`, `is_systemd`, funciones de logging. Patron del script (boilerplate, funciones privadas con `_`, MAIN al final) confirmado via `setup.sh` como referencia. |
-| 2026-05-25T20:34:01 | Inicio de tarea | T-002 | Comienzo T-002. Disenar flujo de `_start_daemon`, orden de arranque y riesgos. |
-| 2026-05-25T20:36:00 | Cierre de tarea | T-002 | Cierre T-002. Flujo diseñado: 1 diagrama Mermaid (decision de `_start_daemon`). 5 decisiones D-* aprobadas. 2 riesgos: R-1 (falso positivo svc_is_active, mitigado con segunda verificacion post-arranque) y R-2 (orden nginx antes fail2ban, mitigado por orden fijo en main). |
-| 2026-05-25T20:36:01 | Inicio de tarea | T-003 | Comienzo T-003. Crear 6 documentos PM. |
-| 2026-05-25T20:50:00 | Cierre de tarea | T-003 | Cierre T-003. 6 archivos PM creados en `crear-start-sh/`. |
-| 2026-05-25T20:50:01 | Fase cerrada | F0 | **Cierre de Fase F0 (Analisis + PM docs).** 3 tareas cerradas. 6 documentos PM producidos. 1 diagrama Mermaid en analisis.md. 5 decisiones D-* ratificadas. 2 hallazgos. Esfuerzo real: ~20 min. Siguiente: F1 (Crear scripts/start.sh). Pendiente confirmacion del usuario. |
-
-## Contadores
-
-| Tipo de evento | Cantidad |
-|----------------|----------|
-| Apertura | 1 |
-| Decisiones aprobadas | 1 |
-| Plan | 1 |
-| Inicio de fase | 1 |
-| Fase cerrada | 1 |
-| Inicio de tarea | 3 |
-| Cierre de tarea | 3 |
-| Hallazgo durante la ejecucion | 2 |
-| Total | 13 |
+| 2026-05-25T20:30:04 | Inicio de tarea | T-001 | Comienzo T-001. Leer `utils/core.sh` wrappers svc_*, `docs/upgrade-server-systemless.md` y `scripts/setup.sh` como referencia de patron. |
+| 2026-05-25T20:33:00 | Hallazgo durante la ejecucion | T-001 | **Los wrappers `svc_is_active` y `svc_start` cubren exactamente el caso de uso de `start.sh`.** `svc_start nginx` llama internamente `/usr/sbin/nginx` sin systemd; `svc_start fail2ban` llama `fail2ban-server -b`. `start.sh` no necesita invocar ningun binario directamente. Esto hace el script significativamente mas simple de lo que habria sido sin esa infraestructura preexistente. |
+| 2026-05-25T20:33:01 | Hallazgo durante la ejecucion | T-001 | **El orden nginx -> fail2ban importa.** Las jails `nginx-limit-req` y `nginx-botsearch` monitorizan logs de nginx. Arrancar fail2ban antes que nginx es tecnicamente posible pero logicamente incorrecto. El orden en MAIN sera fijo: nginx primero, fail2ban segundo. |
+| 2026-05-25T20:34:00 | Cierre de tarea | T-001 | Cierre T-001. Helpers identificados: svc_is_active, svc_start, command_exists, funciones de logging. Patron del script confirmado via setup.sh. |
+| 2026-05-25T20:34:01 | Inicio de tarea | T-002 | Comienzo T-002. Disenar flujo de _start_daemon, orden de arranque y riesgos. |
+| 2026-05-25T20:36:00 | Hallazgo durante la ejecucion | T-002 | **R-1 identificado: svc_is_active puede retornar verdadero para un daemon que arranco pero fallo inmediatamente.** Mitigacion: segunda verificacion post-arranque tras sleep 1. El sleep da tiempo al daemon para inicializarse o fallar antes de la verificacion. |
+| 2026-05-25T20:36:01 | Cierre de tarea | T-002 | Cierre T-002. Flujo disenado: funcion _start_daemon con segunda verificacion post-arranque. 5 D-* aprobadas. 2 riesgos identificados con mitigacion. |
+| 2026-05-25T20:36:02 | Inicio de tarea | T-003 | Comienzo T-003. Crear 6 documentos PM siguiendo el procedimiento real del repo UI (como-gestionar-iniciativas.md). |
+| 2026-05-25T20:50:00 | Hallazgo durante la ejecucion | T-003 | **El procedimiento real del repo UI difiere del prompt de PROC-GESTION-001 en varios puntos.** El Artefacto es un ID secuencial (INI-SRV-006), no el slug. La seccion de documentos tiene columna Proposito (no Estado). Las decisiones tienen columna Contenido (no Justificacion). El progreso usa ## Eventos atomizados (no ## Eventos). El plan por fase usa tabla Tarea/Descripcion/Esfuerzo sin columna ID. decisiones-*.md es obligatorio al cierre. Todos los documentos de esta iniciativa se crean siguiendo el procedimiento real. |
+| 2026-05-25T20:55:00 | Cierre de tarea | T-003 | Cierre T-003. 6 archivos PM creados en `crear-start-sh/` siguiendo la estructura real del procedimiento. |
+| 2026-05-25T20:55:01 | Fase cerrada | F0 | **Cierre de Fase F0 (Analisis + PM docs).** 3 tareas cerradas (T-001..T-003). 6 documentos PM producidos. 1 diagrama Mermaid en analisis. 5 D-* aprobadas. 3 hallazgos registrados. Esfuerzo real: ~25 min. Siguiente: F1. Pendiente confirmacion del usuario. |

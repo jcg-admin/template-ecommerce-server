@@ -1,4 +1,6 @@
-# Progreso — `integrar-commits-backup-20260522`
+# Progreso: Integrar commits faltantes desde backup 20260522
+
+## Eventos atomizados
 
 | Timestamp | Clase | Referencia | Detalle |
 |-----------|-------|------------|---------|

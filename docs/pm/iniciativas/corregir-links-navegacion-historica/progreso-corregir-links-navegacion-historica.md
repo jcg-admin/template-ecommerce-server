@@ -1,4 +1,6 @@
-# Progreso — `corregir-links-navegacion-historica`
+# Progreso: Corregir links de navegacion rotos en iniciativa historica
+
+## Eventos atomizados
 
 | Timestamp | Clase | Referencia | Detalle |
 |-----------|-------|------------|---------|

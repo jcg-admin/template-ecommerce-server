@@ -5,9 +5,10 @@
 | Artefacto | INI-SRV-008 |
 | Tipo | Mantenimiento de documentacion |
 | Submodulo | server (template-ecommerce-server) |
-| Estado | **En ejecucion** |
+| Estado | **Cerrada** |
 | Version | 1.0.0 |
 | Fecha de creacion | 2026-05-26 |
+| Fecha de cierre | 2026-05-26 |
 | Autor | NestorMonroy |
 | Clasificacion | Interno |
 | Procedimiento de gestion | PROC-GESTION-001 v4.0.0 + arc42 |
@@ -37,8 +38,8 @@ Excepciones explicitas:
 
 | Entregable | Estado al cierre |
 |------------|------------------|
-| `README.md` actualizado | Pendiente — inventario, scripts, LOC, iniciativas y tests corregidos |
-| `docs/README.md` creado | Pendiente — indice arc42 de cajones existentes y ausentes |
+| `README.md` actualizado | Producido — inventario, scripts (4), LOC, 8 iniciativas y 74 PASS corregidos |
+| `docs/README.md` creado | Producido — indice arc42 con 3 secciones y 9 cajones ausentes declarados |
 
 ## Indice de documentos
 
@@ -49,6 +50,7 @@ Excepciones explicitas:
 | [plan-actualizar-readme-y-crear-docs-indice.md](plan-actualizar-readme-y-crear-docs-indice.md) | DAG de fases, tareas por fase con esfuerzo. |
 | [tareas-actualizar-readme-y-crear-docs-indice.md](tareas-actualizar-readme-y-crear-docs-indice.md) | Lista plana de tareas con estado y entregable. |
 | [progreso-actualizar-readme-y-crear-docs-indice.md](progreso-actualizar-readme-y-crear-docs-indice.md) | Bitacora cronologica de eventos atomizados. |
+| [decisiones-actualizar-readme-y-crear-docs-indice.md](decisiones-actualizar-readme-y-crear-docs-indice.md) | Decisiones de diseno, hallazgos y verificacion post-ejecucion. |
 
 ## Decisiones aprobadas
 

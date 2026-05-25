@@ -7,7 +7,7 @@
 | Fecha de decision | 2026-05-21 |
 | Decididor | Nestor Monroy (autor del repo) |
 | Fase | F0a — Validaciones iniciales |
-| Iniciativa | [crear-template-ecommerce-server][doc-iniciativa] |
+| Iniciativa | [crear-template-ecomerce-ui-server][doc-iniciativa] |
 
 ## Contexto
 
@@ -158,7 +158,7 @@ o cambiamos a Nginx?
   previo, tabla "Apache vs Nginx" lado a lado.
 
 <!-- Referencias Markdown -->
-[doc-iniciativa]: ../pm/iniciativas/crear-template-ecommerce-server/index.md
-[doc-plan]: ../pm/iniciativas/crear-template-ecommerce-server/plan-crear-template-ecommerce-server.md
+[doc-iniciativa]: ../pm/iniciativas/crear-template-ecomerce-ui-server/index.md
+[doc-plan]: ../pm/iniciativas/crear-template-ecomerce-ui-server/plan-crear-template-ecomerce-ui-server.md
 [ref-ecomerce-server]: https://github.com/jcg-admin/e-comerce-server
 [analisis-ui]: https://github.com/jcg-admin/template-ecommerce-ui/blob/main/docs/desarrollo/analisis-servidor-para-template.md

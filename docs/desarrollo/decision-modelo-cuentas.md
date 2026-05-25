@@ -7,7 +7,7 @@
 | Fecha de decision | 2026-05-21 |
 | Decididor | Nestor Monroy |
 | Fase | F0a — Validaciones iniciales |
-| Iniciativa | [crear-template-ecommerce-server][doc-iniciativa] |
+| Iniciativa | [crear-template-ecomerce-ui-server][doc-iniciativa] |
 
 ## Contexto
 
@@ -176,7 +176,7 @@ formalmente en este ADR**.
   backend, por extension no asume BD).
 
 <!-- Referencias Markdown -->
-[doc-iniciativa]: ../pm/iniciativas/crear-template-ecommerce-server/index.md
+[doc-iniciativa]: ../pm/iniciativas/crear-template-ecomerce-ui-server/index.md
 [doc-arquitectura]: ../arquitectura.md
 [doc-operaciones]: ../operaciones.md
 [adr-storage]: decision-storage-clases.md

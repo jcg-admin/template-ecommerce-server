@@ -13,30 +13,30 @@
 
 | ID | Descripcion | Esfuerzo | Estado | Entregable |
 |----|-------------|----------|--------|------------|
-| T-101 | Reemplazar 3 ocurrencias de `systemctl start nginx/fail2ban` | 3 min | Pendiente | `scripts/verify.sh` corregido |
-| T-102 | `bash -n verify.sh` + `bash tests/run_all.sh` | 2 min | Pendiente | PASS >= 74, FAIL = 0 |
+| T-101 | Reemplazar 3 ocurrencias de `systemctl start nginx/fail2ban` | 3 min | **Cerrada** | `scripts/verify.sh` corregido |
+| T-102 | `bash -n verify.sh` + `bash tests/run_all.sh` | 2 min | **Cerrada** | PASS >= 74, FAIL = 0 |
 
 ## F2 - Corregir UI apiService + constants + webpack (30 min)
 
 | ID | Descripcion | Esfuerzo | Estado | Entregable |
 |----|-------------|----------|--------|------------|
-| T-201 | Corregir `src/services/apiService.js`: soporte URL relativa | 15 min | Pendiente | apiService sin TypeError con API_URL vacio |
-| T-202 | Corregir `src/constants/index.js`: eliminar fallback localhost | 5 min | Pendiente | `constants/index.js` corregido |
-| T-203 | Corregir `webpack.config.js`: eliminar fallback localhost en API_URL | 5 min | Pendiente | `webpack.config.js` corregido |
-| T-204 | `npm test` en el UI | 5 min | Pendiente | Tests UI sin regresion |
+| T-201 | Corregir `src/services/apiService.js`: soporte URL relativa | 15 min | **Cerrada** | apiService sin TypeError con API_URL vacio |
+| T-202 | Corregir `src/constants/index.js`: eliminar fallback localhost | 5 min | **Cerrada** | `constants/index.js` corregido |
+| T-203 | Corregir `webpack.config.js`: eliminar fallback localhost en API_URL | 5 min | **Cerrada** | `webpack.config.js` corregido |
+| T-204 | `npm test` en el UI | 5 min | **Cerrada** | Tests UI sin regresion |
 
 ## F3 - Actualizar documentacion (20 min)
 
 | ID | Descripcion | Esfuerzo | Estado | Entregable |
 |----|-------------|----------|--------|------------|
-| T-301 | `.env.example` server: documentar API_UPSTREAM y relacion con API_URL del UI | 10 min | Pendiente | `.env.example` actualizado |
-| T-302 | `README.md` server: nota sobre API_URL en despliegue | 5 min | Pendiente | `README.md` server actualizado |
-| T-303 | `README.md` UI: documentar API_URL para produccion | 5 min | Pendiente | `README.md` UI actualizado |
+| T-301 | `.env.example` server: documentar API_UPSTREAM y relacion con API_URL del UI | 10 min | **Cerrada** | `.env.example` actualizado |
+| T-302 | `README.md` server: nota sobre API_URL en despliegue | 5 min | **Cerrada** | `README.md` server actualizado |
+| T-303 | `README.md` UI: documentar API_URL para produccion | 5 min | **Cerrada** | `README.md` UI actualizado |
 
 ## F4 - Verificacion y cierre (15 min)
 
 | ID | Descripcion | Esfuerzo | Estado | Entregable |
 |----|-------------|----------|--------|------------|
-| T-401 | `bash tests/run_all.sh` server + auditoria links | 5 min | Pendiente | PASS >= 74, FAIL = 0 |
-| T-402 | Verificar apiService con API_URL vacio: sin TypeError | 5 min | Pendiente | Comportamiento verificado |
-| T-403 | Crear `decisiones-*.md`; cerrar index e indice; commits de cierre | 5 min | Pendiente | Iniciativa cerrada en ambos repos |
+| T-401 | `bash tests/run_all.sh` server + auditoria links | 5 min | **Cerrada** | PASS >= 74, FAIL = 0 |
+| T-402 | Verificar apiService con API_URL vacio: sin TypeError | 5 min | **Cerrada** | Comportamiento verificado |
+| T-403 | Crear `decisiones-*.md`; cerrar index e indice; commits de cierre | 5 min | **Cerrada** | Iniciativa cerrada en ambos repos |

@@ -65,7 +65,7 @@ entornos sin systemd (WSL2). Reutiliza `svc_is_active` y
 [i-start]: iniciativas/crear-start-sh/index-crear-start-sh.md
 
 <!-- indice actualizado al cerrar INI-SRV-005 y INI-SRV-006 -->
-| [`auditar-gaps-server-y-ui`][i-audit] | Auditoria y correccion | En ejecucion | 2026-05-25 | — | Nestor Monroy |
+| [`auditar-gaps-server-y-ui`][i-audit] | Auditoria y correccion | Cerrada | 2026-05-25 | 2026-05-25 | Nestor Monroy |
 
 ### `auditar-gaps-server-y-ui`
 

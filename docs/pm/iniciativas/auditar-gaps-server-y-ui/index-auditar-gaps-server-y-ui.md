@@ -5,9 +5,10 @@
 | Artefacto | INI-SRV-007 |
 | Tipo | Auditoria y correccion |
 | Submodulo | server (template-ecommerce-server) + ui (template-ecommerce-ui) |
-| Estado | En ejecucion |
+| Estado | Cerrada |
 | Version | 1.0.0 |
 | Fecha de creacion | 2026-05-25 |
+| Fecha de cierre | 2026-05-25 |
 | Autor | NestorMonroy |
 | Clasificacion | Interno |
 | Procedimiento de gestion | PROC-GESTION-001 v4.0.0 |
@@ -37,11 +38,11 @@ Excepciones explicitas:
 
 | Entregable | Estado al cierre |
 |------------|------------------|
-| `scripts/verify.sh` corregido | Pendiente — mensajes de error usan start.sh en lugar de systemctl |
-| `src/services/apiService.js` corregido | Pendiente — URL construction soporta baseURL vacio |
-| `src/constants/index.js` corregido | Pendiente — API_BASE sin fallback a localhost |
-| `webpack.config.js` actualizado | Pendiente — API_URL sin fallback a localhost:8000 |
-| Documentacion actualizada | Pendiente — README y .env.example documentan API_URL para produccion |
+| `scripts/verify.sh` corregido | Producido — mensajes de error usan start.sh en lugar de systemctl |
+| `src/services/apiService.js` corregido | Producido — URL construction soporta baseURL vacio |
+| `src/constants/index.js` corregido | Producido — API_BASE sin fallback a localhost |
+| `webpack.config.js` actualizado | Producido — API_URL sin fallback a localhost:8000 |
+| Documentacion actualizada | Producido — README y .env.example documentan API_URL para produccion |
 
 ## Indice de documentos
 
@@ -53,6 +54,7 @@ Excepciones explicitas:
 | [plan-auditar-gaps-server-y-ui.md](plan-auditar-gaps-server-y-ui.md) | DAG de fases, tareas por fase con esfuerzo. |
 | [tareas-auditar-gaps-server-y-ui.md](tareas-auditar-gaps-server-y-ui.md) | Lista plana de tareas con estado y entregable. |
 | [progreso-auditar-gaps-server-y-ui.md](progreso-auditar-gaps-server-y-ui.md) | Bitacora cronologica de eventos atomizados. |
+| [decisiones-auditar-gaps-server-y-ui.md](decisiones-auditar-gaps-server-y-ui.md) | Decisiones de diseno, hallazgos y verificacion post-ejecucion. |
 
 ## Decisiones aprobadas
 

@@ -442,9 +442,15 @@ check_min_privilege() {
     if [[ ! -f "$key_file" ]]; then
         warn "Clave SSL no encontrada (${key_file}) -- check de permisos omitido"
     else
+        # stat sobre key.pem (root:root 600) requiere sudo si el usuario
+        # no tiene acceso de lectura al directorio /etc/ssl/DOMAIN/.
         local key_perms
-        key_perms=$(stat -c "%a" "$key_file" 2>/dev/null || echo "000")
-        if [[ "$key_perms" == "600" ]]; then
+        key_perms=$(sudo stat -c "%a" "$key_file" 2>/dev/null || true)
+        if [[ -z "$key_perms" ]]; then
+            warn "Permisos de clave SSL no verificados (requiere sudo)"
+            log_warn "  Verifica manualmente: sudo stat -c '%a' ${key_file}"
+            log_warn "  Debe ser 600"
+        elif [[ "$key_perms" == "600" ]]; then
             ok "Clave SSL: permisos ${key_perms} (D-STORAGE compliant)"
         elif [[ "$key_perms" == "640" ]]; then
             warn "Clave SSL: permisos ${key_perms} -- D-STORAGE exige 600"
@@ -500,8 +506,17 @@ check_fail2ban() {
         return
     fi
 
-    # Verificar que el servicio esta activo
-    if ! svc_is_active fail2ban; then
+    # Verificar que el servicio esta activo.
+    # svc_is_active usa 'service fail2ban status' sin systemd, lo que
+    # puede requerir root. Usamos sudo con fallback graceful.
+    local fail2ban_active=false
+    if sudo svc_is_active fail2ban 2>/dev/null; then
+        fail2ban_active=true
+    elif svc_is_active fail2ban 2>/dev/null; then
+        fail2ban_active=true
+    fi
+
+    if [[ "$fail2ban_active" == "false" ]]; then
         fail "fail2ban instalado pero inactivo"
         log_error "  Arranca con: sudo bash scripts/start.sh"
         log_error "  O reconfigura: sudo bash provisioners/security/setup_fail2ban.sh"

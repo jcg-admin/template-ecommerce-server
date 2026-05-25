@@ -35,10 +35,10 @@ este repo.
 | Documento | Estado |
 |-----------|--------|
 | [index.md][doc-index] | Este archivo |
-| [alcance-crear-template-ecommerce-server.md][doc-alcance] | Completado |
-| [plan-crear-template-ecommerce-server.md][doc-plan] | Completado |
-| [tareas-crear-template-ecommerce-server.md][doc-tareas] | Completado |
-| [progreso-crear-template-ecommerce-server.md][doc-progreso] | Activo (bitacora cronologica) |
+| [alcance-crear-template-ecomerce-ui-server.md][doc-alcance] | Completado |
+| [plan-crear-template-ecomerce-ui-server.md][doc-plan] | Completado |
+| [tareas-crear-template-ecomerce-ui-server.md][doc-tareas] | Completado |
+| [progreso-crear-template-ecomerce-ui-server.md][doc-progreso] | Activo (bitacora cronologica) |
 
 ## Referencias externas
 
@@ -55,10 +55,10 @@ este repo.
 
 <!-- Referencias Markdown -->
 [doc-index]: index.md
-[doc-alcance]: alcance-crear-template-ecommerce-server.md
-[doc-plan]: plan-crear-template-ecommerce-server.md
-[doc-tareas]: tareas-crear-template-ecommerce-server.md
-[doc-progreso]: progreso-crear-template-ecommerce-server.md
+[doc-alcance]: alcance-crear-template-ecomerce-ui-server.md
+[doc-plan]: plan-crear-template-ecomerce-ui-server.md
+[doc-tareas]: tareas-crear-template-ecomerce-ui-server.md
+[doc-progreso]: progreso-crear-template-ecomerce-ui-server.md
 [doc-arquitectura]: ../../../arquitectura.md
 [doc-seguridad]: ../../../seguridad.md
 [doc-glosario]: ../../../glosario.md

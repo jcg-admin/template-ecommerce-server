@@ -95,7 +95,7 @@ Cuando se cierre:
    Actions ejecutando `tests/run_all.sh` en cada PR).
 
 <!-- Referencias Markdown -->
-[doc-progreso]: progreso-crear-template-ecommerce-server.md
+[doc-progreso]: progreso-crear-template-ecomerce-ui-server.md
 [doc-operaciones]: ../../../operaciones.md
 [repo-server]: https://github.com/jcg-admin/template-ecommerce-server
 [repo-ui]: https://github.com/jcg-admin/template-ecommerce-ui

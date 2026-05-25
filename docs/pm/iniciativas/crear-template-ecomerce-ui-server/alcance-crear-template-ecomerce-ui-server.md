@@ -153,7 +153,7 @@ La iniciativa se considera cerrada cuando:
 F0..F11. Detalle en [plan][doc-plan].
 
 <!-- Referencias Markdown -->
-[doc-plan]: plan-crear-template-ecommerce-server.md
+[doc-plan]: plan-crear-template-ecomerce-ui-server.md
 [doc-readme]: ../../../../README.md
 [doc-operaciones]: ../../../operaciones.md
 [repo-server]: https://github.com/jcg-admin/template-ecommerce-server

@@ -12,7 +12,6 @@ logs/
 
 # Backups locales (existen en filesystem pero no se versionan)
 backups/*
-!backups/.gitkeep
 
 # Secretos
 *.pem

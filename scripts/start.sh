@@ -60,10 +60,16 @@ _start_daemon() {
     local name="$1"
     local _failed=0
 
+    # El binario a verificar puede diferir del nombre del servicio.
+    # svc_start "fail2ban" llama fail2ban-server internamente;
+    # command_exists debe checar ese binario, no "fail2ban".
+    local _binary="$name"
+    [[ "$name" == "fail2ban" ]] && _binary="fail2ban-server"
+
     log_header "Daemon: ${name}"
 
     # 1. Verificar instalacion
-    if ! command_exists "${name}"; then
+    if ! command_exists "${_binary}"; then
         log_warn "  ${name} no esta instalado -- omitiendo"
         log_warn "  Ejecuta el provisioner correspondiente antes de usar start.sh"
         return 0

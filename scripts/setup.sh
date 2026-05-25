@@ -252,9 +252,13 @@ _check_nginx_installed() {
 # Sin --skip-ssh: pausa obligatoria de reconexion SSH antes de Fase 2.
 # =============================================================================
 _run_fase1() {
+    # Total de pasos depende de si se omite SSH hardening
+    local _fase1_total=2
+    [[ "$_SKIP_SSH" == "true" ]] && _fase1_total=1
+
     log_header "FASE 1 — Instalacion de Nginx"
 
-    log_step "Paso 1: Nginx (provisioners/nginx/install.sh)"
+    log_step "1" "$_fase1_total" "Nginx (provisioners/nginx/install.sh)"
     bash "${PROJECT_ROOT}/provisioners/nginx/install.sh"
 
     if [[ "$_SKIP_SSH" == "true" ]]; then
@@ -267,7 +271,7 @@ _run_fase1() {
 
     log_header "FASE 1 — SSH hardening"
 
-    log_step "Paso 2: SSH hardening (provisioners/security/setup_ssh_hardening.sh)"
+    log_step "2" "$_fase1_total" "SSH hardening (provisioners/security/setup_ssh_hardening.sh)"
     bash "${PROJECT_ROOT}/provisioners/security/setup_ssh_hardening.sh"
 
     # Pausa obligatoria de reconexion
@@ -297,21 +301,21 @@ _run_fase1() {
 _run_fase2() {
     log_header "FASE 2 — Firewall, fail2ban, SSL, vhosts"
 
-    log_step "Paso 1/5: Firewall UFW (provisioners/firewall/setup_firewall.sh)"
+    log_step "1" "5" "Firewall UFW (provisioners/firewall/setup_firewall.sh)"
     bash "${PROJECT_ROOT}/provisioners/firewall/setup_firewall.sh"
 
-    log_step "Paso 2/5: fail2ban (provisioners/security/setup_fail2ban.sh)"
+    log_step "2" "5" "fail2ban (provisioners/security/setup_fail2ban.sh)"
     bash "${PROJECT_ROOT}/provisioners/security/setup_fail2ban.sh"
 
     local ssl_modo="${_SSL_FLAG:-"produccion (Let's Encrypt real)"}"
-    log_step "Paso 3/5: SSL ${ssl_modo} (provisioners/ssl/setup_ssl.sh)"
+    log_step "3" "5" "SSL ${ssl_modo} (provisioners/ssl/setup_ssl.sh)"
     # shellcheck disable=SC2086
     bash "${PROJECT_ROOT}/provisioners/ssl/setup_ssl.sh" ${_SSL_FLAG}
 
-    log_step "Paso 4/5: Nginx vhosts (provisioners/nginx/setup_vhost.sh)"
+    log_step "4" "5" "Nginx vhosts (provisioners/nginx/setup_vhost.sh)"
     bash "${PROJECT_ROOT}/provisioners/nginx/setup_vhost.sh"
 
-    log_step "Paso 5/5: Verificacion final (scripts/verify.sh)"
+    log_step "5" "5" "Verificacion final (scripts/verify.sh)"
     bash "${PROJECT_ROOT}/scripts/verify.sh"
 
     echo ""

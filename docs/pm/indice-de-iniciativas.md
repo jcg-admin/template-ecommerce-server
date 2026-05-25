@@ -75,3 +75,13 @@ Bug critico en el UI: `apiService.js` bypasea el proxy Nginx cuando
 `API_URL` tiene el fallback `http://localhost:8000` hardcodeado.
 
 [i-audit]: iniciativas/auditar-gaps-server-y-ui/index-auditar-gaps-server-y-ui.md
+| [`actualizar-readme-y-crear-docs-indice`][i-docs] | Mantenimiento documentacion | En ejecucion | 2026-05-26 | — | Nestor Monroy |
+
+### `actualizar-readme-y-crear-docs-indice`
+
+Corrige el inventario desactualizado del README.md (scripts,
+LOC, PASS count, iniciativas) y crea `docs/README.md` como
+punto de entrada de la documentacion siguiendo el modelo arc42
+adaptado del repo hermano `template-ecommerce-ui`.
+
+[i-docs]: iniciativas/actualizar-readme-y-crear-docs-indice/index-actualizar-readme-y-crear-docs-indice.md

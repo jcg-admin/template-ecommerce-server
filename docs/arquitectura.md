@@ -188,26 +188,39 @@ F0a (validaciones iniciales). Viviran en [`docs/desarrollo/`][doc-desarrollo].
 }}}%%
 sequenceDiagram
     actor Operador_deploy as Operador (deploy)
-    participant Repositorio_clonado as Repo clonado
+    participant Script_setup as scripts/setup.sh
+    participant Provisioners as provisioners/
     participant Sistema_Ubuntu as Ubuntu 24.04
     participant Lets_Encrypt_CA as Let's Encrypt
 
-    Operador_deploy->>Repositorio_clonado: git clone
-    Operador_deploy->>Repositorio_clonado: cp .env.example .env<br/>+ edit values
-    Operador_deploy->>Sistema_Ubuntu: bash provisioners/nginx/install.sh
-    Operador_deploy->>Sistema_Ubuntu: bash provisioners/firewall/setup_firewall.sh
-    Operador_deploy->>Sistema_Ubuntu: bash provisioners/security/setup_fail2ban.sh
-    Operador_deploy->>Sistema_Ubuntu: bash provisioners/security/setup_ssh_hardening.sh
-    Operador_deploy->>Sistema_Ubuntu: bash provisioners/ssl/setup_ssl.sh
-    Sistema_Ubuntu->>Lets_Encrypt_CA: ACME HTTP-01 challenge
-    Lets_Encrypt_CA-->>Sistema_Ubuntu: Cert emitido
-    Operador_deploy->>Sistema_Ubuntu: bash provisioners/nginx/setup_vhost.sh
-    Operador_deploy->>Sistema_Ubuntu: bash scripts/verify.sh
-    Sistema_Ubuntu-->>Operador_deploy: ~10 checks green
+    Operador_deploy->>Script_setup: git clone + cp .env.example .env
+    Operador_deploy->>Script_setup: sudo bash scripts/setup.sh
+    Note over Script_setup: Fase 1
+    Script_setup->>Provisioners: nginx/install.sh
+    Provisioners->>Sistema_Ubuntu: apt install nginx
+    Script_setup->>Provisioners: security/setup_ssh_hardening.sh
+    Provisioners->>Sistema_Ubuntu: Cambia puerto SSH a SSH_PORT
+    Script_setup-->>Operador_deploy: PAUSA Reconecta en SSH_PORT
+
+    Note over Operador_deploy,Script_setup: Operador reconecta SSH en nuevo puerto
+
+    Operador_deploy->>Script_setup: sudo bash scripts/setup.sh --continue
+    Note over Script_setup: Fase 2
+    Script_setup->>Provisioners: firewall/setup_firewall.sh
+    Provisioners->>Sistema_Ubuntu: UFW activo
+    Script_setup->>Provisioners: security/setup_fail2ban.sh
+    Provisioners->>Sistema_Ubuntu: fail2ban con 3 jails
+    Script_setup->>Provisioners: ssl/setup_ssl.sh
+    Provisioners->>Lets_Encrypt_CA: ACME HTTP-01 challenge
+    Lets_Encrypt_CA-->>Provisioners: Cert emitido
+    Script_setup->>Provisioners: nginx/setup_vhost.sh
+    Provisioners->>Sistema_Ubuntu: Vhosts HTTP + HTTPS activos
+    Script_setup->>Script_setup: scripts/verify.sh
+    Script_setup-->>Operador_deploy: 12 checks OK
 ```
 
-Detalle paso a paso en [operaciones][doc-operaciones] cuando F10
-lo produzca.
+Detalle completo en [`docs/operaciones.md`][doc-operaciones].
+Flags disponibles: `bash scripts/setup.sh --help`.
 
 ### Flujo 2: peticion del usuario al sitio en produccion
 

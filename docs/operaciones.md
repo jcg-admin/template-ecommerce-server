@@ -410,7 +410,37 @@ SSL_STAGING=false                   # true para LE staging
 SSH_PORT=2222                       # cambiar al puerto deseado
 ```
 
-#### 4. Ejecutar los 8 pasos en orden
+#### 4. Aprovisionar el servidor con `setup.sh`
+
+**Punto de entrada unificado (recomendado):**
+
+```bash
+# Fase 1: Nginx + SSH hardening
+sudo bash scripts/setup.sh
+
+# El script pausa con instrucciones de reconexion.
+# Reconectar en el nuevo puerto:
+#   ssh -p 2222 deploy@VPS
+
+# Fase 2: firewall + fail2ban + SSL + vhosts + verify
+sudo bash scripts/setup.sh --continue
+```
+
+Para SSL staging (valida el flujo ACME sin gastar rate-limit):
+
+```bash
+sudo bash scripts/setup.sh --continue --ssl-staging
+```
+
+Para entornos sin sshd (WSL2, CI):
+
+```bash
+sudo bash scripts/setup.sh --skip-ssh --ssl-dev
+```
+
+Ver todos los flags: `bash scripts/setup.sh --help`
+
+**Alternativa — ejecucion manual paso a paso:**
 
 ```bash
 sudo bash provisioners/nginx/install.sh

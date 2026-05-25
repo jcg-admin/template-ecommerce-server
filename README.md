@@ -84,7 +84,10 @@ estan en su lugar.
 ## Quick start
 
 > **Antes de empezar**: verifica que tienes clave SSH en
-> `~/.ssh/authorized_keys` o el paso 3 te dejara locked-out.
+> `~/.ssh/authorized_keys`. El script lo verifica antes de
+> ejecutar y aborta si no la encuentra.
+
+**Flujo normal (servidor de produccion):**
 
 ```bash
 # 0. Clonar
@@ -93,47 +96,40 @@ cd template-ecommerce-server
 
 # 1. Configurar
 cp .env.example .env
-nano .env   # editar DOMAIN, UI_DIST, SSL_EMAIL, SSH_PORT, SSL_STAGING=true
+nano .env   # editar DOMAIN, UI_DIST, SSL_EMAIL, SSH_PORT
 
-# 2. Instalar Nginx
-sudo bash provisioners/nginx/install.sh
+# 2. Fase 1: Nginx + SSH hardening
+sudo bash scripts/setup.sh
 
-# 3. Endurecer SSH (cambia el puerto; reconectar despues)
-sudo bash provisioners/security/setup_ssh_hardening.sh
-# >>> reconectar: ssh -p $SSH_PORT deploy@server <<<
+# El script pausa aqui con instrucciones de reconexion.
+# Reconectar en el nuevo puerto: ssh -p $SSH_PORT deploy@server
 
-# 4. Firewall (permite SSH_PORT ANTES de activar UFW)
-sudo bash provisioners/firewall/setup_firewall.sh
-
-# 5. fail2ban (requiere UFW activo)
-sudo bash provisioners/security/setup_fail2ban.sh
-
-# 6. SSL (empezar con SSL_STAGING=true; cambiar a false cuando todo funcione)
-sudo bash provisioners/ssl/setup_ssl.sh
-
-# 7. Activar virtualhosts (sustituye placeholders %%VAR%% con valores de .env)
-sudo bash provisioners/nginx/setup_vhost.sh
-
-# 8. Verificar (12 checks end-to-end)
-bash scripts/verify.sh
+# 3. Fase 2: firewall + fail2ban + SSL + vhosts + verify
+sudo bash scripts/setup.sh --continue
 ```
 
-**Orden critico** (no es arbitrario):
+**Flujo WSL2 / CI (sin SSH nativo):**
 
-1. `nginx install` primero -- los provisioners siguientes asumen
-   que `/etc/nginx/sites-available/` existe.
-2. `ssh_hardening` **ANTES** que `firewall` -- el hardening
-   define `SSH_PORT` efectivo; UFW debe permitirlo antes de
-   activarse o cortas tu propia sesion.
-3. `firewall` **ANTES** que `fail2ban` -- `banaction=ufw`
-   requiere UFW activo.
-4. `ssl` **ANTES** que `setup_vhost` -- el template HTTPS
-   referencia el cert; si no existe, `nginx -t` falla.
-5. `verify.sh` al final.
+```bash
+sudo bash scripts/setup.sh --skip-ssh --ssl-dev
+```
 
-Detalle completo y operacion continua en
-[`docs/operaciones.md`][doc-operaciones] (955 lineas, 8 secciones,
-incluye walkthrough VPS Ubuntu fresh + recuperacion de fallos +
+**Flujo staging (validar ACME antes de produccion):**
+
+```bash
+sudo bash scripts/setup.sh                         # Fase 1
+# Reconectar
+sudo bash scripts/setup.sh --continue --ssl-staging # Fase 2
+```
+
+```bash
+# Ver todos los flags disponibles:
+bash scripts/setup.sh --help
+```
+
+Detalle completo del aprovisionamiento en
+[`docs/operaciones.md`][doc-operaciones] (8 secciones,
+walkthrough VPS Ubuntu fresh + recuperacion de fallos +
 FAQ + apendices).
 
 Para entornos sin systemd (WSL2, contenedores, CI), ver

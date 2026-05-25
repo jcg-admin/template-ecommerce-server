@@ -229,6 +229,12 @@ _check_existing_cert() {
 
     local cert_file="${SSL_CERT_DIR}/cert.pem"
 
+    if [[ ! -f "$cert_file" ]]; then
+        # Escenario B -- sin certificado, continuar con emision
+        log_info "Sin certificado previo -- procediendo con la emision (Escenario B)"
+        return 0
+    fi
+
     validate_ssl_cert "$cert_file" "$SSL_CERT_DAYS_WARN" "$SSL_CERT_DAYS_ERR"
 
     case "$SSL_CERT_STATUS" in
@@ -260,8 +266,8 @@ _check_existing_cert() {
             exit 0
             ;;
         ERR)
-            # Escenario B -- sin certificado o expirado, continuar con emision
-            log_info "Procediendo con la emision del certificado (Escenario B)"
+            # Escenario B -- certificado expirado, continuar con emision
+            log_info "Certificado expirado -- procediendo con la emision (Escenario B)"
             ;;
     esac
 }

@@ -5,9 +5,10 @@
 | Artefacto | INI-SRV-009 |
 | Tipo | Iniciativa de desarrollo |
 | Submodulo | server (template-ecommerce-server) |
-| Estado | **En ejecucion** |
+| Estado | **Cerrada** |
 | Version | 1.0.0 |
 | Fecha de creacion | 2026-05-26 |
+| Fecha de cierre | 2026-05-26 |
 | Autor | NestorMonroy |
 | Clasificacion | Interno |
 | Procedimiento de gestion | PROC-GESTION-001 v4.0.0 + arc42 |
@@ -37,10 +38,10 @@ Excepciones explicitas:
 
 | Entregable | Estado al cierre |
 |------------|------------------|
-| `logs/` en `.gitignore` | Pendiente |
-| `logs/.gitkeep` en el repo | Pendiente — garantiza que el directorio existe al clonar |
-| `init_log "operations"` en 10 scripts | Pendiente — setup.sh, start.sh, verify.sh, renew_ssl.sh y 6 provisioners |
-| `docs/operaciones.md` actualizado | Pendiente — documentar ubicacion del log y como consultarlo |
+| `logs/` en `.gitignore` | Producido — `logs/*.log` + `!logs/.gitkeep` |
+| `logs/.gitkeep` en el repo | Producido — directorio logs/ versionado con propietario correcto |
+| `init_log "operations"` en 10 scripts | Producido — 4 scripts + 6 provisioners activados |
+| `docs/operaciones.md` actualizado | Producido — seccion de logs con tail -f, post-mortem y rotacion |
 
 ## Indice de documentos
 
@@ -51,6 +52,7 @@ Excepciones explicitas:
 | [plan-agregar-logging-a-archivo.md](plan-agregar-logging-a-archivo.md) | DAG de fases, tareas por fase con esfuerzo. |
 | [tareas-agregar-logging-a-archivo.md](tareas-agregar-logging-a-archivo.md) | Lista plana de tareas con estado y entregable. |
 | [progreso-agregar-logging-a-archivo.md](progreso-agregar-logging-a-archivo.md) | Bitacora cronologica de eventos atomizados. |
+| [decisiones-agregar-logging-a-archivo.md](decisiones-agregar-logging-a-archivo.md) | Decisiones de diseno, hallazgos y verificacion post-ejecucion. |
 
 ## Decisiones aprobadas
 

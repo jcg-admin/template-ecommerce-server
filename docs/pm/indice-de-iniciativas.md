@@ -85,7 +85,7 @@ punto de entrada de la documentacion siguiendo el modelo arc42
 adaptado del repo hermano `template-ecommerce-ui`.
 
 [i-docs]: iniciativas/actualizar-readme-y-crear-docs-indice/index-actualizar-readme-y-crear-docs-indice.md
-| [`agregar-logging-a-archivo`][i-log] | Desarrollo | En ejecucion | 2026-05-26 | — | Nestor Monroy |
+| [`agregar-logging-a-archivo`][i-log] | Desarrollo | Cerrada | 2026-05-26 | 2026-05-26 | Nestor Monroy |
 
 ### `agregar-logging-a-archivo`
 
